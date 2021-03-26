@@ -1,3 +1,0 @@
-<script>
-parent.document.getElementById('$divUploadStatusName').innerHTML = '<img style="width:200px" src="../download?filename=$!savedFileName" />';
-</script>

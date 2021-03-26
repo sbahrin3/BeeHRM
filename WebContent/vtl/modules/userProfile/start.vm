@@ -1,5 +1,0 @@
-<div id="user_main">
-
-	#parse("vtl/modules/userProfile/profile.vm")
-
-</div>

@@ -1,5 +1,0 @@
-#if ( $name != "" )
-<b><font size="4">
-HELLO THERE $name
-</font></b>
-#end

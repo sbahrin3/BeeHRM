@@ -1,3 +1,0 @@
-<script>
-parent.document.getElementById("fileupload_progress").innerHTML="<b>File successfully uploaded</b>.";
-</script>

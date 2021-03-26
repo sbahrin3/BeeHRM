@@ -1,7 +1,0 @@
-
-<div id="cache_main">
-
-
-	#parse("vtl/modules/cacheManager/list.vm")
-	
-</div>
