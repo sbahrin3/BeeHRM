@@ -1,0 +1,5 @@
+<div class="vertical-menu">
+#foreach ( $m in $modules )
+	<a href="javascript:getPage('$m.module.className')">$!m.module.title</a> 
+#end
+</div>

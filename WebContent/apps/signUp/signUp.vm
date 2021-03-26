@@ -1,0 +1,31 @@
+<script>
+
+#if ( $hasError )
+	
+	
+	#if ( $errorCode == "password_error")
+		
+		showWarningMessage("Your confirm password does not match!");
+	
+	#elseif ( $errorCode == "user_exist")
+	
+		showWarningMessage("This username has been taken, please use another username!");
+	
+	#end
+#else
+	
+	showNotifyMessage("User is registered.  Please Login!");
+	
+	$('div_register_form').style.display='none';
+#end
+
+	
+</script>
+
+#if ( !$hasError )
+<div class="well">
+	Thank You. Your registration is successful.
+	You may login now.
+</div>
+#end
+

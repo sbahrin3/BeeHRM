@@ -1,0 +1,82 @@
+div.portalBox {
+   min-height: 40px;
+   border:1px solid #f0f0f0;
+}
+
+.placer {
+   border: 1px dotted black;
+   visibility: visible;
+   background: #e2e2e2;
+   margin: 1px;
+}
+
+.placer * {
+   visibility: hidden;
+}
+
+div.portlet {
+   margin: 0px 0px 4px 0px;
+   text-align: left;
+   border-collapse:collapse;
+   border: 1px solid #99bce8;	
+}
+
+div.portlet .portlet-header {
+	background-image:url('../images/table_header_blue.gif');
+	background-repeat:repeat-x;
+	line-height: 26px;	
+	padding-left:3px;
+    
+    font-weight: bold;
+ 	color: #04408C;
+	-moz-user-select: none;
+    cursor: default;
+    white-space: nowrap;	
+}
+
+div.portlet .portlet-header .ui-icon {
+   float: right;
+   margin: 1px 0 2px;
+   padding: 0;
+   border:0;
+   background-color:transparent;
+}
+
+
+div.portlet .loader {
+   padding:0px;
+}
+
+
+#portletcontainer .content 
+{
+    padding:5px; 
+}
+
+div.col100
+{
+    float:left;
+    width:98%;
+    padding:5px;
+}
+div.col50
+{
+    float:left;
+    padding:5px;
+    width:49%;
+}
+
+/*********************************************************************************************/
+/**********       portlet icons css **********************************************************/
+/*********************************************************************************************/
+.na-icon {display: block;float:right;background-repeat: no-repeat;position:relative;top:4px;padding:2px; }
+
+.na-icon {width:16px;height:16px;}
+.na-icon-gear {background-image: url(../images/icon-gear.png);}
+.na-icon-close {background-image: url(../images/icon-close.png);}
+.na-icon-triangle-1-s{background-image: url(../images/icon-maximize.png);}
+.na-icon-triangle-1-n{background-image: url(../images/icon-minimize.png);}
+.na-icon-disk{background-image: url(../images/icon-save.png);}
+.na-icon-star{background-image: url(../images/icon-fav.png);}
+.na-icon-extlink{background-image: url(../images/icon-popout.png);}
+.na-icon-arrowthick-1-se{background-image: url(../images/icon-popin.png);}

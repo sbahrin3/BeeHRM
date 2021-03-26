@@ -1,0 +1,41 @@
+<div class="vertical-menu">
+
+<a href="javascript:getPage('sb.salesmgt.modules.TestModule')"><i class="fa fa-superpowers " aria-hidden="true"></i><span>Test Editor</span></a>
+	<a href="javascript:getPage('lebah.portal.v2.HelloWorldModule?name=Noname')"><i class="fa fa-superpowers " aria-hidden="true"></i><span>Hello World Demo</span></a>
+	<a href="javascript:getPage('lebah.portal.v2.HelloCalculatorModule')"><i class="fa fa-superpowers " aria-hidden="true"></i><span>Calculator Demo</span></a>
+
+
+	<a href="javascript:toggleSubMenu('sub-menu-1')">
+	<i class="fa fa-folder" aria-hidden="true"></i>
+		<span>Menu Group 1</span>
+  		<span style="float:right" id="icon-sub-menu-1">
+  			<i class="fa fa-angle-right" aria-hidden="true"></i>
+  		</span>
+  	</a>
+  
+  	<div id="sub-menu-1" style="display:none;padding-left:10px">
+		<a href="javascript:getPage('lebah.portal.v2.HelloWorldModule?name=Noname')"><i class="fa fa-superpowers " aria-hidden="true"></i><span>Hello World Demo</span></a>
+		<a href="javascript:getPage('lebah.portal.v2.HelloCalculatorModule')"><i class="fa fa-superpowers " aria-hidden="true"></i><span>Calculator Demo</span></a>
+ 	</div>
+
+	<a href="javascript:toggleSubMenu('sub-menu-2')">
+	<i class="fa fa-folder" aria-hidden="true"></i>
+		<span>Menu Group 2</span>
+  		<span style="float:right" id="icon-sub-menu-2">
+  			<i class="fa fa-angle-right" aria-hidden="true"></i>
+  		</span>
+  	</a>
+  
+  	<div id="sub-menu-2" style="display:none;padding-left:10px">
+		<a href="javascript:getPage('lebah.portal.v2.HelloWorldModule?name=Noname')"><i class="fa fa-superpowers " aria-hidden="true"></i><span>Hello World Demo</span></a>
+		<a href="javascript:getPage('lebah.portal.v2.HelloCalculatorModule')"><i class="fa fa-superpowers " aria-hidden="true"></i><span>Calculator Demo</span></a>
+ 	</div>
+ 	
+ 	
+ 	
+ 	<a href="javascript:getPage('lebah.module.UsersModule')"><i class="fa fa-users" aria-hidden="true"></i><span>List Users</span></a>
+ 	
+ 	<a href="javascript:void(0)" onclick="show_login()"><i class="fa fa-lock" aria-hidden="true"></i><span>Login</span></a>
+ 	
+  	
+</div>

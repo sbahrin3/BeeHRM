@@ -1,0 +1,53 @@
+<div style="cursor:pointer"  onclick="_jq('#div_logged_in').slideDown('slow');">
+#if ( $user.avatarImageFileName && $user.avatarImageFileName != "" )
+	<img style="width:30px;border-radius:50%" src="../download?filename=$!user.avatarImageFileName" />
+#else
+	<img style="width:30px;border-radius:50%" src="$util.profilePic.imgSrc" />
+#end
+$!user.firstName $!user.lastName
+</div>
+
+<div id="div_logged_in" style="display:none;background:#fff;z-index:9999;position:fixed;width:400px;top:0px;right:0px;box-shadow: 0 0 2px 2px #555;">
+
+	<div style="color:#000;margin-top:20px;padding:20px">
+		<table style="width:100%">
+			<tr>
+				<td style="width:120px">
+					#if ( $user.avatarImageFileName && $user.avatarImageFileName != "" )
+						<img style="width:100px;border-radius:50%" src="../download?filename=$!user.avatarImageFileName" />
+					#else
+						<img style="width:100px;border-radius:50%" src="$util.profilePic.imgSrc" />
+					#end
+				</td>
+				<td style="text-align:left;font-weight:bold;padding-left:5px">
+					$!user.firstName $!user.lastName<br/>
+					$!user.position<br/>
+					$!user.email
+				</td>
+			</tr>
+		</table>
+		<div class="form-group" style="text-align:left;padding-left:40%">
+			<label>Assigned Roles:</label>
+			<ul>
+			<li>$!user.role.name</li>
+			#if ( $user.secondaryRoles.size() > 0 )
+				#foreach ( $role in $user.secondaryRoles )
+					<li>$role.name</li>
+				#end
+			#end
+			</ul>
+		</div>
+		
+		<div style="text-align:right">
+			<a href="javascript:showMyProfile()" class="btn btn-success">My Profile</a>
+			&nbsp;
+			<a href='../logout.jsp' class="btn btn-primary">Logout</a>
+			&nbsp;
+			<a href="#" onclick="_jq('#div_logged_in').slideUp('slow');">Close</a>
+		</div>
+		
+	</div>
+	
+
+
+</div>

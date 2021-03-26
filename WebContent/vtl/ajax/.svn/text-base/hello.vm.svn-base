@@ -1,0 +1,13 @@
+	Enter some text:<br>
+<input id="hello-name"><br>
+<input id="hello-submit" type="button" value="Say Hello!" onclick="doAjaxCall$formname('sayHello')">
+<input id="hello-submit2" type="button" value="Say Hello 2!" onclick="doDivAjaxCall3$formname('say_hello','sayHello2','')">
+<br>
+<div id="say_hello">
+#if ( $name != "" )
+<b><font size="4">
+HELLO $name
+</font></b>
+#end
+</div>
+

@@ -1,0 +1,242 @@
+body {
+  margin: 0;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#3578b7;
+  background:url('../background/body-bg.jpg') top right no-repeat; background-attachment:fixed;
+  
+}
+
+.header {
+  padding: 1px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 1px;
+  
+}
+
+#div_center {
+    position:fixed;
+    top: 40%;
+    left: 30%;
+    width:500px;
+    margin-top: -100px;
+    border: 1px solid #ccc;
+    padding:20px;
+    background:#fff;
+    display:none;
+}
+
+#portalSideMenu {
+	z-index: 999;
+
+}
+
+#navbar {
+	color:#3578b7;
+  	transition: margin-left .5s;
+  	overflow: hidden;
+  	/* border-bottom:1px solid #fff; */
+  	padding-top:10px;
+  	z-index: 998;
+}
+
+#app_title {
+	font-family:arial, helvetica, sans-serif;
+	font-size:12pt;
+	
+	font-weight:bold;
+	transition: margin-left .5s;
+}
+
+#bottom_text {
+	font-family:arial, helvetica, sans-serif;
+	font-size:9pt;
+	width:250px;
+	color: #fff;
+	padding:5px;
+	margin-top:20px;
+	border-top:1px dotted #fff;
+}
+
+.module_title {
+	font-family:arial, helvetica, sans-serif;
+	font-size:18pt;
+	font-weight:bold;
+	margin-bottom:20px;
+	border-bottom:1px solid #000;
+}
+
+.module_title_small {
+	font-family:arial, helvetica, sans-serif;
+	font-size:12pt;
+	font-weight:bold;
+	margin-bottom:20px;
+	height:30px;
+	border-bottom:1px solid #000;
+}
+
+.section_title {
+	font-family:arial, helvetica, sans-serif;
+	font-size:12pt;
+	font-weight:bold;
+	margin-bottom:20px;
+	border-bottom:1px dotted #000;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background:url('../background/body-bg.jpg') top right no-repeat; background-attachment:fixed;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+.divMainBody {
+	/* box-shadow: inset .5em 0 0 0 #f1f1f1; */
+
+}
+
+.content-body {
+	background-color: #fff;
+	border-radius: 15px;
+	margin:5px;
+	/* box-shadow: inset 0 0 .1em .1em #ebebeb; */
+	/* border-radius: 10px; */
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  /* box-shadow: 5px 5px #7c7b7b; */
+  /* box-shadow: inset 0 0 .5em .5em #f1f1f1 */
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 8px;
+  font-size: 14px;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  text-decoration:none;
+}
+
+.sidebar a:active {
+  text-decoration:none;
+}
+
+.sidebar-title {
+	width:250px;
+	padding:2px 10px;
+	padding-bottom:48px;
+	font-family:arial, helvetica;
+	font-size:11pt;
+	margin-bottom:10px;
+	height:39px;
+	/* border-bottom:1px solid #ebebeb; */
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  padding:20px;
+  border: none;
+}
+
+.openbtn:hover {
+  color: #ebebeb;
+}
+
+.position_center {
+    position:fixed;
+    top: 40%;
+    left: 30%;
+    width:800px;
+    margin-top: -100px;
+    border: 1px solid #ccc;
+    padding:20px;
+    background:#fff;
+    display:none;
+}
+
+.popup-box {
+	display:none;
+	padding:10px;
+	border:1px solid #000;
+	background: #fff;
+	border-radius: 10px;
+	-moz-box-shadow: 8px 8px 4px #888; -webkit-box-shadow: 8px 8px 4px #888; box-shadow: 8px 8px 4px #888;
+}
+
+.shadow { -moz-box-shadow: 8px 8px 4px #888; -webkit-box-shadow: 8px 8px 4px #888; box-shadow: 8px 8px 4px #888; }
+
+
+/**
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+**/
+
+
+.vertical-menu {
+  width: 250px;
+}
+
+.vertical-menu a {
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+  text-decoration:none;
+}
+
+.vertical-menu a:active {
+  background-color: #ccc;
+  text-decoration:none;
+}
+
+.vertical-menu span {
+	padding-left:20px;
+}
+
+.vertical-menu i {
+
+}
+
+.menu-selected {
+  /* background-color: #605D5D; */
+  font-style: italic;
+  text-decoration:none;
+}
+.menu-normal {
+  /* background-color: #0968C2; */
+  font-style: normal;
+  text-decoration:none;
+}
+
+#login-box {
+	padding:20px; 
+	background:url('../background/login-bg.jpg') top right no-repeat; background-attachment:fixed; color:#fff
+
+}

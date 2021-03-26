@@ -1,0 +1,84 @@
+<script>
+var upload;
+		function ajaxCall(qs)	{
+	    var result;
+    	new Ajax.Request(
+        			"${portal_url}/servlet/lebah.upload.UploadProgressServlet", 
+        {
+            method: 'post', 
+            parameters: qs, 
+            asynchronous: false,
+            onComplete: function(t) {
+               result = t.responseText;
+            				},
+            on404: function(t) {
+               alert('Error 404: location "' + t.statusText + '" was not found.');
+            },
+            onFailure: function(t) {
+               alert('Error ' + t.status + ' -- ' + t.statusText);
+            }            				
+        }
+	    );
+	    return result;
+	}
+		function Upload() {
+  this.getAboutMe = function() {
+     result = ajaxCall('action=getAboutMe');
+     return result;
+  }
+  this.init = function() {
+     result = ajaxCall('action=init');
+  		   return result;
+  }
+  this.getTotalBytes = function() {
+  	   result = ajaxCall('action=getTotalBytes');
+  	   return result;
+  }
+  this.getCurrentBytes = function() {
+     result = ajaxCall('action=getCurrentBytes');
+     return result;
+  }
+  this.getStatus = function() {
+  	   result = ajaxCall('action=getStatus');
+  	   return result;
+  }
+}
+var progressTimer;
+function doProgressBar() {
+    var status = upload.getStatus();
+    if ( status == "finished" ) {
+       ##document.getElementById("fileupload_progress").innerHTML="<b>Please wait... Saving files...</b>";
+       document.getElementById("fileupload_progress").innerHTML="<b>Done...</b>";
+       clearTimeout(progressTimer);       
+    }
+    else if ( status == "done" ) {
+       document.getElementById("fileupload_progress").innerHTML="<b>Done...</b>";
+       clearTimeout(progressTimer);
+    }    
+    else {
+      document.getElementById("progressBar").style.display = "block";
+      document.getElementById("fileupload_progress").innerHTML="Uploading file: " + status + "% completed, please wait...";
+      //document.getElementById("progressBarBoxContent").style.width = parseInt(status * 3.5) + "px";
+      progressTimer = setTimeout(doProgressBar, 1000);
+    }
+    return true;
+}
+	upload = new Upload();
+</script>
+
+
+<form id="file_upload_form" method="post" enctype="multipart/form-data" action="?command=uploadFile" onsubmit="this.target='upload_target';upload.init();doProgressBar()">
+#foreach( $i in [1..$num_files] )
+<input id="fileupload" name="fileupload" type="file" size="30"/><br/>
+#end
+
+<input type="submit" name="action" value="Upload" />
+
+<iframe id="upload_target" name="upload_target" src="" style="width:0;height:0;border:0px solid #fff;"></iframe>
+<div id="fileupload_progress"></div>
+<div id="progressBar" style="padding-top: 5px;">
+  <div id="progressBarBoxContent" style="width:0; height: 10px;background:#00FF33;"></div>
+</div>
+
+</form>
+

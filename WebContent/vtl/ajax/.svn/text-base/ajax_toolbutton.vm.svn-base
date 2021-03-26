@@ -1,0 +1,17 @@
+<table width="700" align="center">
+<tr>
+   <td>#parse("vtl/ajax/tool_button.vm")</td>
+</tr>
+<tr>
+   <td>
+      <fieldset style="background-color:#fff; border-radius: 3px; -moz-border-radius-bottomleft:7px; -moz-border-radius-bottomright:7px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:7px;">
+      <div id="_div_area" name="_div_area"></div>
+      </fieldset>
+   </td>
+</tr>
+</table>
+<script>
+window.onload=function (){
+  doDivAjaxCall${formName}('_div_area','_init_page','');  
+}
+</script>

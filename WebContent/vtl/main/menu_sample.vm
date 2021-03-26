@@ -1,0 +1,35 @@
+
+
+<div class="vertical-menu">
+
+  	<a href="javascript:getPage('my.tutorial.HelloWorldModule')"><i class="fa fa-globe" aria-hidden="true"></i><span>Hello World</span></a>
+
+
+  	<a href="javascript:getPage('lebah.portal.v2.HelloWorldModule?name=Noname')"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Test 1</span></a>
+  	<a href="javascript:getPage('lebah.portal.v2.HelloCalculatorModule')"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Test 2</span></a>
+  	<a href="javascript:getPage('lebah.util.FileUploadExampleModule')"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Test 3</span></a>
+  
+ 
+  <a href="javascript:toggleSubMenu('sub-menu-1')">
+  	<i class="fa fa-line-chart" aria-hidden="true"></i>
+  	<span>Test Sub Menus</span>
+  	<span style="float:right" id="icon-sub-menu-1">
+  		<i class="fa fa-angle-right" aria-hidden="true"></i>
+  	</span>
+  </a>
+  
+  <div id="sub-menu-1" style="display:none;padding-left:10px">
+  
+
+  	<a href="javascript:getPage('lebah.portal.v2.HelloWorldModule?name=Noname')"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Test 1</span></a>
+  	<a href="javascript:getPage('lebah.portal.v2.HelloCalculatorModule')"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Test 2</span></a>
+  	<a href="javascript:getPage('lebah.util.FileUploadExampleModule')"><i class="fa fa-bar-chart" aria-hidden="true"></i><span>Test 3</span></a>
+
+  </div>
+  
+ 
+ 
+ <hr/>
+   
+ 
+</div>

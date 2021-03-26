@@ -1,0 +1,59 @@
+<script>enableCheckIdle = true;</script>
+
+<div class="vertical-menu">
+
+  	<a href="javascript:getPage('sb.salesmgt.modules.SalesDashboardModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-television fa-fw" aria-hidden="true"></i><span>Dashboard</span></a>
+ 	<a href="javascript:getPage('sb.salesmgt.modules.ProductsModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-server fa-fw" aria-hidden="true"></i><span>Products</span></a>
+	<a href="javascript:getPage('sb.salesmgt.modules.CustomersModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-address-card fa-fw" aria-hidden="true"></i><span>Customers</span></a>
+   	<a href="javascript:getPage('sb.salesmgt.modules.QuotationsModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-calculator fa-fw" aria-hidden="true"></i><span>Quotations</span></a>
+  
+	<div style="border-bottom:1px dotted #ebebeb"></div>
+
+  	<a href="javascript:toggleSubMenu('sub-menu-1')">
+  		<i class="fa fa-line-chart" aria-hidden="true"></i>
+  		<span style="font-weight:bold">Reports</span>
+  		<span style="float:right" id="icon-sub-menu-1">
+  			<i class="fa fa-angle-right" aria-hidden="true"></i>
+  		</span>
+  	</a>
+  
+  	<div id="sub-menu-1" style="display:none;">
+  		<a href="javascript:getPage('sb.salesmgmt.reports.ProductsReportModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i><span>Products Catalog</span></a>
+    	<a href="javascript:getPage('sb.salesmgmt.reports.CustomersReportModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i><span>Customers Listing</span></a>
+    	<a href="javascript:getPage('sb.salesmgmt.reports.QuotationsListReportModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-bar-chart fa-fw" aria-hidden="true"></i><span>Quotations Listing</span></a>
+  	</div>
+  
+ 	<div style="border-bottom:1px dotted #ebebeb"></div>
+ 
+ 
+ 	<a href="javascript:toggleSubMenu('sub-menu-settings')">
+  		<i class="fa fa-cog fa-fw" aria-hidden="true"></i>
+  		<span style="font-weight:bold">Maintenance</span>
+  		<span style="float:right" id="icon-sub-menu-settings">
+  			<i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
+  		</span>
+  	</a>
+  
+  <div id="sub-menu-settings" style="display:none;">
+    	<a id="a_my_profile" href="javascript:getPage('lebah.module.UserProfileModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span>My Profile</span></a>
+    	#if ( $user.hasRole("manager") )
+  			<a href="javascript:getPage('sb.salesmgt.modules.ProductTypesRecordModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-calculator fa-fw" aria-hidden="true"></i><span>Product Types</span></a>
+   			<a href="javascript:getPage('sb.salesmgt.modules.ProductBrandsRecordModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-calculator fa-fw" aria-hidden="true"></i><span>Product Brands</span></a> 
+  			<a href="javascript:getPage('sb.salesmgt.modules.DeletedQuotationsModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-eraser fa-fw" aria-hidden="true"></i><span>Deleted Quotations</span></a>
+  		#end
+  		#if ( $user.hasRole("admin")) 
+      		<a href="javascript:getPage('lebah.module.UsersModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-users fa-fw" aria-hidden="true"></i><span>Users</span></a>
+  			<a href="javascript:getPage('sb.salesmgt.modules.SetupQuotationStatusModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-file fa-fw" aria-hidden="true"></i><span>Quotation's Workflow</span></a>  		
+  		#end
+  </div>
+  
+  <div style="border-bottom:1px dotted #ebebeb"></div>
+    
+   #if ( $user.role.id == "admin" )
+  	   <a href="javascript:getPage('lebah.module.SetupMenusModule')"><i class="fa fa-users" aria-hidden="true"></i><span>Setup Menu</span></a>
+
+  #end
+  <a href='../logout.jsp'> <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i><span>Logout</span></a>
+ 
+
+</div>

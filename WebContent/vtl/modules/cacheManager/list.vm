@@ -1,0 +1,14 @@
+<table class="table">
+<tr>
+	<th>Session Id</th>
+	<th>Module Name</th>
+	<th></th>
+</tr>
+#foreach ( $cache in $cacheList )
+<tr>
+	<td>$cache.sessionId</td>
+	<td>$cache.module.class.name</td>
+	<td></td>
+</tr>
+#end
+</table>

@@ -1,0 +1,121 @@
+<style>
+.jGrowl .notify {
+	width:300px;
+	font-size:12pt;
+	color: #fff;
+    background-color: #4caf50;
+}
+.jGrowl .warning {
+	width:300px;
+	font-size:12pt;
+	color: #fff;
+    background-color: #ff0000;
+}
+
+</style>
+
+
+#if ( !$relativeDir )
+#set ( $relativeDir = "../" )
+#end
+
+<link rel="stylesheet" href="${relativeDir}css/font-awesome.min.css">
+
+
+<script type="text/javascript" src="${relativeDir}bootstrap/jquery-3.3.1.js" ></script>
+
+<script type="text/javascript" src="${relativeDir}scriptaculous/prototype.js" ></script>
+<script type="text/javascript" src="${relativeDir}scriptaculous/scriptaculous.js" ></script>
+<script type="text/javascript" src="${relativeDir}scriptaculous/fixed.js" ></script>
+<script type="text/javascript" src="${relativeDir}scriptaculous/unittest.js" ></script>
+<script type="text/javascript" src="${relativeDir}scriptaculous/ajax.js" ></script>
+
+<!-- Add jQuery library -->
+<!-- NOTE: JQUERY 1.8.2 seems to give problem to portlets drag and drop -->
+
+<script type="text/javascript" src="${relativeDir}jquery/jquery-ui-1.8.15.custom.min.js" ></script>
+
+<script>
+var $j = jQuery.noConflict();
+var _jq = jQuery.noConflict();
+
+function callAjaxLogin(e, username, password) {
+    var result;
+    var url = '../servlet/lebah.servlets.LoginServlet';    
+    var qs = "username=" + username + "&password=" + password;
+    
+    
+    new Ajax.Request(url,  {
+				method: 'post',
+				parameters: qs,
+				onComplete: function(t) {
+					result = t.responseText;
+					var json = eval("(" + result + ")");
+					if ( json.result == "true" ) {
+						e.style.color = "#12C25C";
+						e.innerHTML = "<i class='fa fa-spinner fa-spin fa-5x fa-fw'></i>";
+						window.location = "../";
+					} else {
+						e.style.fontSize = "12pt";
+						e.style.color = "#fff";
+						e.innerHTML = "<b>Access Denied! Incorrect password or unknown username</b>";
+					} 
+				},
+				on404: function(t) {
+					alert('Error 404: location "' + t.statusText + '" was not found.');
+					clearInterval(mTimer);
+				},
+				onFailure: function(t) {
+					alert('Error ' + t.status + ' -- ' + t.statusText);
+					clearInterval(mTimer);
+				}
+			}
+    );
+}
+
+
+
+</script>
+
+<link rel="stylesheet" type="text/css" href="${relativeDir}bootstrap/bootstrap.min-3.3.7.css"/>
+<script type="text/javascript" src="${relativeDir}bootstrap/bootstrap.min.js" ></script>
+
+<link rel="stylesheet" type="text/css" href="${relativeDir}DataTables/datatables.min.css"/>
+<script type="text/javascript" src="${relativeDir}DataTables/datatables.min.js"></script>
+
+
+<script type="text/javascript" src="${relativeDir}vtl/main/other_scripts.js" ></script>
+
+
+<script type="text/javascript" src="${relativeDir}ckeditor/ckeditor.js" ></script>		
+
+<script src="${relativeDir}js/canvasjs.min.js"></script>		
+
+
+<link rel="stylesheet" type="text/css" href="${relativeDir}jquery/jquery.jgrowl.min.css" />
+<script src="${relativeDir}jquery/jquery.jgrowl.min.js"></script>	
+
+
+<script src="${relativeDir}js/idle.js"></script>		
+
+<script>
+var _jqb = jQuery.noConflict();
+    jQuery.noConflict();
+    if (Prototype.BrowserFeatures.ElementExtensions) {
+        var disablePrototypeJS = function (method, pluginsToDisable) {
+            var handler = function (event) {
+                event.target[method] = undefined;
+                setTimeout(function () {
+                    delete event.target[method];
+                }, 0);
+            };
+            pluginsToDisable.each(function (plugin) {
+                jQuery(window).on(method + '.bs.' + plugin, handler);
+            });
+        },
+        pluginsToDisable = ['collapse', 'dropdown', 'modal', 'tooltip', 'popover'];
+        disablePrototypeJS('show', pluginsToDisable);
+        disablePrototypeJS('hide', pluginsToDisable);
+    }
+</script>
+

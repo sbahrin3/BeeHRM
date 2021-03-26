@@ -1,0 +1,96 @@
+
+<div class="modal fade" id="login_modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content" id="login-box">
+		
+	        <div class="modal-header" style="padding:10px;margin-bottom:20px;border-bottom:1px solid #076AC6">
+	          <button type="button" class="btn btn-primary" style="float:right" data-dismiss="modal">&times;</button>
+	          <span style="font-weight:bold;font-size:12pt"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Login</span>
+	        </div>
+	        
+            
+            <div class="form-group" style="padding:10px">
+            	<label>Username</label>
+	            <div class="input-group margin-bottom-sm">
+				  	<input class="form-control" type="text" id="username" placeholder="Username"  onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)">
+				  	<span class="input-group-addon" style="font-size:14pt;background:#fff; color:#000"><i class="fa fa-user fa-fw"></i></span>
+				</div>
+			</div>
+	        
+            
+            <div class="form-group" style="padding:10px">
+               <label>Password</label>
+	            <div class="input-group margin-bottom-sm">
+				  	<input class="form-control" type="password" id="password" placeholder="Password"  onfocus="$('divPortalLoginResult').style.display='none';" onKeyDown="loginInputKey(event, this)">
+				  	<span id="pwd-btn" class="input-group-addon" style="cursor:pointer;font-size:14pt;background:#fff; color:#000" onclick="if ( $('password').type == 'password' ) { $('password').type='text'; $('pwd-btn').innerHTML='<i class=\'fa fa-eye fa-fw\'></i>'; } else { $('password').type='password'; $('pwd-btn').innerHTML='<i class=\'fa fa-eye-slash fa-fw\'></i>';}"><i class="fa fa-eye-slash fa-fw"></i></span>
+				</div>
+           
+            </div>
+            
+            <div class="form-group" style="padding:10px">
+            	<button type="submit" class="btn btn-primary btn-block" style="height:50px" id="btnSubmit" onclick="doLogin()"><span><i class="fa fa-power-off" aria-hidden="true"></i></span> Login</button>
+			</div>
+			
+			
+		</div>
+		<div id="divPortalLoginResult" style="display:none;font-size:10pt;text-align:center;"></div>
+	</div>
+</div>
+
+
+<script>
+
+var img_1=new Image();
+img_1.src="../img/loading3.gif";
+
+
+function doLogin() {
+	if ( !checkIsEmpty($('username').value, $('password').value, $('divPortalLoginResult')) ) {
+		submitAjaxLogin($('divPortalLoginResult'), $('username').value, $('password').value);
+	}
+}
+
+function checkIsEmpty(username, password, e) {
+	if ( username == "" ) {
+		//e.style.backgroundColor = "#FFF";
+		//e.style.borderColor = "#6D7072";
+		e.style.color = "#fff";
+		e.innerHTML = "<br>username field is empty!</b>";
+		e.style.display='block';
+		return true;
+	}
+	if ( password == "" ) {
+		//e.style.backgroundColor = "#FFF";
+		//e.style.borderColor = "#6D7072";
+		e.style.color = "#fff";
+		e.innerHTML = "<br>password field is empty!</b>";
+		e.style.display='block';
+		return true;
+	}
+	return false;
+}
+
+function submitAjaxLogin(e, username, password) {
+	
+	e.style.display='block';
+	e.style.color = "#fff";
+	e.innerHTML = "<i class='fa fa-spinner fa-spin fa-5x fa-fw'></i>";
+	callAjaxLogin(e, username, password);
+}
+
+function loginInputKey(e, el) {
+	var keynum;
+	if (window.event) keynum = e.keyCode;
+	else if (e.which) keynum = e.which;
+	if ( keynum == 13 ) {
+		if ( el.id == "username" ) {
+			$('password').focus();
+		} else if ( el.id == "password" ) {
+			$('btnSubmit').focus();
+		}
+	}
+}
+
+
+
+</script>

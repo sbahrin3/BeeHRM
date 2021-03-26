@@ -1,0 +1,36 @@
+
+<form id="ajax222" name="ajax222" method="post" id="ajax-form" action="javascript:doSubmit()">
+
+
+	Enter some text:<br>
+<textarea id="ajaxtext" cols="60" rows="5"></textarea><br>
+<input id="ajax-submit" type="submit" value="Test Me!" />
+<input id="command" name="command" type="hidden" value="ajaxTest">
+
+<br>
+#if ( $text != "" )
+<br> $util.putLineBreak("$text")
+#end
+
+
+
+
+</form>
+
+<script>
+
+function doSubmit() {
+		document.ajax222.command.value = "ajaxTest";
+		document.f.submit();
+}
+
+function doSubmitAsAjax(){
+     var url = '../x/sb.ajax.AjaxTestModule2';
+     var pars = '';
+     pars = 'ajaxtext=' + escape(document.ajax222.ajaxtext.value);
+     pars = pars + '&command=' + escape(document.ajax222.command.value);
+     var target = 'divAjaxTest';
+     var myAjax = new Ajax.Updater(target, url, {method: 'post', parameters: pars});
+}
+
+</script>

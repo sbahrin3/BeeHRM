@@ -1,0 +1,35 @@
+#if ( $parent )
+<div class="module_title_small">
+	$parent.title
+</div>
+#end
+
+#if ( !$menu || $menu.grouped == 0 )
+<div class="form-group">
+	<label>Menu Class Name</label>
+	<input data-required="true" data-msg="Menu Class Name is required." type="text" class="form-control" name="menu_className" value="$!menu.moduleClassName">
+</div>
+#end
+<div class="form-group">
+	<label>Menu Title</label>
+	<input data-required="true" data-msg="Menu Title is required" type="text" class="form-control" name="menu_title" value="$!menu.title">
+</div>
+<div class="form-group">
+	<label>Menu Icon</label>
+	<input type="text" class="form-control" name="menu_icon" value="$!menu.icon">
+</div>
+#if (!$menu || $menu.grouped == 0 )
+<div class="form-group">
+	<label>Select Roles</label>
+	<div>
+		<ul>
+			#foreach ( $role in $roles )
+				<li><input type="checkbox" name="role_ids" value="$role.id" #if ( $menu.hasRole($role) )  checked #end>$role.name
+			#end
+		</ul>
+	</div>
+</div>
+#end
+<div class="form-group">
+	<button type="button" class="btn btn-default" onclick="if ( !saveData('save','menus_main','menuId=$!menu.id&parentId=$!parent.id') ) return; _jq('#modalWindow').modal('hide');">Save</button>
+</div>

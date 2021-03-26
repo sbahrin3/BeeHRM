@@ -1,0 +1,15 @@
+	<div class="modal" id="_modal_window" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					Put title here...
+				</div>
+				<div class="modal-body" id="_modal_content">
+				
+					
+				
+				</div>
+				
+			</div>
+		</div>
+	</div>
