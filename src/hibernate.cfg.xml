@@ -35,8 +35,10 @@
         <mapping class="hrm.entity.Job" />
         <mapping class="hrm.entity.EmployeeAssignment" />
         
-        <!-- 
         <mapping class="hrm.entity.Department" />
+        
+        <!-- 
+        
         
         <mapping class="hrm.entity.EmployeeJobHistory" />
         <mapping class="hrm.entity.EmployeeLeave" />

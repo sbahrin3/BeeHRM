@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,13 +23,13 @@ public class EmployeeAssignment {
 	@Id @Column(name="id", length=100)
 	private String id;
 
-	@OneToOne @JoinColumn(name="employee_id")
+	@ManyToOne @JoinColumn(name="employee_id")
 	private Employee employee;
 	
-	@OneToOne @JoinColumn(name="company_id")
+	@ManyToOne @JoinColumn(name="company_id")
 	private Company company;
 	
-	@OneToOne @JoinColumn(name="job_id")
+	@ManyToOne @JoinColumn(name="job_id")
 	private Job job;
 
 	@Temporal(TemporalType.DATE)

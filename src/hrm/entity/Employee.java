@@ -1,10 +1,15 @@
 package hrm.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -21,6 +26,12 @@ public class Employee {
 	private String id;
 	@Column(length=150)
 	private String name;
+	
+	@OneToMany (fetch = FetchType.LAZY, mappedBy="employee")
+	private List<EmployeeAssignment> assignments = new ArrayList<>();
+	
+	@ManyToOne @JoinColumn(name="department_id")
+	private Department department;
 	
 	
 	public Employee() {
@@ -40,4 +51,21 @@ public class Employee {
 		this.name = name;
 	}
 
+	public List<EmployeeAssignment> getAssignments() {
+		return assignments;
+	}
+
+	public void setAssignments(List<EmployeeAssignment> assignments) {
+		this.assignments = assignments;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	
+	
 }
