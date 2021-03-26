@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    
+        <property name="hbm2ddl.auto">update</property> 
+		
+		<!--  HIKARI -->
+		
+		<property name="connection.provider_class">com.zaxxer.hikari.hibernate.HikariConnectionProvider</property>
+		<property name="hibernate.hikari.minimumIdle">5</property> 
+		<property name="hibernate.hikari.maximumPoolSize">10</property>
+		<property name="hibernate.hikari.idleTimeout">3000</property> 
+		
+		
+             
+        <mapping class="lebah.db.entity.User"/>
+        <mapping class="lebah.db.entity.Role"/>
+        <mapping class="lebah.db.entity.Module"/>
+        <mapping class="lebah.db.entity.RoleModule"/>
+        <mapping class="lebah.db.entity.Menu"/>
+        <mapping class="lebah.db.entity.Log"/>
+        
+        
+        <mapping class="hrm.entity.Company" />
+        <mapping class="hrm.entity.CompanySubsidiary" />
+        <mapping class="hrm.entity.CompanyHQ" />
+        <mapping class="hrm.entity.Office" />
+        <mapping class="hrm.entity.Country" />
+        <mapping class="hrm.entity.State" />
+        <mapping class="hrm.entity.District" />
+        <mapping class="hrm.entity.Employee" />
+        <mapping class="hrm.entity.Job" />
+        <mapping class="hrm.entity.EmployeeAssignment" />
+        
+        <!-- 
+        <mapping class="hrm.entity.Department" />
+        
+        <mapping class="hrm.entity.EmployeeJobHistory" />
+        <mapping class="hrm.entity.EmployeeLeave" />
+        <mapping class="hrm.entity.EmployeeSkill" />
+        <mapping class="hrm.entity.EmployeeTimesheet" />
+       
+        <mapping class="hrm.entity.Leave" />
+        <mapping class="hrm.entity.Skill" />
+        <mapping class="hrm.entity.SkillLevel" /> 
+       
+        <mapping class="hrm.entity.Timesheet" /> 
+        -->
+        
+    </session-factory>
+</hibernate-configuration>
