@@ -1,0 +1,98 @@
+
+
+
+#**
+<div id="tab_login"
+style="position:absolute;float:right;margin-right:10px;width:300px;height:200px;background: rgba(20,0,0,0.5); padding:20px; -moz-border-radius: 10px; border-radius: 10px;  z-index: 9999;display:none;">
+		<table width="100%"><tr><td>
+		
+        <span style="font-size:16px;color:#ffffff;font-weight:bold;">username:</span> <br />
+        <input type="text" name="username" id="username" onfocus="$('divPortalLoginResult').style.display='none';"
+        onKeyDown="loginInputKey(event, this)"
+        style="width:100%;height:35px;background: #ffffff; -moz-border-radius: 6px;	border-radius: 6px;	border:1px solid #cccccc;color:#000000;font-weight:bold;"/><br />
+        <span style="font-size:16px;color:#ffffff;font-weight:bold;">password:</span><br />
+        <input type="password" name="password" id="password"  onfocus="$('divPortalLoginResult').style.display='none';"
+        onKeyDown="loginInputKey(event, this)"
+        style="width:100%;height:35px;background: #ffffff; -moz-border-radius: 6px;	border-radius: 6px;	border:1px solid #cccccc;color:#000000;font-weight:bold;"/>
+        
+        </td></tr><tr><td align="right">
+        <input type="button" name="btnSubmit" id="btnSubmit" value="Login" onClick="doLogin()"
+        style="width:100px;height:40px;-moz-border-radius: 5px;border-radius: 5px;border:1px solid #93938F;
+        color:#FFF;font-weight:bold;font-size:18px;margin-top:10px;background-color: #93938F;
+        text-shadow:#000 1px 1px 1px;
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DBDBD9), to(#93938F));
+        background: -moz-linear-gradient(top, #DBDBD9 0%, #93938F 100%);"/>
+		&nbsp;        
+        <input type="button" name="btnCancelLogin" id="btnCancelLogin" value="X" onClick="_jq('#tab_login').slideUp('slow');$('divPortalLoginResult').style.display='none';"
+        style="width:40px;height:40px;-moz-border-radius: 5px;border-radius: 5px;border:1px solid #B22C07;
+        color:#ffffff;font-weight:bold;font-size:18px;margin-top:10px;background-color: #B22C07;
+        text-shadow:#000 1px 1px 1px;
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F7663D), to(#B22C07));
+        background: -moz-linear-gradient(top, #F7663D 0%, #B22C07 100%);"/>
+        
+        </td></tr></table>
+        <div id="divPortalLoginResult" style="display:none;height:180px;font-size:10pt;-moz-box-shadow: 10px 10px 5px #888; -webkit-box-shadow: 10px 10px 5px #888; box-shadow: 10px 10px 5px #888;text-align:center;border:1px dotted #ebebeb"></div>
+</div>
+**#
+
+
+
+<script>
+
+var img_1=new Image();
+img_1.src="../img/loading1.gif";
+
+
+function doLogin() {
+	if ( !checkIsEmpty($('username').value, $('password').value, $('divPortalLoginResult')) ) {
+		submitAjaxLogin($('divPortalLoginResult'), $('username').value, $('password').value);
+	}
+}
+
+function checkIsEmpty(username, password, e) {
+	if ( username == "" ) {
+		e.style.backgroundColor = "#000";
+		e.style.borderColor = "#6D7072";
+		e.style.color = "#FFF";
+		e.innerHTML = "<br>username field is empty!</b>";
+		e.style.display='block';
+		return true;
+	}
+	if ( password == "" ) {
+		e.style.backgroundColor = "#000";
+		e.style.borderColor = "#6D7072";
+		e.style.color = "#FFF";
+		e.innerHTML = "<br>password field is empty!</b>";
+		e.style.display='block';
+		return true;
+	}
+	return false;
+}
+
+function submitAjaxLogin(e, username, password) {
+	
+	e.style.display='block';
+	e.style.backgroundColor = "#fff";
+	e.style.borderColor = "#6D7072";
+	e.style.color = "#000";
+	e.innerHTML = "<br/><br/><b>Logging in... Please wait....</b><br><img src='../img/loading1.gif' border='0' width='100px'>";
+	 
+	callAjaxLogin(e, username, password);
+}
+
+function loginInputKey(e, el) {
+	var keynum;
+	if (window.event) keynum = e.keyCode;
+	else if (e.which) keynum = e.which;
+	if ( keynum == 13 ) {
+		if ( el.id == "username" ) {
+			$('password').focus();
+		} else if ( el.id == "password" ) {
+			$('btnSubmit').focus();
+		}
+	}
+}
+
+
+
+</script>

@@ -1,0 +1,47 @@
+<div class="module_title">My Profile</div>
+
+#if ( $command == "saveUser" )
+<div id="use_saved" class="alert alert-success" onclick="this.style.display='none'">
+  User detail successfully saved!
+</div>
+#end
+
+<div class="row" style="margin-bottom:40px">
+  <div class="col-sm-3">
+  	#if ( $userData.avatarImageFileName && $userData.avatarImageFileName != "" )
+  		<img style="border-radius:50%;width:200px" src="../download?filename=$!userData.avatarImageFileName" />
+  	#else
+  		<img style="border-radius:50%;width:200px" src="$util.profilePic.imgSrc" />
+  	#end
+  </div>
+  <div class="col-sm-9" style="padding:20px">
+  	<span style="font-size:18pt;font-weight:bold">
+  		$!userData.firstName $!userData.lastName<br/>
+  	</span>
+  	<span style="font-size:14pt;font-weight:bold">
+  		$!userData.position<br/>
+  		$!userData.email<br/>
+  	</span>
+  	
+  </div>
+</div>
+
+<ul class="nav nav-tabs">
+   	<li class="active"><a data-toggle="tab" href="#div_profile1">Biodata</a></li>
+   	<li><a data-toggle="tab" href="#div_profile2">Change Password</a></li>
+</ul>
+
+
+<div class="tab-content" style="padding-top:20px">
+	##--TAB
+	<div id="div_profile1" class="tab-pane fade in active">
+		#parse("vtl/modules/userProfile/profile_tab1.vm")
+	</div>
+	##--TAB
+	<div id="div_profile2" class="tab-pane fade">
+		#parse("vtl/modules/userProfile/profile_tab2.vm")
+	</div>
+</div>
+
+
+

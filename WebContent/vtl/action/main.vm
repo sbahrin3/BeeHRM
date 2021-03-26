@@ -1,0 +1,45 @@
+
+##<form name="f" method="post">
+
+#parse ( $view )
+##<input type="hidden" name="command">
+#set ( $form_token = $session.getAttribute("form_token") )
+<input type="hidden" name="form_token" value="$form_token">
+<!--
+BELOW HIDDEN FIELDS ARE GENERATED
+-->
+
+#foreach( $field in $hiddenFieldList)
+	<input type="hidden" name="${field}">
+#end
+
+##</form>
+<script>
+#foreach ( $submit in $submits )
+
+
+#if ( $submit != "" )
+#set ( $hidden = $hiddenFields.get("$submit") )
+
+
+#if ( $hidden.size() > 0 )
+#set ( $i = 0 )
+function ${submit}(#foreach( $field in $hidden )#set( $i = $i + 1)$field#if( $i < $hidden.size() ), #end#end) {
+
+#foreach( $field in $hidden ) 
+document.f.${field}.value = $field;
+#end
+
+#else
+function ${submit}() {
+#end
+document.f.command.value = "$submit";
+
+
+document.f.submit();
+}
+#end
+
+#end
+
+</script>

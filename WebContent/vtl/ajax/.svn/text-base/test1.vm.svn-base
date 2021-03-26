@@ -1,0 +1,5 @@
+<div id = "div1" name="div1">
+<br>Test 1<br>$!name<br>
+<input name="text1" value="$!name">
+<input type="button" value="Test" onclick="doDivAjaxCall${formName}('div1','input1','')">
+</div>

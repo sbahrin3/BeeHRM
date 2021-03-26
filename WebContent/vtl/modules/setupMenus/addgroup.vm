@@ -1,0 +1,12 @@
+
+<div class="form-group">
+	<label>Group Title</label>
+	<input data-required="true" data-msg="Group Title is required" type="text" class="form-control" name="menu_title" value="$!menu.title">
+</div>
+<div class="form-group">
+	<label>Group Icon</label>
+	<input type="text" class="form-control" name="menu_icon" value="$!menu.icon">
+</div>
+<div class="form-group">
+	<button type="button" class="btn btn-default" onclick="if ( !saveData('savegroup','menus_main','menuId=$!menu.id') ) return; _jq('#modalWindow').modal('hide');">Save</button>
+</div>

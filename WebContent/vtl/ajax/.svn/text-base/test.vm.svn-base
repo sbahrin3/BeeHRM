@@ -1,0 +1,10 @@
+<div id="page" name="page">
+hello ajax
+
+#parse("vtl/ajax/test1.vm")
+
+#parse("vtl/ajax/test2.vm")
+
+
+<input type="button" value="Test" onclick="doDivAjaxCall${formName}('page', 'all','id=0')">
+</div>

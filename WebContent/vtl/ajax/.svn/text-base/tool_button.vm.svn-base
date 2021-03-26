@@ -1,0 +1,32 @@
+<fieldset style="background-color:lightgrey;border-radius: 3px; -moz-border-radius-bottomleft:7px; -moz-border-radius-bottomright:7px; -moz-border-radius-topleft:5px; -moz-border-radius-topright:7px;">
+
+<table border="0">
+<tr>
+<td>
+<input name="button_new" type="button" style="width:100px;height:30px;text-align:center" value="NEW" onclick="new_clicked();doDivAjaxCall${formName}('_div_area','_new','')">
+<input name="button_edit" type="button" disabled style="width:100px;height:30px;text-align:center" value="EDIT" onclick="edit_clicked();doDivAjaxCall${formName}('_div_area','_edit','')">
+<input name="button_save" type="button" disabled style="width:100px;height:30px;text-align:center" value="SAVE" onclick="save_clicked();doDivAjaxCall${formName}('_div_area','_save','')">
+<input name="button_delete" type="button" disabled style="width:100px;height:30px;text-align:center" value="DELETE" onclick="delete_clicked();doDivAjaxCall${formName}('_div_area','_delete','')">
+
+</td>
+</tr>
+</table>
+</fieldset>
+
+<script>
+function new_clicked() {
+  document.getElementById('button_new').disabled = true;
+  document.getElementById('button_save').disabled = false;
+}
+function edit_clicked() {
+  document.getElementById('button_new').disabled = false;
+  document.getElementById('button_save').disabled = true;
+}
+function save_clicked() {
+  document.getElementById('button_new').disabled = false;
+  document.getElementById('button_save').disabled = true;
+}
+function delete_clicked() {
+
+}
+</script>

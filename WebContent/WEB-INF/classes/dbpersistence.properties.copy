@@ -1,0 +1,7 @@
+
+title.default=LIGHT AND EASY
+driver.default=com.mysql.cj.jdbc.Driver
+dialect.default=org.hibernate.dialect.MySQL5InnoDBDialect
+user.default=root
+password.default=velyseclet
+url.default=jdbc:mysql://localhost:3307/lebah

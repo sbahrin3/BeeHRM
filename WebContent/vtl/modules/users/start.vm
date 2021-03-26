@@ -1,0 +1,5 @@
+<div id="user_main">
+
+	#parse("vtl/modules/users/listUsers.vm")
+
+</div>

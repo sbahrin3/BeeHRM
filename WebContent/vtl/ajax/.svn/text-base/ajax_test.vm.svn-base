@@ -1,0 +1,13 @@
+	Enter some text:<br>
+<textarea id="ajaxtext" cols="30" rows="3"></textarea>
+<input id="ajax-submit" type="button" value="Test Me!" onclick='doTesting("ajaxTest")'>
+<br>
+#if ( $text != "" )
+<br> <b><font size="4">$util.putLineBreak("$text")</font></b>
+#end
+
+<script>
+function doTesting(actionName){
+	    doAjaxCall${formName}(actionName);
+}
+</script>

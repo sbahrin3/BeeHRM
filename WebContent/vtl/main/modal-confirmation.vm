@@ -1,0 +1,45 @@
+<div class="modal fade" id="confirmation" role="dialog" 
+	data-backdrop="false" style="background-color: rgba(0, 0, 0, 0.5);z-index:9999;">
+    
+
+ <div class="modal-dialog" >
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="modal-header">Please Confirm</h4>
+        </div>
+        <div class="modal-body" id="modal-message">
+          <p></p>
+        </div>
+        <div class="modal-footer">
+         <input type="hidden" name="param" id="param" value />
+         <input type="hidden" name="div" id="div" value />
+         <input type="hidden" name="action" id="action" value />
+         
+          <button type="button" class="btn btn-primary yes" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        </div>
+      </div>
+      
+    </div>   
+    
+    
+</div>
+  
+  
+  
+  
+  
+  <script type="text/javascript">
+    _jqb(document).ready(function(){
+    	
+	    _jqb(".yes").click(function(){
+	        var div = _jqb('input[name="div"]').val();
+	        var param = _jqb('input[name="param"]').val();
+	        var action = _jqb('input[name="action"]').val();
+	        sendAjax2(action, div, param);
+	    });
+ });
+  </script>

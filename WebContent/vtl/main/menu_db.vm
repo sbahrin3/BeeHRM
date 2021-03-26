@@ -1,0 +1,69 @@
+<script>enableCheckIdle = true;</script>
+
+<div class="vertical-menu">
+	#set ( $firstPage = "" )
+	#set ( $cnt = 0 )
+	#foreach ( $menu in $userMenus )
+		
+		#if ( $menu.grouped == 0 )
+			#if ( $menu.hasRole($user))
+				#set ( $cnt = $cnt + 1 )
+				#if ( $cnt == 1 )
+  					#set ( $firstPage = $menu.moduleClassName )
+  				#end
+				<a href="javascript:getUrl('$menu.moduleClassName')" onclick="menuSelect(this)" style="text-decoration:none"><i class="$!menu.icon fa-fw" aria-hidden="true"></i><span>$!menu.title</span></a>
+			#end
+		#else
+			#if ( $menu.hasItems($user))
+				
+				<div style="border-bottom:1px solid #000"></div>
+				<a href="javascript:toggleSubMenu('sub-menu-${menu.id}')">
+			  		<i class="$!menu.icon fa-fw" aria-hidden="true"></i>
+			  		<span style="font-weight:bold">$!menu.title</span>
+			  		<span style="float:right" id="icon-sub-menu-${menu.id}">
+			  			<i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
+			  		</span>
+			  	</a>
+			  	
+			  	<div id="sub-menu-${menu.id}" style="display:none;">
+			  		#foreach ( $submenu in $menu.sortedMenus )
+			  			#if ( $submenu.hasRole($user))
+			  				#set ( $cnt = $cnt + 1 )
+			  				#if ( $cnt == 1 )
+			  					#set ( $firstPage = $submenu.moduleClassName )
+			  				#end
+							<a href="javascript:getUrl('$submenu.moduleClassName')" onclick="menuSelect(this)" style="text-decoration:none"><i class="$!submenu.icon fa-fw" aria-hidden="true"></i><span>$!submenu.title</span></a>	
+			  			#end
+			  		#end
+			  	</div>
+		 	#end
+		#end
+	#end
+	
+    
+   	#if ( $user.role.id == "admin" ) 
+   		##--if ( $user.hasRole("admin"))
+
+  		<div style="border-bottom:1px solid #000"></div>
+
+	  	<a href="javascript:toggleSubMenu('sub-menu-admin')">
+	  		<i class="fa fa-gavel fa-fw" aria-hidden="true"></i>
+	  		<span style="font-weight:bold">Admin</span>
+	  		<span style="float:right" id="icon-sub-menu-admin">
+	  			<i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
+	  		</span>
+	  	</a>
+	  
+	  	<div id="sub-menu-admin" style="display:none;">
+	  	    <a href="javascript:getUrl('lebah.module.UsersModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-users fa-fw" aria-hidden="true"></i><span>Users Management</span></a>
+	  		<a href="javascript:getUrl('lebah.module.SetupMenusModule')"  onclick="menuSelect(this)"><i class="fa fa-users fa-fw" aria-hidden="true"></i><span>Menu Management</span></a>
+	  		
+	  	</div>
+	#end
+	
+	<div style="border-bottom:1px solid #000"></div>
+		<a id="a_my_profile" href="javascript:getUrl('lebah.module.UserProfileModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span>My Profile</span></a>
+		<a href='../logout.jsp'> <i class="fa fa-sign-out fa-fw" aria-hidden="true"></i><span>Logout</span></a>
+ 
+		##<a href="javascript:getUrl('lebah.module.TestModule')" onclick="menuSelect(this)" style="text-decoration:none"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span>Test Module</span></a>
+</div>

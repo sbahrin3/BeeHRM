@@ -1,0 +1,250 @@
+<div id="${targetName}">
+<span id="W${targetName}" style="position:absolute;width:150px;"></span>
+<form id="${formName}" name="${formName}" method="post" action="../div/${moduleId}" enctype="application/x-www-form-urlencoded">
+
+
+#parse("$vmName")
+
+<input id="command" name="command" type="hidden">
+
+<input id="module_id" name="module_id" type="hidden" value="${moduleId}">
+		<input type="hidden" name="$formname" value="$formname">
+		
+		
+		
+		
+		<div id="popwin${formName}" name="popwin${formName}" 
+onmouseover="this.style.zIndex=999"
+onmouseout="this.style.zIndex=0"
+style="visibility:hidden;position:absolute;left:200px;background-color:white;border: 2px solid;border-color: #99a #99a #99a #99a;width:500px">
+
+
+<table width="100%" cellpadding="0" cellspacing="1" border="0" align="center">
+<tr><td>
+
+
+<table bgcolor="lightgrey" width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr height="25px">
+		<td bgcolor="lightgrey" valign="bottom" style="cursor:hand; cursor:pointer;">
+		<span id="handle_$formName">&nbsp;&nbsp;</span>
+		</td>
+		<td bgcolor="lightgrey" align="right" width="50px">
+		<a href="#" onclick="close_popwin_$formName()"><b>Close</b></a>&nbsp;
+		</td>
+	</tr>	
+</table>
+
+
+
+
+</td></tr>
+<tr><td>
+<div id="win${formName}" name="win${formName}" style="height:300px; width: 100%; overflow: auto;"></div>
+</td></tr>
+</table>
+</div>
+
+
+</form>
+
+</div>
+
+
+<script>
+
+var cursorX;
+var cursorY;
+
+//preload image
+image1 = new Image();
+image1.src = "../img/indicator.gif";
+image2 = new Image();
+image2.src = "../img/wait-animated.gif";
+
+
+$('W${targetName}').innerHTML ='';
+
+document.onmousemove=getMouseCoordinates;
+
+function getMouseCoordinates(event) {
+  ev = event || window.event;
+  cursorX = ev.pageX;
+  cursorY = ev.pageY;
+}
+
+
+				function popwin_$formName() {
+  				var width = Element.getWidth($('popwin${formName}'));
+  								var height = Element.getHeight($('popwin${formName}'));
+
+				  var dim = get_page_size();
+				  var page_width = dim[2];
+				  var page_height = dim[3];
+				  var pop_left = (page_width - width)/2;
+				  var pop_top = (page_height - height)/2;
+
+								  $('popwin$formName').style.left=pop_left;
+								  $('popwin$formName').style.top=pop_top;
+								  
+								  								$('popwin$formName').style.visibility = 'visible';
+								  $('win$formName').style.visibility = 'visible';
+								   
+								  Effect.Appear('popwin${formName}', { duration: 0.5 });
+								}
+								
+								function close_popwin_$formName() {
+
+								   //$('popwin$formName').style.visibility = 'hidden';
+								   //$('win$formName').style.visibility = 'hidden';
+								   
+   Effect.Fade('popwin$formName' , { duration: 0.5 });
+								}
+
+
+function doAjaxCall${formName}(actionName){
+
+    
+   #if ( $queryString != "" )
+   var url = '../y/${moduleId}?$queryString';
+   #else
+   var url = '../y/${moduleId}';
+   #end
+   
+   var target = '${targetName}';
+   doAjaxUpdater(document.${formName}, url, target, actionName);
+   //doAjaxSubmit($formName, target, actionName, qs);
+ 
+   document.getElementById('${targetName}').innerHTML ='<table width="100%"><tr><td align="center"><img src="../img/wait-animated.gif"></td></tr><tr><td align="center">Please wait ...</td></tr></table>';    
+   
+}
+
+function doAjaxCall${formName}(actionName, qs){
+
+   #if ( $queryString != "" )
+   var url = '../y/${moduleId}?$queryString';
+   #else
+   var url = '../y/${moduleId}';
+   #end
+   var target = '${targetName}';
+   
+   doAjaxUpdater(document.${formName}, url, target, actionName, qs);
+   //doAjaxSubmit($formName, target, actionName, qs);
+
+   document.getElementById('${targetName}').innerHTML ='<table width="100%"><tr><td align="center"><img src="../img/wait-animated.gif"></td></tr><tr><td align="center">Please wait ...</td></tr></table>';
+   
+}
+
+function doDivAjaxCall${formName}(divName, actionName, qs){
+
+   document.getElementById(divName).style.visibility = 'visible';
+
+   #if ( $queryString != "" )
+   var url = '../div/${moduleId}?$queryString';
+   #else
+   var url = '../div/${moduleId}';
+   #end
+   var target = divName;
+   
+   doAjaxUpdater(document.${formName}, url, target, actionName, qs);
+	   //doAjaxSubmit($formName, target, actionName, qs);
+	   
+	   document.getElementById(divName).innerHTML ='<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center"><img src="../img/indicator.gif"></td></tr></table>';
+   
+}
+
+function doPositionDivAjaxCall${formName}(divName, actionName, qs){
+
+   #if ( $queryString != "" )
+   var url = '../div/${moduleId}?$queryString';
+   #else
+   var url = '../div/${moduleId}';
+   #end
+   var target = divName;
+   
+   document.getElementById(divName).style.visibility = 'visible';
+   document.getElementById(divName).style.top = cursorY;
+   
+   
+   doAjaxUpdater(document.${formName}, url, target, actionName, qs);
+   //doAjaxSubmit($formName, target, actionName, qs);
+   
+   document.getElementById(divName).innerHTML ='<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center"><img src="../img/indicator.gif"></td></tr></table>';
+}
+
+function doDivAjaxChainCall${formName}(divName, actionName, qs, divName2, actionName2, qs2){
+
+   #if ( $queryString != "" )
+   var url = '../div/${moduleId}?$queryString';
+   #else
+   var url = '../div/${moduleId}';
+   #end
+   
+   doAjaxUpdaterChain(document.${formName}, url, divName, actionName, qs, divName2, actionName2, qs2);
+   //doAjaxSubmitChain($formName, divName, actionName, qs, divName2, actionName2, qs2);
+   
+   document.getElementById(divName).innerHTML ='<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center"><img src="../img/indicator.gif"></td></tr></table>';
+}
+
+function doDivAjaxCall2${formName}(divName, actionName, qs){
+
+   #if ( $queryString != "" )
+   var url = '../div/${moduleId}?$queryString';
+   #else
+   var url = '../div/${moduleId}';
+   #end
+   var target = divName;
+   
+   doAjaxUpdater(document.${formName}, url, target, actionName, qs);
+   //doAjaxSubmit($formName, target, actionName, qs);
+   
+   
+   document.getElementById(divName).innerHTML ='<table width="100%" cellpadding="0" cellspacing="0"><tr><td align="center"><img src="../img/indicator.gif"></td></tr></table>';
+   
+	   blindDown(divName);
+}
+
+
+##This one call ajax without wait indicator
+function doDivAjaxCall3${formName}(divName, actionName, qs){
+
+   #if ( $queryString != "" )
+   var url = '../div/${moduleId}?$queryString';
+   #else
+   var url = '../div/${moduleId}';
+   #end
+   var target = divName;
+   
+   doAjaxUpdater(document.${formName}, url, target, actionName, qs);
+   //doAjaxSubmit($formName, target, actionName, qs);
+}
+
+function blindDown(elementId) {
+		  if ( document.all ) element = document.all[elementId];
+	  else element = document.getElementById(elementId);
+  new Effect.BlindDown(element,{duration:0.5}); 
+		  new Effect.Highlight(element,{duration:1.5})
+	  	return false;
+}
+
+function dnKeyPress(e, div, cmd, par) {
+   var characterCode;
+   if(e && e.which){
+     e = e;
+     characterCode = e.which;
+   }
+   else{
+     e = event;
+     characterCode = e.keyCode;
+   }
+   if(characterCode == 13){
+     doDivAjaxCall${formName}(div, cmd, par);
+     return false;
+   }
+   else {
+     return true;
+   }
+}
+
+
+</script>
+

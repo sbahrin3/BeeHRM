@@ -1,0 +1,16 @@
+<div style="z-index:20;">
+    #if($errorMessages)
+    	<div style="background-color:#F0D7B5" >
+    	#foreach($errorMessage in $errorMessages)
+    		$errorMessage <br/>
+    	#end
+    	</div>
+    #end
+    #if($infoMessages)
+    	<div style="background-color:#B3D1FC" >
+    	#foreach($infoMessage in $infoMessages)
+    		$infoMessage <br/>
+    	#end
+    	</div>
+    #end
+</div>

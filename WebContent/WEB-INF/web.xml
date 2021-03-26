@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <listener>
+    <listener-class>lebah.listeners.ContextListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>lebah.listeners.SessionListener</listener-class>
+  </listener>
+  
+  
+  <servlet>
+    <servlet-name>portalv2</servlet-name>
+    <servlet-class>lebah.portal.v2.LebahController</servlet-class>
+    <init-param>
+      <param-name>properties</param-name>
+      <param-value>/velocity.properties</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>renderer</servlet-name>
+    <servlet-class>lebah.portal.v2.Renderer</servlet-class>
+    <init-param>
+      <param-name>properties</param-name>
+      <param-value>/velocity.properties</param-value>
+    </init-param>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>controllerDiv</servlet-name>
+    <servlet-class>lebah.portal.DivControllerServlet</servlet-class>
+    <init-param>
+      <param-name>properties</param-name>
+      <param-value>/velocity.properties</param-value>
+    </init-param>
+  </servlet>
+  <servlet>
+    <servlet-name>servlet</servlet-name>
+    <servlet-class>lebah.servlets.ServletTemplate</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>download</servlet-name>
+    <servlet-class>lebah.util.Download</servlet-class>
+  </servlet>
+
+  
+  <servlet-mapping>
+    <servlet-name>portalv2</servlet-name>
+    <url-pattern>/c/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>renderer</servlet-name>
+    <url-pattern>/renderer/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>controllerDiv</servlet-name>
+    <url-pattern>/div/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>servlet</servlet-name>
+    <url-pattern>/servlet/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>download</servlet-name>
+    <url-pattern>/download</url-pattern>
+  </servlet-mapping>
+
+  
+</web-app>

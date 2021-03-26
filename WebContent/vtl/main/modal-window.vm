@@ -1,0 +1,26 @@
+<!-- Modal -->
+<div class="modal" id="modalWindow" role="dialog" data-backdrop="static" data-keyboard="false" style="z-index:9999;">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<div class="modal-body">
+			
+				<div style="float:right;z-index:9999;">
+					<button type="button" class="btn btn-link btn-xs" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+				</div>
+				
+				<div id="div_modal_window">
+				<!--  Content here -->
+				</div>
+				
+			</div>
+			
+			
+			<!-- 
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+			-->
+		</div>
+	</div>
+</div>

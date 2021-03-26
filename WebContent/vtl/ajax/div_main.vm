@@ -1,0 +1,29 @@
+
+#parse("$vmName")
+
+<script>
+
+if ( document.getElementById('main_token') != null ) {
+	var current_token = '$!current_token';
+	var main_token = document.getElementById('main_token').value;
+	
+	if ( main_token == current_token ) {
+		//console.log("**** REQUEST IS OK!");
+	}
+	else {
+
+		//console.log("**** THIS IS DIRECT ACCESS... WHICH IS NOT ALLOWED!");
+		//document.location = "../c/?rndId=b28c65d872ca8926db6f5df59b5f8e64aca5b0c3";
+	}
+	
+} else {
+	//console.log("**** THIS IS PROBABLY DIRECT ACCESS... WHICH IS NOT ALLOWED!");
+	//document.location = "../c/?rndId=b28c65d872ca8926db6f5df59b5f8e64aca5b0c3";
+}
+
+if ( document.getElementById('__module_name') != null ) {
+	document.getElementById('__module_name').value = '$!module_name';
+	scrollTop();
+}
+
+</script>

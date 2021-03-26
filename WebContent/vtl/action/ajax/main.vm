@@ -1,0 +1,230 @@
+#parse ("vtl/action/ajax/messages.vm")
+
+#parse ( $view )
+
+##set ( $form_token = $session.getAttribute("form_token") )
+
+<input type="hidden" name="req_field_count" value="$html.requiredFields.size()">
+<input type="hidden" name="date_field_count" value="$html.dateFields.size()">
+
+#foreach( $reqname in $html.requiredFields)
+<input type="hidden" name="req_field_name" value="$reqname">
+#end
+#foreach( $req_field_message in $html.messages)
+<input type="hidden" name="req_field_message" value="$req_field_message">
+#end
+
+#foreach( $dateFieldName in $html.dateFields)
+<input type="hidden" name="date_field_name" value="$dateFieldName">
+#end
+
+<input type="hidden" name="form_token" value="$!form_token">
+<!--
+BELOW HIDDEN FIELDS ARE GENERATED
+-->
+
+#foreach( $field in $hiddenFieldList)
+	<input type="hidden"  name="${field}">
+#end
+
+## validate_form is not required anymore
+##<script language="JavaScript" type="text/javascript" src="/$appname/validate_form.js"></script>
+##
+
+<script language="Javascript" type="text/javascript">
+#foreach ( $submit in $submits )
+#if ( $submit != "" )
+#set ( $hidden = $hiddenFields.get("$submit") )
+#set ( $confirm = $confirms.get("$submit") )
+#if ( $hidden.size() > 0 )
+#set ( $i = 0 )
+function ${submit}${uniqueId}(#foreach( $field in $hidden )#set( $i = $i + 1)$field#if( $i < $hidden.size() ), #end#end) {
+
+#foreach( $field in $hidden ) 
+document.$formname.${field}.value = $field;
+#end
+#else
+function ${submit}${uniqueId}() {
+
+#end
+#if ($confirm != "" ) 
+if ( !confirm("$confirm")) return;
+#end
+doAjaxCall$formname("${submit}");
+}
+#end
+#end
+
+function onRequired(f) {
+if ( f.value == '' ) f.style.backgroundColor = "#FF7780";
+else f.style.backgroundColor = "#FFFFFF";
+}
+
+function checkDOB() {
+	## Validate dob since checkRequiredFields() seems not to be doing it. 
+	var dob = document.getElementById("dob");
+	if (dob.value == "") {
+	    dob.style.backgroundColor = "#FF7780";
+	    alert("Please fill in Date of Birth");
+		dob.focus();
+		return false;
+	}
+	##if (re.test(dob.value) == false) {
+	if (isDOBValid(dob.value) == false) {
+	    dob.style.backgroundColor = "#FF7780";
+	    alert("You have entered Date of Birth in the wrong format.\nThe format is dd-mm-yyyy.");
+		dob.focus();
+		return false;
+	}
+}
+
+
+function checkRequiredFields() {
+var reqno = document.${formname}.req_field_count.value;
+
+if ( reqno == 1 ) {
+
+  var field_name = document.${formname}.req_field_name.value;
+  var required_message = document.${formname}.req_field_message.value;
+	  var field = document.getElementById(field_name);
+	  if ( field.value == '' ) {
+	     field.style.backgroundColor = "#FF7780";
+	     alert(required_message);
+	     field.focus();
+	     return false;
+	  }
+
+
+} else if ( reqno > 1 ){
+
+  for ( i=0; i < reqno;  i++ ) {
+    var field_name = document.${formname}.req_field_name[i].value;
+    var required_message = document.${formname}.req_field_message[i].value;
+	    var field = document.getElementById(field_name);
+	    if ( field.value == '' ) {
+	       field.style.backgroundColor = "#FF7780";
+	       alert(required_message);
+	       field.focus();
+	       return false;
+	    }
+	  
+  }
+
+}
+return true;
+}
+
+
+function checkSelectedRequiredFields(requiredNames) {
+	var reqno = document.${formname}.req_field_count.value;
+	
+	var names = requiredNames.split(" ");
+	
+	for(var i=0; i<names.length; i++){
+	
+		var required_field_name = names[i];
+	
+		for(var j=0; j<reqno; j++){
+			
+			var field_name = document.${formname}.req_field_name[j].value;
+			var field = document.getElementById(field_name);
+			if(field.value == '' && field_name == required_field_name){
+				var required_message = document.${formname}.req_field_message[j].value;
+				alert(required_message);
+		       	field.focus();
+		       	return false;
+			}
+		}
+	}
+	
+	if(!checkSelectedRequiredDates(requiredNames)){
+		return false;
+	}
+	
+	return true;	
+}
+
+function checkSelectedRequiredDates(requiredNames) {
+	var reqno = document.${formname}.req_field_count.value;
+	
+	var names = requiredNames.split(" ");
+	
+	var numOfDates = document.${formname}.date_field_count.value;
+	
+	for(var i=0; i<names.length; i++){
+	
+		var required_field_name = names[i];
+	
+		for(var j=0; j<reqno; j++){
+			
+			var field_name = document.${formname}.req_field_name[j].value;
+			var field = document.getElementById(field_name);
+			
+			if(field_name == required_field_name){
+			
+    			for ( k=0; k < numOfDates;  k++ ) {
+        	    
+                    var date_field_name = document.${formname}.date_field_name[k].value;
+                  	var date_field = document.getElementById(field_name);
+                 	
+    				if(date_field_name == field_name){
+					
+    					if (field.value != "" &&  !isDateFormatValid(date_field.value) ) {
+                             field.style.backgroundColor = "#FF7780";
+                             alert("Invalid date format");
+                             field.focus();
+                             return false;
+                      	}
+    				}
+                	   
+                }
+			}
+		}
+	}
+	
+	return true;	
+}
+
+function checkDateFieldsFormat() {
+	var numOfDates = document.${formname}.date_field_count.value;
+	
+    if ( numOfDates == 1 ) {
+      var field_name = document.${formname}.date_field_name.value;
+      var field = document.getElementById(field_name);
+      if (field.value != "" &&  !isDateFormatValid(field.value) ) {
+         field.style.backgroundColor = "#FF7780";
+         alert("Invalid date format");
+         field.focus();
+         return false;
+      }
+    }
+	else if ( numOfDates > 1 ){
+
+      for ( i=0; i < numOfDates;  i++ ) {
+    	    
+        var field_name = document.${formname}.date_field_name[i].value;
+      	var field = document.getElementById(field_name);
+     	 if (field.value != "" &&  !isDateFormatValid(field.value) ) {
+             field.style.backgroundColor = "#FF7780";
+             alert("Invalid date format");
+             field.focus();
+             return false;
+      	 }
+    	   
+      }
+    
+    }
+
+	return true;
+}
+
+function isDateFormatValid(str) {
+	var pattern = /[0-3][0-9]-(0|1)[0-9]-(19|20)[0-9]{2}/;
+ 	var result = pattern.test(str);
+ 	if (result) {
+ 		return true;
+ 	}
+ 	return false;
+}
+
+</script>

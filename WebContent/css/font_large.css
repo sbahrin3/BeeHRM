@@ -1,0 +1,53 @@
+.font_title { font-size:14pt; }
+.font_welcome { font-size:10pt;  }
+.font_login { font-size:10pt; }
+.login_input { font-size:10pt;}
+.login_button { font-size:10pt;}
+.button_top { font-size:10pt;}
+.font_footer { font-size:10pt; }
+.font_role { font-size:10pt; }
+.font_role_select { font-size:10pt; }
+
+a.nav_link { font-size:10pt; }
+a:hover.nav_link { font-size:10pt; }
+
+a.nav_link_active { font-size:10pt;}
+a:hover.nav_link_active { font-size:10pt;}
+
+
+td.pulldown_menu
+{
+font-size:10pt;
+}
+
+td.pulldown_menu_selected
+{
+font-size:10pt;
+}
+
+a.tab_link { font-size:12pt; }
+a.tab_link_active { font-size:12pt;}
+a:hover.tab_link { font-size:12pt; }
+a:hover.tab_link_active {font-size:12pt;  }
+
+/*
+	Tab's Title for Top navigation
+*/
+.tab_title
+{
+	font-size: 16pt;
+}
+
+
+/*
+    Module Title 
+*/
+.module_title 
+{ 
+    font-size: 14pt;
+}
+/*
+    Table elements
+*/
+td { font-size: 12pt; }
+

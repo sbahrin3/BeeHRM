@@ -1,0 +1,56 @@
+<div class="modal-header" style="padding:10px;margin-bottom:20px;border-bottom:1px solid #076AC6">
+  <span style="font-weight:bold;font-size:14pt"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Sign Up</span>
+</div>
+
+<div class="row" style="background:#4eaecc;padding:10px">
+	<div  class="col-sm-4" style="text-align:center;font-size:28pt;color:#fff">
+		Sign Up
+	</div>
+	<div class="col-sm-8">
+
+		<div id="div_register_form" style="background:#fff;padding:10px">
+
+				        
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input data-required="true" data-msg="Please enter your name" type="text" maxlength="100" class="form-control" id="reg_name" name="reg_name" value=""  placeholder="Name">
+			</div>
+			
+			<div class="form-group">
+				<label for="name">Username</label>
+				<input data-required="true" data-msg="Please enter your username "  type="text" maxlength="100" class="form-control" id="reg_username" name="reg_username" value=""  placeholder="Username" autocomplete="off">
+			</div>
+			
+			<div class="form-group">
+				<label for="name">Password</label>
+				<div class="row">
+				  <div class="col-sm-6">
+					<input  data-required="true" data-msg="Please enter your password" type="password" maxlength="100" class="form-control" id="reg_password" name="reg_password" value=""  placeholder="Password">
+				  </div>
+				  <div class="col-sm-6">
+					<input  data-required="true" data-msg="Please confirm your password" type="password" maxlength="100" class="form-control" id="reg_password2" name="reg_password2" value=""  placeholder="Confirm Password">
+				  </div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="name">Email</label>
+				<input data-required="true" data-msg="Please enter your email" type="text" maxlength="100" class="form-control" id="reg_email" name="reg_email" value=""  placeholder="Email">
+			</div>
+			
+			<div class="form-group">
+				<label for="name">Phone</label>
+				<input data-required="true" data-msg="Please enter your phone number" type="text" maxlength="100" class="form-control" id="reg_telephone" name="reg_telephone" value=""  placeholder="Phone Number">
+			</div>
+			
+			<div class="form-group" style="text-align:right">
+				<button type="button" class="btn btn-primary" style="height:50px" id="btnRegisterCancel" onclick="saveData('signUp','div_register','')"><span><i class="fa fa-user" aria-hidden="true"></i></span> Register</button>
+				<button type="button" class="btn btn-link" style="height:50px" id="btnRegisterCancel" onclick="getPage('mafex.modules.LandingPageModule')"><span><i class="fa fa-pencil-times" aria-hidden="true"></i></span> Cancel</button>
+			</div>
+		</div>
+		
+		<div id="div_register"></div>
+	</div>
+
+</div>
+			

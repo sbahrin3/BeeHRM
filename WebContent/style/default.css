@@ -1,0 +1,253 @@
+body {
+  margin: 0;
+  font-size: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  background-color: #f1f1f1;
+  padding: 1px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 1px;
+  
+}
+
+#div_center {
+    position:fixed;
+    top: 40%;
+    left: 30%;
+    width:500px;
+    margin-top: -100px;
+    border: 1px solid #ccc;
+    padding:20px;
+    background:#fff;
+    display:none;
+}
+
+#portalSideMenu {
+	background: #fff9f9;
+	z-index: 999;
+
+}
+
+.sidebar-title {
+	
+	background: #fff9f9;
+	padding:10px 0px 10px 10px; /* top right bottom left */
+	font-family:arial, helvetica;
+	font-size:14pt;
+	font-weight:bold;
+	margin-bottom:10px;
+	height:39px;
+}
+.menu-normal {
+  color: #000;
+  background-color:#fff9f9;
+  text-decoration:none;
+}
+
+.menu-selected {
+  color: #000;
+  background-color: #ebebeb;
+  text-decoration:none;
+}
+
+
+#navbar {
+  transition: margin-left .5s;
+  overflow: hidden;
+  background-color: #2680d8;
+  color: #fff;
+  height:50px;
+  border-bottom:1px solid #ebebeb;
+  padding-top:10px;
+  z-index: 998;
+}
+
+#app_title {
+	font-family:arial, helvetica, sans-serif;
+	font-size:12pt;
+	font-weight:bold;
+	transition: margin-left .5s;
+}
+
+#bottom_text {
+	font-family:arial, helvetica, sans-serif;
+	font-size:9pt;
+	width:250px;
+	color: #fff;
+	padding:5px;
+	margin-top:20px;
+	border-top:1px dotted #fff;
+}
+
+.module_title {
+	font-family:arial, helvetica, sans-serif;
+	font-size:18pt;
+	font-weight:bold;
+	margin-bottom:20px;
+	border-bottom:1px solid #000;
+}
+
+.module_title_small {
+	font-family:arial, helvetica, sans-serif;
+	font-size:12pt;
+	font-weight:bold;
+	margin-bottom:20px;
+	height:30px;
+	border-bottom:1px solid #000;
+}
+
+.section_title {
+	font-family:arial, helvetica, sans-serif;
+	font-size:12pt;
+	font-weight:bold;
+	padding-bottom:10px;
+	margin-bottom:20px;
+	border-bottom:1px dotted #000;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+
+.divMainBody {
+	/* box-shadow: inset .5em 0 0 0 #f1f1f1; */
+
+}
+
+.content-body {
+	/* box-shadow: inset 0 0 .1em .1em #ebebeb; */
+	background:#fff;
+	/* border-radius: 10px; */
+}
+
+.sidebar {
+  height: 100%;
+  width: 0px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  /* box-shadow: 5px 5px #7c7b7b; */
+  /* box-shadow: inset 0 0 .5em .5em #f1f1f1 */
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 8px;
+  font-size: 14px;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  text-decoration:none;
+}
+
+.sidebar a:active {
+  text-decoration:none;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #2680d8; /* #605d5d; */
+  color: white;
+  padding: 10px 15px; 
+  border: none;
+}
+
+.openbtn:hover {
+  color: #fff;
+}
+
+.position_center {
+    position:fixed;
+    top: 40%;
+    left: 30%;
+    width:800px;
+    margin-top: -100px;
+    border: 1px solid #ccc;
+    padding:20px;
+    background:#fff;
+    display:none;
+}
+
+.popup-box {
+	display:none;
+	padding:10px;
+	border:1px solid #000;
+	background: #fff;
+	border-radius: 10px;
+	-moz-box-shadow: 8px 8px 4px #888; -webkit-box-shadow: 8px 8px 4px #888; box-shadow: 8px 8px 4px #888;
+}
+
+.shadow { -moz-box-shadow: 8px 8px 4px #888; -webkit-box-shadow: 8px 8px 4px #888; box-shadow: 8px 8px 4px #888; }
+
+
+.vertical-menu a {
+  /* color: #fff; */
+  color: #000;
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color: #ccc;
+  text-decoration:none;
+}
+
+.vertical-menu a:active {
+  background-color: #ccc;
+  text-decoration:none;
+}
+
+.vertical-menu span {
+	padding-left:20px;
+	/* color: #fff; */
+	color: #000;
+}
+
+.vertical-menu i {
+	/* color: #fff; */
+	color: #000;
+}
+
+
+#login-box {
+	background-color:#e6e9ed;
+	padding:20px; 
+	color:#000;
+
+}
+
+@media only screen and (max-width : 1000px){
+	
+	.divMainBody {
+		margin-left:0px;
+	
+	}
+	.sidebar {
+		width: 0px;
+	}
+	#portalSideMenu {
+		width: 0px;
+	}
+}

@@ -1,0 +1,6 @@
+
+<div>
+
+	#parse("apps/signUp/register.vm")
+
+</div>
