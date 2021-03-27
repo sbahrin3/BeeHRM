@@ -20,6 +20,9 @@ public class Job {
 	@Column(length=100)
 	private String name;
 	
+	@Column(length=50)
+	private String codeLevel;
+	
 	public Job() {
 		setId(lebah.util.UIDGenerator.getUID());
 	}
@@ -39,6 +42,15 @@ public class Job {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getCodeLevel() {
+		return codeLevel;
+	}
+
+	public void setCodeLevel(String codeLevel) {
+		this.codeLevel = codeLevel;
+	}
+	
 	
 	
 
