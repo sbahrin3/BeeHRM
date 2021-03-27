@@ -1,4 +1,4 @@
-package test;
+package hrm.setup;
 
 import lebah.db.entity.Persistence;
 import lebah.db.entity.Role;

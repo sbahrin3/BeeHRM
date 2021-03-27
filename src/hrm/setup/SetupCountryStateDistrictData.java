@@ -1,4 +1,4 @@
-package test;
+package hrm.setup;
 
 import hrm.entity.Country;
 import hrm.entity.District;
