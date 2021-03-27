@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -24,14 +25,19 @@ public class Employee {
 	
 	@Id @Column(name="id", length=100)
 	private String id;
+	
 	@Column(length=150)
 	private String name;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy="employee")
-	private List<EmployeeAssignment> assignments = new ArrayList<>();
+	private List<EmployeeJob> jobs = new ArrayList<>();
 	
 	@ManyToOne @JoinColumn(name="department_id")
 	private Department department;
+	
+	@Embedded
+    private Address address;
+	
 	
 	
 	public Employee() {
@@ -51,14 +57,6 @@ public class Employee {
 		this.name = name;
 	}
 
-	public List<EmployeeAssignment> getAssignments() {
-		return assignments;
-	}
-
-	public void setAssignments(List<EmployeeAssignment> assignments) {
-		this.assignments = assignments;
-	}
-
 	public Department getDepartment() {
 		return department;
 	}
@@ -66,6 +64,24 @@ public class Employee {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<EmployeeJob> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(List<EmployeeJob> jobs) {
+		this.jobs = jobs;
+	}
+	
+	
 	
 	
 }
