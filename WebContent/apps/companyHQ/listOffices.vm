@@ -1,0 +1,34 @@
+<table class="table">
+	
+	<thead>
+		<tr>
+			<th style="width:10px"></th>
+			<th>Office Name</th>
+			<th style="text-align:center">Principal</th>
+			<th>Location</th>
+			<th></th>
+		</tr>
+    </thead>
+	
+	<tbody>
+	#foreach ( $office in $company.offices )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$!office.name</td>
+			<td style="text-align:center">#if ( $office.principal) Yes #end</td>
+			<td>
+				#if ( $office.address.district )
+					$office.address.district.name, $office.address.district.state.name
+				#end
+			</td>
+			<td style="text-align:right">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editOffice','div_office','officeId=$!office.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+			</td>
+        </tr>
+	#end
+    </tbody>
+</table>
+	
+<div class="form-group" style="text-align:left">
+	<button type="button" class="btn btn-success" onclick="sendAjax('addNewOffice','div_office','companyId=$!company.id')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add Office </button>
+</div>	

@@ -32,7 +32,7 @@ public class Office {
 	@Column(length=150)
 	private String name;
 	
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "contacts",
             joinColumns = {@JoinColumn(name = "office_id")},
@@ -88,6 +88,7 @@ public class Office {
 	}
 
 	public Address getAddress() {
+		if ( address == null ) address = new Address();
 		return address;
 	}
 

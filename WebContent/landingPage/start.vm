@@ -1,17 +1,20 @@
 
 <div style="padding:10px;">
-<div class="jumbotron well" style="margin-top:20px">
-  <h2>Light and Easy Business Architecture &reg;</h2>      
-  <p>
-  A Modular Content Collaboration Development Framework using the Java Technology.
-  </p>
-</div>
+	
 <div class="jumbotron well">
   <h2>BeeHRM - Human Resource Management System</h2>      
   <p>
   	An Open Source HRM Solutions.
   </p>
 </div>
+
+<div class="jumbotron well" style="margin-top:20px">
+  <h2>Light and Easy Business Architecture &reg;</h2>      
+  <p>
+  A Modular Content Collaboration Development Framework using the Java Technology.
+  </p>
+</div>
+
 
 </div>
 

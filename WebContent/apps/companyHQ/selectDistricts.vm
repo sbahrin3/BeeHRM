@@ -1,0 +1,5 @@
+	<select name="districtId" class="form-control">
+		#foreach ( $district in $districts )
+			<option value="$district.id" #if ( $office.address.district.id == "$district.id" ) selected #end>$district.name</option>
+		#end
+	</select>
