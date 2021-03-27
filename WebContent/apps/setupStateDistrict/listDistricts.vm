@@ -1,0 +1,29 @@
+<div class="section_title">
+	<button type="button" class="btn btn-link" onclick="sendAjax('listCountries','div_main','')">$state.country.name</button>
+	&gt;
+	<button type="button" class="btn btn-link" onclick="sendAjax('listStates','div_main','countryId=$state.country.id')">$state.name</button>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th style="width:20px"></th>
+			<th>Code</th>
+			<th>Name</th>
+			<th style="text-align:right">Action</th>
+		</tr> 
+	</thead>
+	<tbody>
+		#foreach( $district in $districts )
+			<tr>
+				<td>$velocityCount.</td>
+    			<td>$district.id</td> 
+    			<td>$district.name</td> 
+    			<td style="text-align:right">
+    				
+    			</td> 
+			</tr>
+		#end	
+    </tbody>
+</table>
+	

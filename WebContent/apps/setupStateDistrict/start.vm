@@ -1,0 +1,5 @@
+<div class="module_title">States & Districts</div>
+	
+<div id="div_main">
+	#parse("apps/setupStateDistrict/listCountries.vm")
+</div>

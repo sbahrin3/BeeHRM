@@ -42,6 +42,10 @@ public abstract class Company {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="parent")
 	private List<Company> branches = new ArrayList<>();
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="company")
+	private List<Department> departments = new ArrayList<>();
+	
 
 	@ManyToOne  @JoinColumn(name="parent_id")
 	private Company parent;
@@ -91,6 +95,18 @@ public abstract class Company {
 	public void setBranches(List<Company> branches) {
 		this.branches = branches;
 	}
+	
+	
+
+	public List<Department> getDepartments() {
+		return departments;
+	}
+
+
+	public void setDepartments(List<Department> departments) {
+		this.departments = departments;
+	}
+
 
 	public Company getParent() {
 		return parent;

@@ -30,12 +30,14 @@ public class SalaryConfig {
 	@Column(length=200)
 	private String description;
 	
-	private double grossAmount;
-	private double allowanceAmount;
-	private double netAmount;
-	
 	@OneToMany  (fetch = FetchType.LAZY, mappedBy="salaryConfig")
 	private List<SalaryDeductionItem> deductions = new ArrayList<>();
+	
+	@OneToMany  (fetch = FetchType.LAZY, mappedBy="salaryConfig")
+	private List<SalaryAllowance> allowances = new ArrayList<>();
+	
+	private double grossAmount;
+	private double netAmount;
 	
 	public SalaryConfig() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -81,12 +83,14 @@ public class SalaryConfig {
 		this.grossAmount = grossAmount;
 	}
 
-	public double getAllowanceAmount() {
-		return allowanceAmount;
+
+
+	public List<SalaryAllowance> getAllowances() {
+		return allowances;
 	}
 
-	public void setAllowanceAmount(double allowanceAmount) {
-		this.allowanceAmount = allowanceAmount;
+	public void setAllowances(List<SalaryAllowance> allowances) {
+		this.allowances = allowances;
 	}
 
 	public double getNetAmount() {
@@ -95,18 +99,26 @@ public class SalaryConfig {
 	}
 
 	public double calculateDeductionAmount() {
-		double totalDeduct = 0.0d;
+		double total = 0.0d;
 		for ( SalaryDeductionItem item : deductions  ) {
 			double rate = item.getRate();
 			double amountDeduct = grossAmount * rate;
-			totalDeduct -= amountDeduct;
+			total += amountDeduct;
 		}
-		return totalDeduct;
+		return total;
+	}
+	
+	public double calculateAllowanceAmount() {
+		double total = 0.0d;
+		for ( SalaryAllowance allowance : allowances) {
+			total += allowance.getAmount();
+		}
+		return total;
 	}
 	
 
 	private void calculateNetAmount() {
-		netAmount = (grossAmount + allowanceAmount) - calculateDeductionAmount();
+		netAmount = grossAmount + calculateAllowanceAmount() - calculateDeductionAmount();
 	}
 		
 

@@ -42,7 +42,7 @@
 <div id="portalSideMenu" class="sidebar">
 
 	<div class="sidebar-title" onclick="closeNav()">
-  		&nbsp; LEBAH 
+  		&nbsp; BeeHRM
   	</div>
   	
 	#if ( $_logged_in )

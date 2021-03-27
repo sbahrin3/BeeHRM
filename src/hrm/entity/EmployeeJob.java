@@ -27,8 +27,8 @@ public class EmployeeJob {
 	@ManyToOne @JoinColumn(name="employee_id")
 	private Employee employee;
 	
-	@ManyToOne @JoinColumn(name="company_id")
-	private Company company;
+	@ManyToOne @JoinColumn(name="department_id")
+	private Department department;
 	
 	@ManyToOne @JoinColumn(name="job_id")
 	private Job job;
@@ -61,13 +61,13 @@ public class EmployeeJob {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
-
-	public Company getCompany() {
-		return company;
+	
+	public Department getDepartment() {
+		return department;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public Job getJob() {
@@ -107,7 +107,7 @@ public class EmployeeJob {
 	}
 	
 	public double getAllowanceAmount() {
-		return this.salaryConfig.getAllowanceAmount();
+		return this.salaryConfig.calculateAllowanceAmount();
 	}
 	
 	public double getNetSalaryAmount() {

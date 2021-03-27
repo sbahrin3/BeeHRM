@@ -1,0 +1,22 @@
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Code</th>
+			<th>Name</th>
+			<th style="text-align:right">Action</th>
+		</tr> 
+	</thead>
+	<tbody>
+		#foreach( $country in $countries )
+			<tr>
+    			<td>$country.id</td> 
+    			<td>$country.name</td> 
+    			<td style="text-align:right">
+    				<button type="button" class="btn btn-primary" onclick="sendAjax('listStates','div_main','countryId=$!country.id')">States...</button>
+    			</td> 
+			</tr>
+		#end	
+    </tbody>
+</table>
+	

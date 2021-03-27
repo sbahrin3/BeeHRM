@@ -32,9 +32,6 @@ public class Employee {
 	@OneToMany (fetch = FetchType.LAZY, mappedBy="employee")
 	private List<EmployeeJob> jobs = new ArrayList<>();
 	
-	@ManyToOne @JoinColumn(name="department_id")
-	private Department department;
-	
 	@Embedded
     private Address address;
 	
@@ -55,14 +52,6 @@ public class Employee {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
 	}
 
 	public Address getAddress() {
