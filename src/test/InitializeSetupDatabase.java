@@ -4,12 +4,15 @@ import lebah.db.entity.Persistence;
 import lebah.db.entity.Role;
 import lebah.db.entity.User;
 
-public class InitDb {
+public class InitializeSetupDatabase {
 	
 	public static void main(String[] args) throws Exception {
 		
 		createRoles();
 		createAdmin();
+		SetupCountryStateDistrictData.run();
+		
+		Persistence.db().close();
 		
 	}
 	
