@@ -1,0 +1,6 @@
+<div class="module_title">Jobs</div>
+	
+<div id="div_main">
+	#parse("apps/setupJob/listJobs.vm")
+	
+</div>

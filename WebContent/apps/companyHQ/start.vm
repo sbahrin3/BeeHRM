@@ -1,4 +1,4 @@
-<div class="module_title">Company HQ</div>
+<div class="module_title">Holding Company</div>
 	
 <div id="div_main">
 	#parse("apps/companyHQ/companyHQ.vm")

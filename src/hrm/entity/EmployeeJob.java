@@ -3,11 +3,11 @@ package hrm.entity;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,8 +39,10 @@ public class EmployeeJob {
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 	
-	@OneToOne @JoinColumn(name="salary_config_id")
-	private SalaryConfig salaryConfig; 
+	@Embedded
+	private Salary salary;
+	
+
 	
 	public EmployeeJob() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -94,28 +96,15 @@ public class EmployeeJob {
 		this.endDate = endDate;
 	}
 
-	public SalaryConfig getSalaryConfig() {
-		return salaryConfig;
+	public Salary getSalary() {
+		if ( salary == null ) salary = new Salary();
+		return salary;
 	}
 
-	public void setSalaryConfig(SalaryConfig salaryConfig) {
-		this.salaryConfig = salaryConfig;
+	public void setSalary(Salary salary) {
+		this.salary = salary;
 	}
-	
-	public double getGrossSalaryAmount() {
-		return this.salaryConfig.getGrossAmount();
-	}
-	
-	public double getAllowanceAmount() {
-		return this.salaryConfig.calculateAllowanceAmount();
-	}
-	
-	public double getNetSalaryAmount() {
-		return this.salaryConfig.getNetAmount();
-	}
-	
-	public double getDeductionsAmount() {
-		return this.salaryConfig.calculateDeductionAmount();
-	}
+
+
 	
 }

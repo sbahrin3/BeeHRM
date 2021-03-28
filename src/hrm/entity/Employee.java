@@ -26,6 +26,9 @@ public class Employee {
 	@Id @Column(name="id", length=100)
 	private String id;
 	
+	@Column(length=50)
+	private String idNumber;
+	
 	@Column(length=150)
 	private String name;
 	
@@ -68,6 +71,14 @@ public class Employee {
 
 	public void setJobs(List<EmployeeJob> jobs) {
 		this.jobs = jobs;
+	}
+
+	public String getIdNumber() {
+		return idNumber;
+	}
+
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
 	}
 	
 	

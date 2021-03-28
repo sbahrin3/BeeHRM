@@ -28,6 +28,8 @@ public class SalaryDeductionItem {
 			
 	private double rate; //rate in percent, eg. 0.05 
 	
+	private int deductionType; // 0 - from basic salary, 1 - from gross salary
+	
 	@ManyToOne @JoinColumn(name="salary_config_id")
 	private SalaryConfig salaryConfig;
 	
@@ -73,6 +75,14 @@ public class SalaryDeductionItem {
 
 	public void setSalaryConfig(SalaryConfig salaryConfig) {
 		this.salaryConfig = salaryConfig;
+	}
+
+	public int getDeductionType() {
+		return deductionType;
+	}
+
+	public void setDeductionType(int deductionType) {
+		this.deductionType = deductionType;
 	}
 	
 	

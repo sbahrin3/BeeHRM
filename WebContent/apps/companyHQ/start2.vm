@@ -1,4 +1,4 @@
-<div class="module_title">Company Subsidiaries</div>
+<div class="module_title">Subsidiary Companies</div>
 	
 <div id="div_main">
 	#parse("apps/companyHQ/listCompanies.vm")

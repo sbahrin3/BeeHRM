@@ -19,6 +19,10 @@ public class Job {
 	
 	@Id @Column(name="id", length=200)
 	private String id;
+	
+	@Column(length=20)
+	private String code;
+	
 	@Column(length=100)
 	private String name;
 	
@@ -52,6 +56,14 @@ public class Job {
 
 	public void setJobLevel(JobLevel jobLevel) {
 		this.jobLevel = jobLevel;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 

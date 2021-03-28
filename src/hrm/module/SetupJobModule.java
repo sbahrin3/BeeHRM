@@ -28,6 +28,7 @@ public class SetupJobModule extends LebahUserModule {
 	public String listJobs() {
 		
 		List<Job> jobs = db.list("select j from Job j order by j.jobLevel.levelOrder");
+		context.put("jobs", jobs);
 		return path + "/listJobs.vm";
 	}
 	
@@ -47,6 +48,7 @@ public class SetupJobModule extends LebahUserModule {
 		
 		Job job = new Job();
 		job.setJobLevel(jobLevel);
+		job.setCode(getParam("jobCode"));
 		job.setName(getParam("jobName"));
 		
 		db.save(job);
@@ -72,6 +74,7 @@ public class SetupJobModule extends LebahUserModule {
 		
 		Job job = db.find(Job.class, getParam("jobId"));
 		job.setJobLevel(jobLevel);
+		job.setCode(getParam("jobCode"));
 		job.setName(getParam("jobName"));
 		
 		db.update(job);

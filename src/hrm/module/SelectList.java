@@ -1,11 +1,16 @@
 package hrm.module;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.velocity.VelocityContext;
 
 import hrm.entity.Address;
+import hrm.entity.Company;
+import hrm.entity.CompanyHQ;
+import hrm.entity.Department;
 import hrm.entity.District;
+import hrm.entity.Job;
 import hrm.entity.State;
 import lebah.db.entity.Persistence;
 
@@ -30,6 +35,28 @@ public class SelectList {
 		} else {
 			context.remove("districts");
 		}
+	}
+	
+	public static void listCompanies(VelocityContext context) {
+		List<Company> companies = new ArrayList<>();
+		CompanyHQ companyHq = Persistence.db().find(CompanyHQ.class, "HQ");
+		companies.add(companyHq);
+		
+		List<Company> subs = Persistence.db().list("select c from Company c where c.parent.id = '" + companyHq.getId() + "'");
+		companies.addAll(subs);
+		
+		context.put("companies", companies);
+		
+	}
+	
+	public static void listDepartments(VelocityContext context, String companyId) {
+		List<Department> departments = Persistence.db().list("select d from Department d where d.company.id = '" + companyId + "'");
+		context.put("departments", departments);
+	}
+	
+	public static void listJobs(VelocityContext context) {
+		List<Job> jobs = Persistence.db().list("select j from Job j order by j.jobLevel.levelOrder");
+		context.put("jobs", jobs);
 	}
 
 }
