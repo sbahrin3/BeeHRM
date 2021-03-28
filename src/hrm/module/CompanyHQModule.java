@@ -2,8 +2,10 @@ package hrm.module;
 
 import java.util.List;
 
+import hrm.entity.Address;
 import hrm.entity.Company;
 import hrm.entity.CompanyHQ;
+import hrm.entity.Department;
 import hrm.entity.District;
 import hrm.entity.Office;
 import hrm.entity.State;
@@ -59,20 +61,9 @@ public class CompanyHQModule extends LebahUserModule {
 		return path + "/companyHQ.vm";
 	}
 	
-	private void listStates(String countryId) {
-		List<State> states = db.list("select s from State s where s.country.id = '" + countryId + "' order by s.id");
-		context.put("states", states);
-		
-	}
-	
-	private void listDistricts(String stateId) {
-		List<District> districts = db.list("select d from District d where d.state.id = '" + stateId + "' order by d.id");
-		context.put("districts", districts);
-	}
-	
 	@Command("selectDistricts")
 	public String selectDistricts() {
-		listDistricts(getParam("stateId"));
+		SelectList.listDistricts(context, getParam("stateId"));
 		return path + "/selectDistricts.vm";
 	}
 	
@@ -82,8 +73,9 @@ public class CompanyHQModule extends LebahUserModule {
 		Company company = db.find(Company.class, getParam("companyId"));
 		context.put("company", company);
 		context.remove("office");
+		context.remove("districts");
 		
-		listStates("MAS");
+		SelectList.listStates(context, "MAS");
 		return path + "/office.vm";
 	}
 	
@@ -119,7 +111,8 @@ public class CompanyHQModule extends LebahUserModule {
 		context.put("office", office);
 		context.put("company", office.getCompany());
 		
-		listStates("MAS");
+		SelectList.listStates(context, "MAS");
+		SelectList.listDistricts(context, office.getAddress());
 		return path + "/office.vm";
 	}
 	
@@ -140,10 +133,113 @@ public class CompanyHQModule extends LebahUserModule {
 		
 		db.update(office);
 		
-		listStates("MAS");
+		SelectList.listStates(context, "MAS");
 		return path + "/listOffices.vm";
 	}
 	
+	@Command("deleteOffice")
+	public String deleteOffice() {
+		
+		context.remove("delete_error");
+		
+		Office office = db.find(Office.class, getParam("officeId"));
+		Company company = office.getCompany();
+		context.put("company", company);
+		
+		try {
+			db.delete(office);
+			company.getOffices().remove(office);
+			db.update(company);
+		} catch ( Exception e ) {
+			context.put("delete_error", "Constraint violation... can't delete!");
+		}
+
+		
+		return path + "/listOffices.vm";
+	}
 	
+	@Command("listOffices")
+	public String listOffices() {
+		Company company = db.find(Company.class, getParam("companyId"));
+		context.put("company", company);
+		return path + "/listOffices.vm";
+	}
+	
+	@Command("listDepartments")
+	public String listDepartments() {
+		Company company = db.find(Company.class, getParam("companyId"));
+		context.put("company", company);
+		return path + "/listDepartments.vm";
+	}
+	
+	@Command("addNewDepartment")
+	public String addNewDepartment() {
+		Company company = db.find(Company.class, getParam("companyId"));
+		context.put("company", company);
+		context.remove("department");
+		return path + "/department.vm";
+	}
+	
+	@Command("saveNewDepartment")
+	public String saveNewDepartment() {
+		Company company = db.find(Company.class, getParam("companyId"));
+		context.put("company", company);
+		
+		Department department = new Department();
+		department.setCompany(company);
+		department.setName(getParam("departmentName"));
+		
+		db.save(department);
+		
+		company.getDepartments().add(department);
+		db.update(company);
+		
+		return path + "/listDepartments.vm";
+	}
+	
+	@Command("editDepartment")
+	public String editDepartment() {
+		Department department = db.find(Department.class, getParam("departmentId"));
+		context.put("department", department);
+		context.put("company", department.getCompany());
+		
+		return path + "/department.vm";
+	}
+	
+	@Command("updateDepartment")
+	public String updateDepartment() {
+		
+		Department department = db.find(Department.class, getParam("departmentId"));
+		context.put("department", department);
+		
+		department.setName(getParam("departmentName"));
+		db.update(department);
+		
+		Company company = department.getCompany();
+		context.put("company", company);
+		
+		return path + "/listDepartments.vm";
+	}
+	
+	@Command("deleteDepartment")
+	public String deleteDepartment() {
+		
+		context.remove("delete_error");
+		
+		Department department = db.find(Department.class, getParam("departmentId"));
+		Company company = department.getCompany();
+		context.put("company", company);
+		
+		try {
+			db.delete(department);
+		
+			company.getDepartments().remove(department);
+			db.update(company);
+		} catch ( Exception e ) {
+			context.put("delete_error", "Constraint violation... can't delete!");
+		}
+
+		return path + "/listDepartments.vm";
+	}
 
 }

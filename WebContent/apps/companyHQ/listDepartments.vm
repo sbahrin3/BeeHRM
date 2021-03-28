@@ -1,0 +1,37 @@
+<table class="table">
+	
+	<thead>
+		<tr>
+			<th style="width:10px"></th>
+			<th>Department Name</th>
+			<th></th>
+		</tr>
+    </thead>
+	
+	<tbody>
+	#foreach ( $dept in $company.departments )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$!dept.name</td>
+			<td style="text-align:right">
+				<div class="btn-group">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax2('editDepartment','div_dept','departmentId=$!dept.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteDepartment','div_dept','departmentId=$dept.id')">
+    				<i class="fa fa-trash-o" aria-hidden="true"></i>
+    			</button>
+				</div>
+			</td>
+        </tr>
+	#end
+    </tbody>
+</table>
+	
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-success" onclick="sendAjax2('addNewDepartment','div_dept','companyId=$!company.id')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add Department </button>
+</div>	
+
+#if ( $command == "deleteDepartment" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

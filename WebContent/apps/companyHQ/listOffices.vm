@@ -3,8 +3,8 @@
 	<thead>
 		<tr>
 			<th style="width:10px"></th>
+			<th style="width:100px">Principal</th>
 			<th>Office Name</th>
-			<th style="text-align:center">Principal</th>
 			<th>Location</th>
 			<th></th>
 		</tr>
@@ -14,21 +14,32 @@
 	#foreach ( $office in $company.offices )
 		<tr>
 			<td>$velocityCount.</td>
+			<td>#if ( $office.principal) Yes #end</td>
 			<td>$!office.name</td>
-			<td style="text-align:center">#if ( $office.principal) Yes #end</td>
 			<td>
 				#if ( $office.address.district )
 					$office.address.district.name, $office.address.district.state.name
 				#end
 			</td>
 			<td style="text-align:right">
-				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editOffice','div_office','officeId=$!office.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<div class="btn-group">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax2('editOffice','div_office','officeId=$!office.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    			<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteOffice','div_office','officeId=$office.id')">
+    				<i class="fa fa-trash-o" aria-hidden="true"></i>
+    			</button>
+				</div>
 			</td>
         </tr>
 	#end
     </tbody>
 </table>
 	
-<div class="form-group" style="text-align:left">
-	<button type="button" class="btn btn-success" onclick="sendAjax('addNewOffice','div_office','companyId=$!company.id')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add Office </button>
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-success" onclick="sendAjax2('addNewOffice','div_office','companyId=$!company.id')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add Office </button>
 </div>	
+
+#if ( $command == "deleteOffice" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

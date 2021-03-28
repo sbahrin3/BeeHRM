@@ -1,0 +1,39 @@
+
+<table class="table">
+	
+	<thead>
+		<tr>
+			<th style="width:10px"></th>
+			<th>Company Name</th>
+			<th>Company Registration Number</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach( $company in $companies )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$company.name</td>
+			<td>$company.registrationNumber</td>
+			<td style="text-align:right">
+				<div class="btn-group">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editCompany','div_main','companyId=$!company.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteCompany','div_main','companyId=$company.id')">
+    				<i class="fa fa-trash-o" aria-hidden="true"></i>
+    			</button>
+				</div>
+			</td>
+		</tr>
+	#end
+	</tbody>
+</table>
+	
+<div class="form-group" style="text-align:left">
+	<button type="button" class="btn btn-success" onclick="sendAjax('addNewCompany','div_main','')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add </button>
+</div>	
+
+#if ( $command == "deleteCompany" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

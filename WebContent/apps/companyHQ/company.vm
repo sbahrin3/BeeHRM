@@ -10,14 +10,18 @@
 </div>
 	
 <div class="form-group" style="text-align:right">
-	<button type="button" class="btn btn-link" onclick="sendAjax('getCompanyHQ','div_main','')"><span><i class="fa fa-pencil-times" aria-hidden="true"></i></span> Cancel</button>
-	<button type="button" class="btn btn-primary" onclick="saveData('saveCompanyHQ','div_main','')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Save </button>
+	<button type="button" class="btn btn-link" onclick="sendAjax('listCompanies','div_main','')"><span><i class="fa fa-pencil-times" aria-hidden="true"></i></span> Cancel</button>
+	#if ( $company )
+		<button type="button" class="btn btn-primary" onclick="saveData('updateCompany','div_main','companyId=$!company.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Update </button>
+	#else
+		<button type="button" class="btn btn-primary" onclick="saveData('saveNewCompany','div_main','')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Save </button>
+	#end
 </div>
 	
 
 #if ( $company )
 	
-	<div class="section_title">Office</div>
+	<div class="section_title">Offices</div>
 	
 	<div id="div_office">
 		#if ( $company.offices.size() == 0 )
@@ -41,7 +45,7 @@
 				No Department Yet.  Please Add.
 			</div>
 			<div class="form-group" style="text-align:right">
-				<button type="button" class="btn btn-success" onclick="sendAjax2('addNewDepartment','div_dept','companyId=$!company.id')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add Department </button>
+				<button type="button" class="btn btn-success" onclick="sendAjax('addNewDepartment','div_dept','companyId=$!company.id')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add Department </button>
 			</div>	
 		#else
 			#parse("apps/companyHQ/listDepartments.vm")

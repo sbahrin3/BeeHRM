@@ -173,6 +173,11 @@
 		sendAjax(action, div, param);
 	}
 	
+	function saveData2(action, div, param) {
+		isScrollTop = false;
+		saveData(action, div, param);
+	}
+	
 	function toggleSubMenu(e) {
 		if ( document.getElementById(e).style.display == "none" ) {
 			_jq('#' + e).slideDown('slow');

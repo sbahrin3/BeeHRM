@@ -38,7 +38,7 @@ public class Office {
             joinColumns = {@JoinColumn(name = "office_id")},
             inverseJoinColumns = {@JoinColumn(name = "employee_id")}
     )
-	private List<Employee> contacts = new ArrayList<Employee>();
+	private List<Employee> contacts = new ArrayList<>();
 	
 	@ManyToOne @JoinColumn(name="company_id")
 	private Company company;
