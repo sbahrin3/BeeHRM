@@ -34,6 +34,7 @@
         <mapping class="hrm.entity.District" />
         <mapping class="hrm.entity.Employee" />
         <mapping class="hrm.entity.Job" />
+        <mapping class="hrm.entity.JobLevel" />
         <mapping class="hrm.entity.EmployeeJob" />
         <mapping class="hrm.entity.SalaryConfig" />
         <mapping class="hrm.entity.SalaryDeductionItem" />

@@ -1,0 +1,41 @@
+
+<table class="table">
+	
+	<thead>
+		<tr>
+			<th style="width:10px"></th>
+			<th>Code</th>
+			<th>Name</th>
+			<th>Order</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach( $jobLevel in $jobLevels )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$jobLevel.code</td>
+			<td>$jobLevel.name</td>
+			<td>$jobLevel.levelOrder</td>
+			<td style="text-align:right">
+				<div class="btn-group">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editJobLevel','div_main','jobLevelId=$!jobLevel.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteJobLevel','div_main','jobLevelId=$jobLevel.id')">
+    				<i class="fa fa-trash-o" aria-hidden="true"></i>
+    			</button>
+				</div>
+			</td>
+		</tr>
+	#end
+	</tbody>
+</table>
+	
+<div class="form-group" style="text-align:left">
+	<button type="button" class="btn btn-success" onclick="sendAjax('addNewJobLevel','div_main','')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add </button>
+</div>	
+
+#if ( $command == "deleteJobLevel" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

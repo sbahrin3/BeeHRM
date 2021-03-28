@@ -1,0 +1,5 @@
+<div class="module_title">Employee Job Level</div>
+	
+<div id="div_main">
+	#parse("apps/setupJobLevel/listJobLevels.vm")
+</div>

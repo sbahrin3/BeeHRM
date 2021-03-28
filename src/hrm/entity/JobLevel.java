@@ -3,10 +3,7 @@ package hrm.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 /**
  * 
@@ -14,19 +11,21 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="job")
-public class Job {
+@Table(name="job_level")
+public class JobLevel {
 	
 	@Id @Column(name="id", length=200)
 	private String id;
+	
+	@Column(length=10)
+	private String code;
+	
 	@Column(length=100)
 	private String name;
 	
-	@ManyToOne @JoinColumn(name="jobLevel_id")
-	private JobLevel jobLevel;
+	private int levelOrder; //0 - Director, 1 - Top Management, 2 - Middle Management, 3 - Exec. etc... user defined
 	
-	
-	public Job() {
+	public JobLevel() {
 		setId(lebah.util.UIDGenerator.getUID());
 	}
 
@@ -46,15 +45,22 @@ public class Job {
 		this.name = name;
 	}
 
-	public JobLevel getJobLevel() {
-		return jobLevel;
+	public int getLevelOrder() {
+		return levelOrder;
 	}
 
-	public void setJobLevel(JobLevel jobLevel) {
-		this.jobLevel = jobLevel;
+	public void setLevelOrder(int level) {
+		this.levelOrder = level;
 	}
 
+	public String getCode() {
+		return code;
+	}
 
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
 	
 
 }
