@@ -47,8 +47,8 @@
   		<div style="border-bottom:1px solid #000"></div>
 
 	  	<a href="javascript:toggleSubMenu('sub-menu-admin')">
-	  		<i class="fa fa-gavel fa-fw" aria-hidden="true"></i>
-	  		<span style="font-weight:bold">Admin</span>
+	  		<i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
+	  		<span style="font-weight:bold">System</span>
 	  		<span style="float:right" id="icon-sub-menu-admin">
 	  			<i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
 	  		</span>
