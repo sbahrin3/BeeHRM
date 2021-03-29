@@ -1,0 +1,22 @@
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Job Title</th>
+			<th>Department</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+			<th></th>
+		<//tr>
+    </thead>
+	<tbody >
+		#foreach ( $employeeJob in $employee.jobs )
+			<tr>
+				<td>$employeeJob.job.name</td>
+				<td>$employeeJob.department.name</td>
+				<td></td>
+				<td></td>
+			</tr>
+		#end
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+
+<div class="form-group">
+	<label>Name</label>
+	<input  name="deductionName" value="$!deduction.name" data-required="true" data-msg="Please enter Name" type="text" class="form-control">
+</div>
+
+<div class="form-group">
+	<label>Description</label>
+	<input  name="deductionDescription" value="$!deduction.description" data-required="true" data-msg="Please enter Description" type="text" class="form-control">
+</div>
+
+<div class="form-group">
+	<label>Use Rate?</label>
+	<select  name="isUseRate" class="form-control">
+		<option value="1" #if ( $deduction.useRate ) selected #end>Yes - use rate to calculate the deduction amount.</option> 
+		<option value="0" #if ( !$deduction.useRate ) selected #end>No - use the deduction amount specified here</option>
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Rate on Basic Only?</label>
+	<select  name="isRateOnBasicOnly" class="form-control">
+		<option value="1" #if ( $deduction.rateOnBasicOnly ) selected #end>Yes - calculate deduction rate on Basic Salary only</option> 
+		<option value="0" #if ( !$deduction.rateOnBasicOnly ) selected #end>No - calculate deduction rate on Gross Salary</option>
+	</select>
+</div>
+
+<div class="form-group">
+	<label>Rate (in percentage)</label>
+	<input  name="deductionRate" value="$!deduction.rate" type="text" class="form-control">
+</div>
+
+<div class="form-group">
+	<label>Amount</label>
+	<input  name="deductionAmount" value="$!deduction.amount" type="text" class="form-control">
+</div>
+
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-link" onclick="sendAjax('listDeductions','div_main','')"><span><i class="fa fa-pencil-times" aria-hidden="true"></i></span> Cancel</button>	
+	#if ( $deduction )
+		<button type="button" class="btn btn-primary" onclick="saveData('updateDeduction','div_main','deductionId=$!deduction.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Update </button>		
+	#else
+		<button type="button" class="btn btn-primary" onclick="saveData('saveNewDeduction','div_main','')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Save </button>
+	#end
+</div>

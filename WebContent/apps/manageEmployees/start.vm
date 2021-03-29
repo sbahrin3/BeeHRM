@@ -1,0 +1,7 @@
+<div class="module_title">Employees</div>
+	
+<div id="div_main">
+	
+	#parse("apps/manageEmployees/listEmployees.vm")
+	
+</div>

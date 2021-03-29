@@ -1,0 +1,7 @@
+<div class="module_title">Salary Deductions</div>
+	
+<div id="div_main">
+	
+	#parse("apps/setupSalaryDeductions/listDeductions.vm")
+	
+</div>

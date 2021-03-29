@@ -48,15 +48,13 @@ public class ManageEmployeesModule extends LebahUserModule {
 	@Command("saveNewEmployee")
 	public String saveNewEmployee() {
 		
-		Department department = db.find(Department.class, getParam("departmentId"));
-		Job job = db.find(Job.class, getParam("jobId"));
-		
-		EmployeeJob employeeJob = new EmployeeJob();
-		
 		Employee employee = new Employee();
 		employee.setName(getParam("employeeName"));
 		employee.setIdNumber(getParam("employeeIdNumber"));
 		
+		db.save(employee);
+		
+		context.put("employee", employee);
 		
 		return path + "/employee.vm";
 	}
@@ -64,11 +62,22 @@ public class ManageEmployeesModule extends LebahUserModule {
 	@Command("editEmployee")
 	public String editEmployee() {
 		
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		
 		return path + "/employee.vm";
 	}
 
 	@Command("updateEmployee")
 	public String updateEmployee() {
+		
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		employee.setName(getParam("employeeName"));
+		employee.setIdNumber(getParam("employeeIdNumber"));
+		
+		db.update(employee);
+		
+		context.put("employee", employee);
 		
 		return path + "/employee.vm";
 	}
@@ -76,6 +85,37 @@ public class ManageEmployeesModule extends LebahUserModule {
 	@Command("deleteEmployee")
 	public String deleteEmployee() {
 		
+		context.remove("delete_error");
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		try {
+			db.delete(employee);
+		} catch ( Exception e ) {
+			context.put("delete_error", "Constraint violation... can't delete!");
+		}
+		
 		return listEmployees();
 	}
+	
+	@Command("listEmployeeJobs")
+	public String listEmployeeJobs() {
+		
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		
+		return path + "/listEmployeeJobs.vm";
+	}
+	
+	@Command("addNewEmployeeJob")
+	public String addNewEmployeeJob() {
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		
+		SelectList.listCompanies(context);
+		SelectList.listJobs(context);
+		
+		return path + "/employeeJob.vm";
+		
+	}
+	
+
 }

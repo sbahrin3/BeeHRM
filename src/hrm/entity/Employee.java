@@ -81,7 +81,17 @@ public class Employee {
 		this.idNumber = idNumber;
 	}
 	
+	public Job getJob() {
+		if ( jobs.size() > 0 ) 
+			return jobs.get(0).getJob();
+		return null;
+	}
 	
+	public Department getDepartmet() {
+		if ( jobs.size() > 0 )
+			return jobs.get(0).getDepartment();
+		return null;
+	}
 	
 	
 }

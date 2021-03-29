@@ -49,8 +49,14 @@ public class Salary {
 		double grossAmount_ = getGrossAmount();
 		double total = 0.0d;
 		for ( SalaryDeductionItem item : salaryConfig.getDeductions()  ) {
-			double rate = item.getRate();
-			double amountDeduct = item.getDeductionType() == 0 ? basicAmount * rate : grossAmount_ * rate;;
+			double amountDeduct = 0;
+			
+			if ( item.isUseRate() ) 
+				amountDeduct = item.isRateOnBasicOnly() ? basicAmount * item.getRate() : grossAmount_ * item.getRate();
+			else 
+				amountDeduct = item.getAmount();
+			
+					
 			total += amountDeduct;
 		}
 		return total;

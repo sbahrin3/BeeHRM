@@ -26,10 +26,12 @@ public class SalaryDeductionItem {
 	@Column(length=200)
 	private String description;
 			
-	private double rate; //rate in percent, eg. 0.05 
+	private int useRate;
+	private int rate; //rate in percent.  50 mean .50
+	private double amount; //deduct amount if not using rate
 	
-	private int deductionType; // 0 - from basic salary, 1 - from gross salary
-	
+	private int rateOnBasicOnly; 
+		
 	@ManyToOne @JoinColumn(name="salary_config_id")
 	private SalaryConfig salaryConfig;
 	
@@ -61,11 +63,11 @@ public class SalaryDeductionItem {
 		this.description = description;
 	}
 
-	public double getRate() {
+	public int getRate() {
 		return rate;
 	}
 
-	public void setRate(double rate) {
+	public void setRate(int rate) {
 		this.rate = rate;
 	}
 
@@ -77,14 +79,31 @@ public class SalaryDeductionItem {
 		this.salaryConfig = salaryConfig;
 	}
 
-	public int getDeductionType() {
-		return deductionType;
+	public boolean isUseRate() {
+		return useRate == 1;
 	}
 
-	public void setDeductionType(int deductionType) {
-		this.deductionType = deductionType;
+	public void setUseRate(boolean useRate) {
+		this.useRate = useRate ? 1 : 0;
 	}
-	
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public boolean isRateOnBasicOnly() {
+		return rateOnBasicOnly == 1;
+	}
+
+	public void setRateOnBasicOnly(boolean rateOnBasicOnly) {
+		this.rateOnBasicOnly = rateOnBasicOnly ? 1 : 0;
+	}
+
+
 	
 
 }

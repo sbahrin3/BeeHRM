@@ -22,6 +22,9 @@ public class SalaryAllowance {
 	@Column(length=20)
 	private String code;
 	
+	@Column(length=100)
+	private String name;
+	
 	@Column(length=200)
 	private String description;
 	
@@ -48,6 +51,16 @@ public class SalaryAllowance {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+	
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
