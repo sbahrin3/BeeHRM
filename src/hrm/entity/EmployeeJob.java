@@ -42,10 +42,11 @@ public class EmployeeJob {
 	@Embedded
 	private Salary salary;
 	
-
+	private int primaryJob;
 	
 	public EmployeeJob() {
 		setId(lebah.util.UIDGenerator.getUID());
+		salary = new Salary();
 	}
 
 	public String getId() {
@@ -105,6 +106,14 @@ public class EmployeeJob {
 		this.salary = salary;
 	}
 
+	public boolean isPrimaryJob() {
+		return primaryJob == 1;
+	}
 
+	public void setPrimaryJob(boolean primaryJob) {
+		this.primaryJob = primaryJob ? 1 : 0;
+	}
+
+	
 	
 }

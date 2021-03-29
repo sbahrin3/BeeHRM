@@ -1,22 +1,38 @@
 
 <table class="table">
-	<thead>
-		<tr>
-			<th>Job Title</th>
-			<th>Department</th>
-			<th>Start Date</th>
-			<th>End Date</th>
-			<th></th>
-		<//tr>
-    </thead>
+	
 	<tbody >
 		#foreach ( $employeeJob in $employee.jobs )
 			<tr>
-				<td>$employeeJob.job.name</td>
-				<td>$employeeJob.department.name</td>
-				<td></td>
-				<td></td>
+				<td>
+					$employeeJob.job.name<br/>
+					$employeeJob.department.name<br/>
+					$employeeJob.department.company.name<br/>
+					#if ( $employee.jobs.size() > 1 && $employeeJob.primaryJob )
+						Primary Job
+					#end
+					
+    			<td style="text-align:right">
+    				<div class="btn-group">
+    				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax2('editEmployeeJob','div_jobs','employeeJobId=$!employeeJob.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+    				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteEmployeeJob','div_jobs','employeeJobId=$!employeeJob.id&employeeId=$!employee.id')">
+        				<i class="fa fa-trash-o" aria-hidden="true"></i>
+        			</button>
+    				</div>
+    			</td>				
 			</tr>
 		#end
     </tbody>
 </table>
+	
+
+
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-success" onclick="sendAjax2('addNewEmployeeJob','div_jobs','employeeId=$!employee.id')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add Job </button>
+</div>	
+
+#if ( $command == "deleteEmployeeJob" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

@@ -1,5 +1,5 @@
 	<select name="departmentId" class="form-control">
 		#foreach ( $department in $departments )
-			<option value="$department.id">$department.name</option>
+			<option value="$department.id" #if ( $employeeJob.department.id == $department.id ) selected #end>$department.name</option>
 		#end
 	</select>

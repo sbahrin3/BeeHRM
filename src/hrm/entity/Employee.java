@@ -1,6 +1,8 @@
 package hrm.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,8 +10,6 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -66,11 +66,21 @@ public class Employee {
 	}
 
 	public List<EmployeeJob> getJobs() {
+		Collections.sort(jobs, new SortByPrimaryJob());
 		return jobs;
 	}
 
 	public void setJobs(List<EmployeeJob> jobs) {
 		this.jobs = jobs;
+	}
+	
+	static class SortByPrimaryJob implements Comparator<EmployeeJob> {
+
+		@Override
+		public int compare(EmployeeJob ej1, EmployeeJob ej2) {
+			return ej1.isPrimaryJob() ? -1 : 1;
+		}
+		
 	}
 
 	public String getIdNumber() {
@@ -87,7 +97,7 @@ public class Employee {
 		return null;
 	}
 	
-	public Department getDepartmet() {
+	public Department getDepartment() {
 		if ( jobs.size() > 0 )
 			return jobs.get(0).getDepartment();
 		return null;
