@@ -32,8 +32,6 @@ public class SalaryDeductionItem {
 	
 	private int rateOnBasicOnly; 
 		
-	@ManyToOne @JoinColumn(name="salary_config_id")
-	private SalaryConfig salaryConfig;
 	
 	public SalaryDeductionItem() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -69,14 +67,6 @@ public class SalaryDeductionItem {
 
 	public void setRate(int rate) {
 		this.rate = rate;
-	}
-
-	public SalaryConfig getSalaryConfig() {
-		return salaryConfig;
-	}
-
-	public void setSalaryConfig(SalaryConfig salaryConfig) {
-		this.salaryConfig = salaryConfig;
 	}
 
 	public boolean isUseRate() {

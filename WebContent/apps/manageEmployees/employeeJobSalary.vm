@@ -1,0 +1,5 @@
+
+<div class="form-group">
+	<label>Basic Salary</label>
+	<input  name="employeeJobBasicSalary" value="$!employeeJob.salary.basicAmount" style="width:150px" type="text" class="form-control">
+</div>

@@ -1,0 +1,7 @@
+<div class="module_title">Salary Configurations</div>
+	
+<div id="div_main">
+	
+	#parse("apps/setupSalaryConfig/listSalaryConfigs.vm")
+	
+</div>

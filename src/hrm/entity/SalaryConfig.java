@@ -8,6 +8,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,11 +33,20 @@ public class SalaryConfig {
 	@Column(length=200)
 	private String description;
 	
-	@OneToMany  (fetch = FetchType.LAZY, mappedBy="salaryConfig")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "salary_deduction_items",
+            joinColumns = {@JoinColumn(name = "salary_config_id")},
+            inverseJoinColumns = {@JoinColumn(name = "deduction_id")}
+    )
 	private List<SalaryDeductionItem> deductions = new ArrayList<>();
 	
-	@OneToMany  (fetch = FetchType.LAZY, mappedBy="salaryConfig")
-	private List<SalaryAllowance> allowances = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "salary_allowance_items",
+            joinColumns = {@JoinColumn(name = "salary_config_id")},
+            inverseJoinColumns = {@JoinColumn(name = "allowance_id")}
+    )	private List<SalaryAllowance> allowances = new ArrayList<>();
 	
 	public SalaryConfig() {
 		setId(lebah.util.UIDGenerator.getUID());

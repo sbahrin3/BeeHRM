@@ -30,8 +30,6 @@ public class SalaryAllowance {
 	
 	private double amount;
 	
-	@ManyToOne @JoinColumn(name="salary_config_id")
-	private SalaryConfig salaryConfig;
 	
 	public SalaryAllowance() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -79,14 +77,6 @@ public class SalaryAllowance {
 		this.amount = amount;
 	}
 
-	public SalaryConfig getSalaryConfig() {
-		return salaryConfig;
-	}
-
-	public void setSalaryConfig(SalaryConfig salaryConfig) {
-		this.salaryConfig = salaryConfig;
-	}
-	
 	
 
 }

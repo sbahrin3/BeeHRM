@@ -78,9 +78,9 @@
 	</div>
 	
 	<div style="margin-top:300px;text-align:center">
-		##<a href="#" style="text-decoration:none" data-toggle="modal" data-target="#modalAbout">
-		&copy; 2020.
-		##</a>
+		<a href="#" style="text-decoration:none" data-toggle="modal" data-target="#modalAbout">
+		&copy; 2021.  BeeHRM - HUMAN RESOURCE MANAGEMENT
+		</a>
 	</div>
 
 </div>

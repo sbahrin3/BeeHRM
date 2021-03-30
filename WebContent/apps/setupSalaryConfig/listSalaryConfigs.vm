@@ -1,0 +1,31 @@
+<div class="section_title">List of Salary Configurations</div>
+	
+<table class="table">
+	<tbody>
+	#foreach ( $salaryConfig in $salaryConfigs )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$!salaryConfig.code</td>
+			<td>$!salaryConfig.description</td>
+			<td style="text-align:right">
+				<div class="btn-group">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editSalaryConfig','div_main','salaryConfigId=$!salaryConfig.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteSalaryConfig','div_main','salaryConfigId=$salaryConfig.id')">
+    				<i class="fa fa-trash-o" aria-hidden="true"></i>
+    			</button>
+				</div>
+			</td>			
+		</tr>
+	#end
+    </tbody>
+</table>
+	
+<div class="form-group" style="text-align:left">
+	<button type="button" class="btn btn-success" onclick="sendAjax2('addNewSalaryConfig','div_main','')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add </button>
+</div>	
+
+#if ( $command == "deleteSalaryConfig" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

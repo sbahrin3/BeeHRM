@@ -52,3 +52,9 @@
 	#end
 </div>
 	
+
+<div class="section_title" style="margin-top:20px">Salary Information</div>
+
+#parse("apps/manageEmployees/employeeJobSalary.vm")
+
+

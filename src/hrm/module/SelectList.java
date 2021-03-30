@@ -11,6 +11,8 @@ import hrm.entity.CompanyHQ;
 import hrm.entity.Department;
 import hrm.entity.District;
 import hrm.entity.Job;
+import hrm.entity.SalaryAllowance;
+import hrm.entity.SalaryDeductionItem;
 import hrm.entity.State;
 import lebah.db.entity.Persistence;
 
@@ -57,6 +59,16 @@ public class SelectList {
 	public static void listJobs(VelocityContext context) {
 		List<Job> jobs = Persistence.db().list("select j from Job j order by j.jobLevel.levelOrder");
 		context.put("jobs", jobs);
+	}
+	
+	public static void listSalaryDeductionItems(VelocityContext context) {
+		List<SalaryDeductionItem> items = Persistence.db().list("select i from SalaryDeductionItem i");
+		context.put("salaryDeductionItems", items);
+	}
+	
+	public static void listSalaryAllowances(VelocityContext context) {
+		List<SalaryAllowance> salaryAllowances = Persistence.db().list("select a from SalaryAllowance a");
+		context.put("salaryAllowances", salaryAllowances);
 	}
 
 }

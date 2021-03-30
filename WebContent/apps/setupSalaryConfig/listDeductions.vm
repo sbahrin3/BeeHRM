@@ -1,0 +1,40 @@
+
+ <table class="table">
+    	
+    	<thead>
+    		<tr>
+    			<th style="width:10px"></th>
+    			<th>Name</th>
+    			<th>Description</th>
+    			<th style="text-align:center">Use Rate?</th>
+    			<th style="text-align:center">Rate on<br/> Basic Only?</th>
+    			<th style="text-align:center">Rate</th>
+    			<th style="text-align:center">Amount</th>
+    			<th></th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    	#foreach( $deduction in $salaryConfig.deductions )
+    		<tr>
+    			<td>$velocityCount.</td>
+    			<td>$deduction.name</td>
+    			<td>$deduction.description</td>
+    			<td style="text-align:center">#if ( $deduction.useRate ) Yes #else No #end</td>
+    			<td style="text-align:center">#if ( $deduction.useRate ) #if ( $deduction.rateOnBasicOnly ) Yes #else No #end #else - #end</td>
+    			<td style="text-align:center">#if ( $deduction.useRate ) $deduction.rate % #else - #end</td>
+    			<td style="text-align:center">#if ( !$deduction.useRate ) $util.formatDecimal($deduction.amount) #else - #end</td>
+    			<td style="text-align:right">
+    				<div class="btn-group">
+    				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'removeDeduction','div_deductions','deductionId=$deduction.id&salaryConfigId=$!salaryConfig.id')">
+        				<i class="fa fa-trash-o" aria-hidden="true"></i>
+        			</button>
+    				</div>
+    			</td>
+    		</tr>
+    	#end
+    	</tbody>
+    </table>
+    
+    <div class="form-group" style="text-align:left">
+    	<button type="button" class="btn btn-success" onclick="sendAjax2('selectSalaryDeductions','div_deductions','salaryConfigId=$!salaryConfig.id')"><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+    </div>	
