@@ -1,0 +1,41 @@
+
+<div class="form-group">
+	<label>Identity Type</label>
+	<select  name="employeeIdentityType" type="text" class="form-control">
+		<option value="MyKad" #if ( $employee.identityType == "MyKad" ) selected #end>MyKad</option>
+		<option value="Passport" #if ( $employee.identityType == "Passport" ) selected #end>Passport</option>
+	</select>
+</div>
+	
+<div class="form-group">
+	<label>Identity Card No.</label>
+	<input name="employeeIdentityNumber" value="$!employee.identityNumber" type="text" class="form-control">
+</div>
+	
+<div class="form-group">
+	<label>Gender</label>
+	<select  name="employeeGender" type="text" class="form-control">
+		<option value="0" #if ( $employee.gender == 0 ) selected #end>Male</option>
+		<option value="1" #if ( $employee.gender == 1 ) selected #end>Female</option>
+	</select>
+</div>
+	
+<div class="form-group">
+	<label>Date of Birth</label>
+	<input name="employeeBirthDate" value="$!employee.birthDateStr" type="text" style="width:150px" class="form-control">
+</div>
+	
+<div class="form-group">
+	<label>Place of Birth</label>
+	<input name="employeeBirthPlace" value="$!employee.birthPlace" type="text" class="form-control">
+</div>
+	
+<div class="form-group">
+	<label>Phone</label>
+	<input name="employeeTelephone" value="$!employee.address.telephone" type="text" class="form-control">
+</div>
+	
+<div class="form-group">
+	<label>Email</label>
+	<input name="employeeEmail" value="$!employee.address.email" type="text" class="form-control">
+</div>

@@ -1,8 +1,10 @@
 package hrm.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -38,8 +42,17 @@ public class Employee {
 	@Embedded
     private Address address;
 	
+	@Column(length=50)
+	private String identityType; //MyKad, Passport
+	@Column(length=100)
+	private String identityNumber;
+	@Temporal(TemporalType.DATE)
+	private Date birthDate;
+	@Column(length=100)
+	private String birthPlace;
 	
-	
+	private int gender; //0-M, 1-F
+		
 	public Employee() {
 		setId(lebah.util.UIDGenerator.getUID());
 	}
@@ -58,6 +71,7 @@ public class Employee {
 	}
 
 	public Address getAddress() {
+		if ( address == null ) address = new Address();
 		return address;
 	}
 
@@ -101,6 +115,51 @@ public class Employee {
 		if ( jobs.size() > 0 )
 			return jobs.get(0).getDepartment();
 		return null;
+	}
+
+	public String getIdentityType() {
+		return identityType;
+	}
+
+	public void setIdentityType(String identityType) {
+		this.identityType = identityType;
+	}
+
+	public String getIdentityNumber() {
+		return identityNumber;
+	}
+
+	public void setIdentityNumber(String identityNumber) {
+		this.identityNumber = identityNumber;
+	}
+
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	
+	public String getBirthDateStr() {
+		return birthDate != null ? new SimpleDateFormat("dd/MM/yyyy").format(birthDate) : "";
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getBirthPlace() {
+		return birthPlace;
+	}
+	
+
+	public void setBirthPlace(String birthPlace) {
+		this.birthPlace = birthPlace;
+	}
+
+	public int getGender() {
+		return gender;
+	}
+
+	public void setGender(int gender) {
+		this.gender = gender;
 	}
 	
 	

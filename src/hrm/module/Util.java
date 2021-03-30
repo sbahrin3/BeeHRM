@@ -1,5 +1,9 @@
 package hrm.module;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Util {
 	
 	public static double getDouble(String value) {
@@ -14,6 +18,16 @@ public class Util {
 		if ( value.equals("") ) return d;
 		d = Integer.parseInt(value);
 		return d;
+	}
+	
+	public static Date toDate(String dateStr) {
+		Date date = null;
+		try {
+			date = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+		} catch ( Exception e ) {
+			//e.printStackTrace();
+		}
+		return date;
 	}
 
 }

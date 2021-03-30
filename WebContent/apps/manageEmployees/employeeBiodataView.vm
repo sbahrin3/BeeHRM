@@ -1,0 +1,11 @@
+
+<table class="table">
+	<tr><td class="line_title">Identity Type</td><td class="line_sep">:</td><td class="line_data">$!employee.identityType</td></tr>
+	<tr><td class="line_title">Identity Card No.</td><td class="line_sep">:</td><td class="line_data">$!employee.identityNumber</td></tr>
+	<tr><td class="line_title">Gender</td><td class="line_sep">:</td><td class="line_data">#if ( $employee.gender == 0 ) Male #else Female #end</td></tr>
+	<tr><td class="line_title">Date of Birth</td><td class="line_sep">:</td><td class="line_data">$!employee.birthDateStr</td></tr>
+	<tr><td class="line_title">Place of Birth</td><td class="line_sep">:</td><td class="line_data">$!employee.birthPlace</td></tr>
+	
+	<tr><td class="line_title">Phone</td><td class="line_sep">:</td><td class="line_data">$!employee.address.telephone</td></tr>
+	<tr><td class="line_title">Email</td><td class="line_sep">:</td><td class="line_data">$!employee.address.email</td></tr>
+</table>

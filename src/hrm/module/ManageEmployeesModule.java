@@ -49,12 +49,23 @@ public class ManageEmployeesModule extends LebahUserModule {
 		return path + "/selectDepartments.vm";
 	}
 	
+	private void setEmployeeData(Employee employee) {
+		employee.setName(getParam("employeeName"));
+		employee.setIdNumber(getParam("employeeIdNumber"));
+		employee.setIdentityType(getParam("employeeIdentityType"));
+		employee.setIdentityNumber(getParam("employeeIdentityNumber"));
+		employee.setGender(Util.getInt(getParam("employeeGender")));
+		employee.setBirthDate(Util.toDate(getParam("employeeBirthDate")));
+		employee.setBirthPlace(getParam("employeeBirthPlace"));
+		employee.getAddress().setTelephone(getParam("employeeTelephone"));
+		employee.getAddress().setEmail(getParam("employeeEmail"));
+	}
+	
 	@Command("saveNewEmployee")
 	public String saveNewEmployee() {
 		
 		Employee employee = new Employee();
-		employee.setName(getParam("employeeName"));
-		employee.setIdNumber(getParam("employeeIdNumber"));
+		setEmployeeData(employee);
 		
 		db.save(employee);
 		
@@ -76,8 +87,7 @@ public class ManageEmployeesModule extends LebahUserModule {
 	public String updateEmployee() {
 		
 		Employee employee = db.find(Employee.class, getParam("employeeId"));
-		employee.setName(getParam("employeeName"));
-		employee.setIdNumber(getParam("employeeIdNumber"));
+		setEmployeeData(employee);
 		
 		db.update(employee);
 		
@@ -153,8 +163,8 @@ public class ManageEmployeesModule extends LebahUserModule {
 		employeeJob.setDepartment(department);
 		employeeJob.setJob(job);
 		
-		employeeJob.setStartDate(toDate(getParam("employeeJobStartDate")));
-		employeeJob.setEndDate(toDate(getParam("employeeJobEndDate")));
+		employeeJob.setStartDate(Util.toDate(getParam("employeeJobStartDate")));
+		employeeJob.setEndDate(Util.toDate(getParam("employeeJobEndDate")));
 		
 		setPrimaryJob(employeeJob);
 		
@@ -191,8 +201,8 @@ public class ManageEmployeesModule extends LebahUserModule {
 		employeeJob.setDepartment(department);
 		employeeJob.setJob(job);
 		
-		employeeJob.setStartDate(toDate(getParam("employeeJobStartDate")));
-		employeeJob.setEndDate(toDate(getParam("employeeJobEndDate")));
+		employeeJob.setStartDate(Util.toDate(getParam("employeeJobStartDate")));
+		employeeJob.setEndDate(Util.toDate(getParam("employeeJobEndDate")));
 		
 		setPrimaryJob(employeeJob);
 		
@@ -203,15 +213,7 @@ public class ManageEmployeesModule extends LebahUserModule {
 	}
 
 	
-	private Date toDate(String dateStr) {
-		Date date = Calendar.getInstance().getTime();
-		try {
-			date = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
-		} catch ( Exception e ) {
-			e.printStackTrace();
-		}
-		return date;
-	}
+
 
 	
 	

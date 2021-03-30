@@ -3,7 +3,8 @@
 
 	
 <div id="div_edit"  #if ( $employee ) style="display:none" #end>
-    <div class="form-group">
+   
+	<div class="form-group">
     	<label>Emp. No.</label>
     	<input  name="employeeIdNumber" value="$!employee.IdNumber" data-required="true" data-msg="Please enter Id Number" type="text" class="form-control">
     </div>
@@ -12,33 +13,47 @@
     	<label>Name</label>
     	<input  name="employeeName" value="$!employee.name" data-required="true" data-msg="Please enter employee Name" type="text" class="form-control">
     </div>
-    
-    
-    <div class="form-group" style="text-align:right">
+	
+	#parse("apps/manageEmployees/employeeBiodataEdit.vm")
+	
 
-    	<button type="button" class="btn btn-link" onclick="$('div_edit').style.display = 'none'; $('div_view').style.display = 'block';"> Cancel</button>	
-    	#if ( $employee )
-    		<button type="button" class="btn btn-primary" onclick="saveData('updateEmployee','div_main','employeeId=$!employee.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Update </button>		
-    	#else
-    		<button type="button" class="btn btn-primary" onclick="saveData('saveNewEmployee','div_main','')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Save </button>
-    	#end
-    </div>
-</div>
+      <div class="form-group" style="text-align:right">
+        	<button type="button" class="btn btn-link" onclick="$('div_edit').style.display = 'none'; $('div_view').style.display = 'block';"> Cancel</button>	
+        	#if ( $employee )
+        		<button type="button" class="btn btn-primary" onclick="saveData('updateEmployee','div_main','employeeId=$!employee.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Update </button>		
+        	#else
+        		<button type="button" class="btn btn-primary" onclick="saveData('saveNewEmployee','div_main','')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Save </button>
+        	#end	  
+	  </div>
+
+	
+ </div>
+ 
+ 
 <div id="div_view" #if ( !$employee ) style="display:none" #end>
 	<table class="table">
 		<tr><td class="line_title">Emp. No.</td><td class="line_sep">:</td><td class="line_data">$!employee.IdNumber</td></tr>
 		<tr><td class="line_title">Name</td><td class="line_sep">:</td><td class="line_data">$!employee.name</td></tr>
 	</table>
 	
-	  <div class="form-group" style="text-align:right">
-    	<button type="button" class="btn btn-link" onclick="sendAjax2('listEmployees','div_main','')"><span><i class="fa fa-pencil-times" aria-hidden="true"></i></span> Back</button>	
-    	<button type="button" class="btn btn-primary" onclick="$('div_edit').style.display = 'block'; $('div_view').style.display = 'none';"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>		
-
-    </div>
+	<div id="div_more" style="display:none">
+		#parse("apps/manageEmployees/employeeBiodataView.vm")
+	</div>
+	
+	<div class="row">
+          <div class="col-sm-4">
+            	<button id="buttonMore" type="button" class="btn btn-link" onclick="if ( $('div_more').style.display == 'none' ) { $('div_more').style.display = 'block'; this.innerHTML = 'Hide...'; } else { $('div_more').style.display = 'none'; this.innerHTML = 'Show...'; }"> Show...</button>				
+    	  </div>
+          <div class="col-sm-8"  style="text-align:right">
+    		<button type="button" class="btn btn-link" onclick="sendAjax2('listEmployees','div_main','')"><span><i class="fa fa-pencil-times" aria-hidden="true"></i></span> Back</button>	
+        	<button type="button" class="btn btn-primary" onclick="$('div_edit').style.display = 'block'; $('div_view').style.display = 'none';"> <i class="fa fa-pencil" aria-hidden="true"></i> Edit </button>		
+        </div>
+	</div>
+	
 </div>
 	
 #if ( $employee )
-	<div class="section_title">Job Assignments</div>
+	<div class="section_title" style="margin-top:10px">Job Assignments</div>
 	
 	<div id="div_jobs">
 		#if ( $employee.jobs.size() == 0 )
