@@ -12,6 +12,16 @@
     background-color: #ff0000;
 }
 
+.line_title {
+	font-style: italic;
+	width:150px;
+}
+.line_sep {
+	width:10px;
+}
+.line_data {
+	font-style: normal;
+}
 </style>
 
 

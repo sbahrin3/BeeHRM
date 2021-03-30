@@ -3,16 +3,19 @@
 	
 	<tbody >
 		#foreach ( $employeeJob in $employee.jobs )
+			
+			<tr><td class="line_title">Designation</td><td class="line_sep">:</td><td class="line_data">$employeeJob.job.name</td></tr>
+			#if ( $employee.jobs.size() > 1 && $employeeJob.primaryJob )
+			<tr><td class="line_title">Primary Job?</td><td class="line_sep">:</td><td class="line_data">Yes</td></tr>
+			#end
+			<tr><td class="line_title">Department</td><td class="line_sep">:</td><td class="line_data">$employeeJob.department.name</td></tr>
+			<tr><td class="line_title">Company</td><td class="line_sep">:</td><td class="line_data">$employeeJob.department.company.name</td></tr>
+			
+			<tr><td class="line_title">Appointment Date</td><td class="line_sep">:</td><td class="line_data">$employeeJob.startDateStr</td></tr>
+			<tr><td class="line_title">Exit Date</td><td class="line_sep">:</td><td class="line_data">$employeeJob.endDateStr</td></tr>
+
 			<tr>
-				<td>
-					$employeeJob.job.name<br/>
-					$employeeJob.department.name<br/>
-					$employeeJob.department.company.name<br/>
-					#if ( $employee.jobs.size() > 1 && $employeeJob.primaryJob )
-						Primary Job
-					#end
-					
-    			<td style="text-align:right">
+    			<td colspan="3" style="text-align:right">
     				<div class="btn-group">
     				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax2('editEmployeeJob','div_jobs','employeeJobId=$!employeeJob.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
     				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteEmployeeJob','div_jobs','employeeJobId=$!employeeJob.id&employeeId=$!employee.id')">

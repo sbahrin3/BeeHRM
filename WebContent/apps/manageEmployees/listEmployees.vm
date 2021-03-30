@@ -12,7 +12,7 @@
 	<tbody>
 	#foreach( $employee in $employees )
 		<tr>
-			<td>$velocityCount.</td>
+			<td style="cursor:pointer" onclick="sendAjax('editEmployee','div_main','employeeId=$!employee.id')">$velocityCount.</td>
 			<td>
 				$!employee.idNumber<br/>
 				$!employee.name

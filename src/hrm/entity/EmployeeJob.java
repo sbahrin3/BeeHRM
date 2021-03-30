@@ -1,5 +1,6 @@
 package hrm.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -88,6 +89,10 @@ public class EmployeeJob {
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
+	
+	public String getStartDateStr() {
+		return startDate != null ? new SimpleDateFormat("dd/MM/yyyy").format(startDate) : "";
+	}
 
 	public Date getEndDate() {
 		return endDate;
@@ -95,6 +100,10 @@ public class EmployeeJob {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	
+	public String getEndDateStr() {
+		return endDate != null ? new SimpleDateFormat("dd/MM/yyyy").format(endDate) : "";
 	}
 
 	public Salary getSalary() {

@@ -1,13 +1,15 @@
 package hrm.module;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import hrm.entity.Department;
 import hrm.entity.Employee;
 import hrm.entity.EmployeeJob;
 import hrm.entity.Job;
-import lebah.db.entity.Persistence;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
@@ -122,6 +124,21 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 	}
 	
+	private void setPrimaryJob(EmployeeJob employeeJob) {
+		if ( "1".equals(getParam("isPrimaryJob"))) { //only on job can become primary
+			List<EmployeeJob> list = new ArrayList<>();
+			employeeJob.getEmployee().getJobs().stream()
+				.filter(ej -> !ej.getId().equals(employeeJob.getId()))
+				.forEach(ej -> {
+					ej.setPrimaryJob(false);
+					list.add(ej);
+				}
+			);
+			db.update(list.toArray());
+			employeeJob.setPrimaryJob(true);
+		}
+	}
+	
 	@Command("saveNewEmployeeJob")
 	public String saveNewEmployeeJob() {
 		
@@ -135,6 +152,11 @@ public class ManageEmployeesModule extends LebahUserModule {
 		employeeJob.setEmployee(employee);
 		employeeJob.setDepartment(department);
 		employeeJob.setJob(job);
+		
+		employeeJob.setStartDate(toDate(getParam("employeeJobStartDate")));
+		employeeJob.setEndDate(toDate(getParam("employeeJobEndDate")));
+		
+		setPrimaryJob(employeeJob);
 		
 		db.save(employeeJob);
 		
@@ -169,25 +191,29 @@ public class ManageEmployeesModule extends LebahUserModule {
 		employeeJob.setDepartment(department);
 		employeeJob.setJob(job);
 		
-		Employee employee = employeeJob.getEmployee();
-		if ( "1".equals(getParam("isPrimaryJob"))) { //only on job can become primary
-			List<EmployeeJob> list = new ArrayList<>();
-			employee.getJobs().stream()
-				.filter(ej -> !ej.getId().equals(employeeJob.getId()))
-				.forEach(ej -> {
-					ej.setPrimaryJob(false);
-					list.add(ej);
-				}
-			);
-			db.update(list.toArray());
-			
-			employeeJob.setPrimaryJob(true);
-		}
+		employeeJob.setStartDate(toDate(getParam("employeeJobStartDate")));
+		employeeJob.setEndDate(toDate(getParam("employeeJobEndDate")));
+		
+		setPrimaryJob(employeeJob);
 		
 		db.update(employeeJob);
 		
+		
 		return listEmployeeJobs();
 	}
+
+	
+	private Date toDate(String dateStr) {
+		Date date = Calendar.getInstance().getTime();
+		try {
+			date = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+
+	
 	
 	@Command("deleteEmployeeJob")
 	public String deleteEmployeeJob() {
