@@ -1,0 +1,23 @@
+
+ <table class="table">
+    	
+    	<thead>
+    		<tr>
+    			<th style="width:10px"></th>
+    			<th>Name</th>
+    			<th>Description</th>
+    			<th style="text-align:center">Amount</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    	#foreach( $allowance in $employeeJob.salary.salaryConfig.allowances )
+    		<tr>
+    			<td>$velocityCount.</td>
+    			<td>$allowance.name</td>
+    			<td>$allowance.description</td>
+    			<td style="text-align:center">$util.formatDecimal($allowance.amount)</td>
+    		</tr>
+    	#end
+    	</tbody>
+    </table>
+    

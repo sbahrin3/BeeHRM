@@ -1,0 +1,18 @@
+<div class="section_title">List of Salary Configurations</div>
+	
+<table class="table">
+	<tbody>
+	#foreach ( $salaryConfig in $salaryConfigs )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$!salaryConfig.code</td>
+			<td>$!salaryConfig.description</td>
+			<td style="text-align:right">
+				<div class="btn-group">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('selectSalaryConfig','div_salary','salaryConfigId=$!salaryConfig.id&employeeJobId=$!employeeJob.id&employeeId=$!employee.id')"><i class="fa fa-hand-o-left" aria-hidden="true"></i></button>
+				</div>
+			</td>			
+		</tr>
+	#end
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+
+
+<table class="table">
+	
+	<tr>
+		<th style="width:10px"></th>
+		<th style="border-right:1px solid #ebebeb">Description</th>
+		<th style="width:150px;text-align:right;border-right:1px solid #ebebeb">Earnings</th>
+		<th style="width:150px;text-align:right">Deductions</th>
+	</tr>
+	
+	#foreach( $salaryItem in $employeeJob.salaryItems )
+	<tr>
+		<td>$velocityCount.</td>
+		<td style="border-right:1px solid #ebebeb">$!salaryItem.description</td>
+		#if ( $salaryItem.type == 0 )
+			<td style="text-align:right;border-right:1px solid #ebebeb">$!salaryItem.amountStr</td>
+			<td></td>
+		#else
+			<td style="border-right:1px solid #ebebeb"></td>
+			<td style="text-align:right">$!salaryItem.amountStr</td>
+		#end
+	</tr>
+	#end
+	
+	<tr>
+		<td colspan="3" style="font-weight:bold;text-align:right;border-right:1px solid #ebebeb">NET Salary</td>
+		<td style="text-align:right;font-weight:bold">$!employeeJob.salary.netAmountStr</td>
+	</tr>
+	
+</table>
+
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax2('getEmployeeJobSalary','div_salary','employeeJobId=$!employeeJob.id&employeeId=$!employee.id')"><i class="fa fa-pencil-times" aria-hidden="true"></i>OK</button>	
+
+</div>

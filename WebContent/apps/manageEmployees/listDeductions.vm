@@ -1,0 +1,29 @@
+
+ <table class="table">
+    	
+    	<thead>
+    		<tr>
+    			<th style="width:10px"></th>
+    			<th>Name</th>
+    			<th>Description</th>
+    			<th style="text-align:center">Use Rate?</th>
+    			<th style="text-align:center">Rate on<br/> Basic Only?</th>
+    			<th style="text-align:center">Rate</th>
+    			<th style="text-align:center">Amount</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    	#foreach( $deduction in $employeeJob.salary.salaryConfig.deductions )
+    		<tr>
+    			<td>$velocityCount.</td>
+    			<td>$deduction.name</td>
+    			<td>$deduction.description</td>
+    			<td style="text-align:center">#if ( $deduction.useRate ) Yes #else No #end</td>
+    			<td style="text-align:center">#if ( $deduction.useRate ) #if ( $deduction.rateOnBasicOnly ) Yes #else No #end #else - #end</td>
+    			<td style="text-align:center">#if ( $deduction.useRate ) $deduction.rate % #else - #end</td>
+    			<td style="text-align:center">#if ( !$deduction.useRate ) $util.formatDecimal($deduction.amount) #else - #end</td>
+    		</tr>
+    	#end
+    	</tbody>
+    </table>
+    

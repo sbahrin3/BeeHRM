@@ -1,14 +1,20 @@
 package hrm.entity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,6 +48,10 @@ public class EmployeeJob {
 	
 	@Embedded
 	private Salary salary;
+	
+	@OneToMany (fetch = FetchType.LAZY, mappedBy="employeeJob")
+	private List<SalaryItem> salaryItems = new ArrayList<>();
+	
 	
 	private int primaryJob;
 	
@@ -123,6 +133,24 @@ public class EmployeeJob {
 		this.primaryJob = primaryJob ? 1 : 0;
 	}
 
-	
+	public List<SalaryItem> getSalaryItems() {
+		Collections.sort(salaryItems, new SortBySalaryItemOrder());
+		return salaryItems;
+	}
+
+	public void setSalaryItems(List<SalaryItem> salaryItems) {
+		this.salaryItems = salaryItems;
+	}
+
+	static class SortBySalaryItemOrder implements Comparator<SalaryItem> {
+
+		@Override
+		public int compare(SalaryItem s1, SalaryItem s2) {
+			if ( s1.getOrderNo() < s2.getOrderNo() ) return - 1;
+			else if ( s2.getOrderNo() > s2.getOrderNo() ) return 1;
+			else return 0;
+		}
+		
+	}
 	
 }

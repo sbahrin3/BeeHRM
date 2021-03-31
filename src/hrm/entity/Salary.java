@@ -1,23 +1,25 @@
 package hrm.entity;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Embeddable
 public class Salary {
 	
 	private double basicAmount;
-	
-	@Transient
 	private double grossAmount;
-	@Transient
 	private double netAmount;
 	
-	@OneToOne @JoinColumn(name="salary_config_id")
+	@ManyToOne @JoinColumn(name="salary_config_id")
 	private SalaryConfig salaryConfig; 
-	
 	
 	public double getBasicAmount() {
 		return basicAmount;
@@ -25,6 +27,10 @@ public class Salary {
 
 	public void setBasicAmount(double basicAmount) {
 		this.basicAmount = basicAmount;
+	}
+	
+	public String getBasicAmountStr() {
+		return new DecimalFormat("#.00").format(basicAmount);
 	}
 	
 	public double calculateAllowanceAmount() {
@@ -35,13 +41,29 @@ public class Salary {
 		return total;
 	}
 	
+	
+	
+	public void setGrossAmount(double grossAmount) {
+		this.grossAmount = grossAmount;
+	}
+
+	public void setNetAmount(double netAmount) {
+		this.netAmount = netAmount;
+	}
+
 	public double getNetAmount() {
-		netAmount = grossAmount - calculateDeductionAmount();
 		return netAmount;
 	}
 	
+	public String getNetAmountStr() {
+		return new DecimalFormat("#.00").format(netAmount);
+	}
+	
+	public String getGrossAmountStr() {
+		return new DecimalFormat("#.00").format(grossAmount);
+	}
+	
 	public double getGrossAmount() {
-		grossAmount = basicAmount + calculateAllowanceAmount();
 		return grossAmount;
 	}
 
@@ -70,7 +92,6 @@ public class Salary {
 	public void setSalaryConfig(SalaryConfig salaryConfig) {
 		this.salaryConfig = salaryConfig;
 	}
-	
 
 
 }

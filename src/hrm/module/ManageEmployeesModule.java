@@ -1,15 +1,18 @@
 package hrm.module;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import hrm.entity.Department;
 import hrm.entity.Employee;
 import hrm.entity.EmployeeJob;
 import hrm.entity.Job;
+import hrm.entity.SalaryAllowance;
+import hrm.entity.SalaryConfig;
+import hrm.entity.SalaryDeductionItem;
+import hrm.entity.SalaryItem;
+import lebah.db.entity.Persistence;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
@@ -172,7 +175,7 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		employee.getJobs().add(employeeJob);
 		db.update(employee);
-		
+				
 		return listEmployeeJobs();
 	}
 	
@@ -208,15 +211,12 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		db.update(employeeJob);
 		
+		calculateEmployeeJobSalary(db, employeeJob);
 		
 		return listEmployeeJobs();
 	}
 
-	
 
-
-	
-	
 	@Command("deleteEmployeeJob")
 	public String deleteEmployeeJob() {
 		context.remove("delete_error");
@@ -235,5 +235,140 @@ public class ManageEmployeesModule extends LebahUserModule {
 		return listEmployeeJobs();
 	}
 	
+	@Command("updateSalary")
+	public String updateSalary() {
+		
+		EmployeeJob employeeJob = db.find(EmployeeJob.class, getParam("employeeJobId"));
+		Employee employee = employeeJob.getEmployee();
+		context.put("employeeJob", employeeJob);
+		context.put("employee", employee);
+		
+		employeeJob.getSalary().setBasicAmount(Util.getDouble(getParam("employeeJobBasicAmount")));
+		
+		db.update(employeeJob);
+		
+		calculateEmployeeJobSalary(db, employeeJob);
+		
+		return path + "/employeeJobSalary.vm";
+	}
 	
+	
+	@Command("getEmployeeJobSalary")
+	public String getEmployeJobSalary() {
+		
+		EmployeeJob employeeJob = db.find(EmployeeJob.class, getParam("employeeJobId"));
+		Employee employee = employeeJob.getEmployee();
+		context.put("employeeJob", employeeJob);
+		context.put("employee", employee);
+		
+		return path + "/employeeJobSalary.vm";
+	}
+	
+	
+	@Command("listSalaryConfigs")
+	public String listSalaryConfigs() {
+		
+		EmployeeJob employeeJob = db.find(EmployeeJob.class, getParam("employeeJobId"));
+		Employee employee = employeeJob.getEmployee();
+		context.put("employeeJob", employeeJob);
+		context.put("employee", employee);
+		
+		List<SalaryConfig> salaryConfigs = db.list("select s from SalaryConfig s");
+		context.put("salaryConfigs", salaryConfigs);
+		
+		return path + "/listSalaryConfigs.vm";
+	}
+	
+	@Command("selectSalaryConfig")
+	public String selectSalaryConfig() {
+		
+		EmployeeJob employeeJob = db.find(EmployeeJob.class, getParam("employeeJobId"));
+		Employee employee = employeeJob.getEmployee();
+		context.put("employeeJob", employeeJob);
+		context.put("employee", employee);
+		
+		SalaryConfig salaryConfig = db.find(SalaryConfig.class, getParam("salaryConfigId"));
+		
+		employeeJob.getSalary().setSalaryConfig(salaryConfig);
+		
+		db.update(employeeJob);
+		
+		calculateEmployeeJobSalary(db, employeeJob);
+		
+		return path + "/employeeJobSalary.vm";
+	}
+	
+	@Command("viewSalary")
+	public String viewSalary() {
+		
+		EmployeeJob employeeJob = db.find(EmployeeJob.class, getParam("employeeJobId"));
+		Employee employee = employeeJob.getEmployee();
+		context.put("employeeJob", employeeJob);
+		context.put("employee", employee);
+		
+		return path + "/viewSalary.vm";
+	}
+
+	private static void calculateEmployeeJobSalary(Persistence db, EmployeeJob employeeJob) {
+		db.delete(employeeJob.getSalaryItems().toArray());
+		employeeJob.getSalaryItems().clear();
+		db.update(employeeJob);
+				
+		double basicAmount = employeeJob.getSalary().getBasicAmount();
+		double grossAmount = basicAmount;
+		double netAmount = 0.0d;
+		List<SalaryDeductionItem> deductions = employeeJob.getSalary().getSalaryConfig().getDeductions();
+		List<SalaryAllowance> allowances = employeeJob.getSalary().getSalaryConfig().getAllowances();
+		
+		List<SalaryItem> salaryItems = new ArrayList<>();
+		int i = 0;
+		SalaryItem salaryItem = new SalaryItem(i, "BAS", "Basic Salary", employeeJob.getSalary().getBasicAmount());
+		salaryItem.setEmployeeJob(employeeJob);
+		salaryItems.add(salaryItem);
+		for ( SalaryAllowance allowance : allowances ) {
+			i++;
+			salaryItem = new SalaryItem(i, allowance.getName(), allowance.getDescription(), allowance.getAmount());
+			salaryItem.setEmployeeJob(employeeJob);
+			salaryItems.add(salaryItem);
+			grossAmount += allowance.getAmount();
+		}
+		for ( SalaryDeductionItem deduction : deductions ) {
+			i++;
+			double amountDeduct = 0.0d;
+			if ( deduction.isUseRate()) {
+				if ( deduction.isRateOnBasicOnly() ) {
+					amountDeduct -= ( (double) deduction.getRate() / 100 ) * basicAmount;
+				}
+				else {
+					amountDeduct -= ( (double) deduction.getRate() / 100 ) * grossAmount;
+				}
+			} else {
+				amountDeduct -= deduction.getAmount();
+			}	
+			salaryItem = new SalaryItem(i, deduction.getName(), deduction.getDescription(), amountDeduct);
+			salaryItem.setEmployeeJob(employeeJob);
+			salaryItems.add(salaryItem);
+		}
+		
+		db.save(salaryItems.toArray());
+		
+		netAmount = salaryItems.stream().collect(Collectors.summingDouble(item -> item.getAmount()));
+		employeeJob.setSalaryItems(salaryItems);
+		employeeJob.getSalary().setGrossAmount(grossAmount);
+		employeeJob.getSalary().setNetAmount(netAmount);
+		
+		db.update(employeeJob);
+	}
+	
+	public static void main(String[] args) {
+		
+		Persistence db = Persistence.db();
+		
+		String employeeJobId = "cb3f4ba0c9950545071fefaa323bb1e593a1dee6";
+		
+		EmployeeJob employeeJob = db.find(EmployeeJob.class, employeeJobId);
+
+	}
+
+
 }
