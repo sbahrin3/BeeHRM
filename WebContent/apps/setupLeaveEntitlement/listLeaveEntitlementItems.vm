@@ -1,0 +1,29 @@
+<table class="table">
+	<tr>
+		<th style="width:10px"></th>
+		<th>Code</th>
+		<th>Name</th>
+		<th>Paid?</th>
+		<th>Days</td>
+		<th></th>
+	</tr>
+	#foreach ( $item in $leaveEntitlement.items )
+		<tr>
+			<td>$velocityCount</td>
+			<td>$!item.leave.code</td>
+			<td>$!item.leave.name</td>
+			<td>#if ( $!item.leave.paid ) Yes #else No #end</td>
+			<td>$!item.numberOfDays</td>	
+			<td>
+				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteLeaveEntitlementItem','div_leaves','leaveEntitlementItemId=$item.id&leaveEntitlementId=$!leaveEntitlement.id')">
+        			<i class="fa fa-trash-o" aria-hidden="true"></i>
+        		</button>
+			</td>
+		</tr>
+	#end
+	
+</table>
+
+<div class="form-group" style="text-align:left">
+	<button type="button" class="btn btn-success" onclick="sendAjax2('addNewLeaveEntitlementItem','div_leaves','leaveEntitlementId=$!leaveEntitlement.id')"><i class="fa fa-plus" aria-hidden="true"></i> Add </button>
+</div>	

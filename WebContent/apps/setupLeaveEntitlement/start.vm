@@ -1,0 +1,5 @@
+<div class="module_title">Leave Entitlements</div>
+	
+<div id="div_main">
+	#parse("apps/setupLeaveEntitlement/listLeaveEntitlements.vm")
+</div>

@@ -1,0 +1,29 @@
+
+<div class="section_title">Leave Entitlement Item</div>
+
+<div class="form-group">
+	<label>Select Leave</label>
+	<select name="leaveId" class="form-control">
+		<option value=""></option>
+		#foreach ( $leave in $leaves )
+			<option value="$leave.id" #if ( $leaveEntitlementItem.leave.id == $leave.id ) selected #end >$!leave.code - $!leave.name</option>
+		#end
+	</select>
+</div>
+	
+<div class="form-group">
+	<label>Number of Days</label>
+	<input  name="numberOfDays" value="$!leaveEntitlementItem.numberOfDays" type="text" class="form-control">
+</div>
+	
+
+
+
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-link" onclick="sendAjax2('listLeaveEntitlementItems','div_leaves','leaveEntitlementId=$!leaveEntitlement.id')"><i class="fa fa-pencil-times" aria-hidden="true"></i> Cancel</button>	
+	#if ( $leaveEntitlementItem )
+		<button type="button" class="btn btn-primary" onclick="saveData2('updateLeaveEntitlementItem','div_leaves','leaveEntitlementId=$!leaveEntitlement.id')"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update </button>		
+	#else
+		<button type="button" class="btn btn-primary" onclick="saveData2('saveNewLeaveEntitlementItem','div_leaves','leaveEntitlementId=$!leaveEntitlement.id')"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save </button>
+	#end
+</div>

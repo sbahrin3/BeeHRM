@@ -45,6 +45,22 @@ public class LeaveEntitlement {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public List<LeaveEntitlementItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<LeaveEntitlementItem> items) {
+		this.items = items;
+	}
 
 	public String getName() {
 		return name;
