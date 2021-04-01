@@ -41,14 +41,20 @@
         <mapping class="hrm.entity.SalaryAllowance" />
         <mapping class="hrm.entity.SalaryItem" />
         
+         <mapping class="hrm.entity.Timedemo" /> 
+         
+         <mapping class="hrm.entity.Leave" />
+         <mapping class="hrm.entity.LeaveEntitlement" />
+         <mapping class="hrm.entity.LeaveEntitlementItem" />
+         <mapping class="hrm.entity.EmployeeLeave" />
         <!-- 
         
                 
-        <mapping class="hrm.entity.EmployeeLeave" />
+       
         <mapping class="hrm.entity.EmployeeSkill" />
         <mapping class="hrm.entity.EmployeeTimesheet" />
        
-        <mapping class="hrm.entity.Leave" />
+       
         <mapping class="hrm.entity.Skill" />
         <mapping class="hrm.entity.SkillLevel" /> 
        

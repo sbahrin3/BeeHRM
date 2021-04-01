@@ -1,0 +1,43 @@
+
+<table class="table">
+	
+	<thead>
+		<tr>
+			<th style="width:10px"></th>
+			<th>Code</th>
+			<th>Name</th>
+			<th>Paid?</th>
+			<th>Order</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach( $leave in $leaves )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$leave.code</td>
+			<td>$leave.name</td>
+			<td>#if ( $leave.paid ) Yes #else No #end</td>
+			<td>$leave.orderNo</td>
+			<td style="text-align:right">
+				<div class="btn-group">
+				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editLeave','div_main','leaveId=$!leave.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteLeave','div_main','leaveId=$leave.id')">
+    				<i class="fa fa-trash-o" aria-hidden="true"></i>
+    			</button>
+				</div>
+			</td>
+		</tr>
+	#end
+	</tbody>
+</table>
+	
+<div class="form-group" style="text-align:left">
+	<button type="button" class="btn btn-success" onclick="sendAjax('addNewLeave','div_main','')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add </button>
+</div>	
+
+#if ( $command == "deleteLeave" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end
