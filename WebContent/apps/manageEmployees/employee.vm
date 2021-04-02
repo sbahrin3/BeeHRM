@@ -18,10 +18,12 @@
 	
 
       <div class="form-group" style="text-align:right">
-        	<button type="button" class="btn btn-link" onclick="$('div_edit').style.display = 'none'; $('div_view').style.display = 'block';"> Cancel</button>	
+        		
         	#if ( $employee )
+				<button type="button" class="btn btn-link" onclick="$('div_edit').style.display = 'none'; $('div_view').style.display = 'block';"> Cancel</button>
         		<button type="button" class="btn btn-primary" onclick="saveData('updateEmployee','div_main','employeeId=$!employee.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Update </button>		
         	#else
+				<button type="button" class="btn btn-link" onclick="sendAjax2('listEmployees','div_main','')"> Back</button>
         		<button type="button" class="btn btn-primary" onclick="saveData('saveNewEmployee','div_main','')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Save </button>
         	#end	  
 	  </div>
@@ -68,6 +70,10 @@
 		#end
 
 	</div>
+	
+	<div class="section_title">Leave Entitlement</div>
+	
+	<div id="div_leave">#parse("apps/manageEmployees/leaveEntitlement.vm")</div>
 		
 #end
 

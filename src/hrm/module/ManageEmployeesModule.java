@@ -8,6 +8,7 @@ import hrm.entity.Department;
 import hrm.entity.Employee;
 import hrm.entity.EmployeeJob;
 import hrm.entity.Job;
+import hrm.entity.LeaveEntitlement;
 import hrm.entity.SalaryAllowance;
 import hrm.entity.SalaryConfig;
 import hrm.entity.SalaryDeductionItem;
@@ -25,9 +26,7 @@ public class ManageEmployeesModule extends LebahUserModule {
 		listEmployees();
 		return path + "/start.vm";
 	}
-	
 
-	
 	@Command("listEmployees")
 	public String listEmployees() {
 		
@@ -360,15 +359,39 @@ public class ManageEmployeesModule extends LebahUserModule {
 		db.update(employeeJob);
 	}
 	
-	public static void main(String[] args) {
+	@Command("selectLeaveEntitlement")
+	public String selectLeaveEntitlement() {
 		
-		Persistence db = Persistence.db();
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
 		
-		String employeeJobId = "cb3f4ba0c9950545071fefaa323bb1e593a1dee6";
+		List<LeaveEntitlement> leaveEntitlements = db.list("select l from LeaveEntitlement l");
+		context.put("leaveEntitlements", leaveEntitlements);
 		
-		EmployeeJob employeeJob = db.find(EmployeeJob.class, employeeJobId);
-
+		return path + "/selectLeaveEntitlement.vm";
 	}
-
+	
+	@Command("saveLeaveEntitlement")
+	public String saveLeaveEntitlement() {
+		
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		
+		LeaveEntitlement leaveEntitlement = db.find(LeaveEntitlement.class, getParam("leaveEntitlementId"));
+		employee.setLeaveEntitlement(leaveEntitlement);
+		
+		db.save(employee);
+		
+		return path + "/leaveEntitlement.vm";
+	}
+	
+	@Command("cancelSelectLeaveEntitlement")
+	public String cancelSelectLeaveEntitlement() {
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		
+		
+		return path + "/leaveEntitlement.vm";		
+	}
 
 }

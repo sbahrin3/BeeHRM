@@ -229,11 +229,12 @@
 	function onload(){
 		
 		#if ( $_logged_in )
-			//getPage('mafex.modules.LandingPageModule');
 			if (document.body.clientWidth > 1000 ) {
 				openNav();
 			}
-			getPage('$firstPage');
+			//if want to show first page in menu, uncomment this and comment the next
+			//getPage('$firstPage'); 
+			getPage('lebah.module.LandingPageModule');
 		#else
 			//let page_name = 'mafex.modules.LandingPageModule';
 			//getPage(page_name);

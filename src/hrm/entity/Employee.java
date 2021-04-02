@@ -12,6 +12,8 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -52,6 +54,9 @@ public class Employee {
 	private String birthPlace;
 	
 	private int gender; //0-M, 1-F
+	
+	@ManyToOne @JoinColumn(name="leave_entitlement_id")
+	private LeaveEntitlement leaveEntitlement;
 		
 	public Employee() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -160,6 +165,14 @@ public class Employee {
 
 	public void setGender(int gender) {
 		this.gender = gender;
+	}
+
+	public LeaveEntitlement getLeaveEntitlement() {
+		return leaveEntitlement;
+	}
+
+	public void setLeaveEntitlement(LeaveEntitlement leaveEntitlement) {
+		this.leaveEntitlement = leaveEntitlement;
 	}
 	
 	

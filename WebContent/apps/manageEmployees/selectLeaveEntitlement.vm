@@ -1,0 +1,29 @@
+
+
+<table class="table">
+	<tr>
+		<th colspan="4">
+			Please select Leave Entitlement:
+		</th>
+	</tr>
+	#foreach( $leaveEntitlement in $leaveEntitlements )
+		<tr>
+			<td>$velocityCount)</td>
+			<td>$leaveEntitlement.code</td>
+			<td>
+				<ul>
+				#foreach ( $item in $leaveEntitlement.items )
+					<li>$item.leave.name, #if ( $item.leave.paid ) Paid #else Unpaid #end, $item.numberOfDays days
+				#end
+				</ul>
+			</td>
+			<td style="text-align:right">
+                <button type="button" class="btn btn-success btn-xs" onclick="sendAjax2('saveLeaveEntitlement','div_leave','leaveEntitlementId=$leaveEntitlement.id&employeeId=$!employee.id')"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Select</button>
+			</td>
+		</tr>
+	#end
+</table>
+	
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-link" onclick="sendAjax2('cancelSelectLeaveEntitlement','div_leave','employeeId=$!employee.id')"> Cancel </button>
+</div>	
