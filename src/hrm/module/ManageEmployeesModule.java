@@ -380,7 +380,7 @@ public class ManageEmployeesModule extends LebahUserModule {
 		LeaveEntitlement leaveEntitlement = db.find(LeaveEntitlement.class, getParam("leaveEntitlementId"));
 		employee.setLeaveEntitlement(leaveEntitlement);
 		
-		db.save(employee);
+		db.update(employee);
 		
 		return path + "/leaveEntitlement.vm";
 	}
