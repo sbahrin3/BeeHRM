@@ -136,7 +136,7 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 	}
 	
-	private void setPrimaryJob(EmployeeJob employeeJob) {
+	private void setPrimaryJob(EmployeeJob employeeJob) throws Exception {
 		if ( "1".equals(getParam("isPrimaryJob"))) { //only on job can become primary
 			List<EmployeeJob> list = new ArrayList<>();
 			employeeJob.getEmployee().getJobs().stream()
@@ -168,7 +168,11 @@ public class ManageEmployeesModule extends LebahUserModule {
 		employeeJob.setStartDate(Util.toDate(getParam("employeeJobStartDate")));
 		employeeJob.setEndDate(Util.toDate(getParam("employeeJobEndDate")));
 		
-		setPrimaryJob(employeeJob);
+		try {
+			setPrimaryJob(employeeJob);
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
 		
 		db.save(employeeJob);
 		
@@ -206,11 +210,19 @@ public class ManageEmployeesModule extends LebahUserModule {
 		employeeJob.setStartDate(Util.toDate(getParam("employeeJobStartDate")));
 		employeeJob.setEndDate(Util.toDate(getParam("employeeJobEndDate")));
 		
-		setPrimaryJob(employeeJob);
+		try {
+			setPrimaryJob(employeeJob);
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
 		
 		db.update(employeeJob);
 		
-		calculateEmployeeJobSalary(db, employeeJob);
+		try {
+			calculateEmployeeJobSalary(db, employeeJob);
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
 		
 		return listEmployeeJobs();
 	}
@@ -244,9 +256,12 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		employeeJob.getSalary().setBasicAmount(Util.getDouble(getParam("employeeJobBasicAmount")));
 		
-		db.update(employeeJob);
-		
-		calculateEmployeeJobSalary(db, employeeJob);
+		try {
+			db.update(employeeJob);
+			calculateEmployeeJobSalary(db, employeeJob);
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
 		
 		return path + "/employeeJobSalary.vm";
 	}
@@ -292,7 +307,11 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		db.update(employeeJob);
 		
-		calculateEmployeeJobSalary(db, employeeJob);
+		try {
+			calculateEmployeeJobSalary(db, employeeJob);
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
 		
 		return path + "/employeeJobSalary.vm";
 	}
@@ -308,7 +327,7 @@ public class ManageEmployeesModule extends LebahUserModule {
 		return path + "/viewSalary.vm";
 	}
 
-	private static void calculateEmployeeJobSalary(Persistence db, EmployeeJob employeeJob) {
+	private static void calculateEmployeeJobSalary(Persistence db, EmployeeJob employeeJob) throws Exception {
 		db.delete(employeeJob.getSalaryItems().toArray());
 		employeeJob.getSalaryItems().clear();
 		db.update(employeeJob);

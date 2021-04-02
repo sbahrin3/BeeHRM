@@ -30,6 +30,7 @@ public class LebahUserModule extends LebahModule {
 			loginUser = user;
 		}
 		
+		System.out.println("command = " + command);
 		context.put("command", command);
 	}
 

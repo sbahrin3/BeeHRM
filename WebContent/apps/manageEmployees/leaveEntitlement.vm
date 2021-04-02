@@ -4,6 +4,10 @@
 	<div class="form-group">
 		Leave entitlement not defined.  Please define.
 	</div>
+	
+	<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-success" onclick="sendAjax2('selectLeaveEntitlement','div_leave','employeeId=$!employee.id')"><span><i class="fa fa-pencil" aria-hidden="true"></i></span> Leave Entitlement </button>
+	</div>	
 
 #else
 	
@@ -29,9 +33,10 @@
 			</td>
 		</tr>
  </table>
+ 
+ <div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-danger" onclick="sendAjax2('selectLeaveEntitlement','div_leave','employeeId=$!employee.id')"><span><i class="fa fa-pencil" aria-hidden="true"></i></span> Leave Entitlement </button>
+</div>	
 	
 #end
 
-<div class="form-group" style="text-align:right">
-	<button type="button" class="btn btn-success" onclick="sendAjax2('selectLeaveEntitlement','div_leave','employeeId=$!employee.id')"><span><i class="fa fa-pencil" aria-hidden="true"></i></span> Leave Entitlement </button>
-</div>	
