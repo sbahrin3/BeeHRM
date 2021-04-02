@@ -11,6 +11,7 @@ public class InitializeSetupDatabase {
 		createRoles();
 		createAdmin();
 		SetupCountryStateDistrictData.run();
+		CreateHRMenus.run();
 		
 		Persistence.db().close();
 		
@@ -18,6 +19,8 @@ public class InitializeSetupDatabase {
 	
 	
 	public static void createRoles() {
+		
+		Persistence.db().execute("delete from Role r");
 		
 		String[][] roles = { {"admin", "Admin"}, {"anon", "Anon"}, {"user", "User"} };
 		for ( String[] r : roles ) {
@@ -34,6 +37,8 @@ public class InitializeSetupDatabase {
 	}
 	
 	public static void createAdmin() {
+		
+		Persistence.db().execute("delete from User u");
 		
 		User user = new User();
 		user.setUserName("admin");

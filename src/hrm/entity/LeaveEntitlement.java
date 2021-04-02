@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -33,6 +36,15 @@ public class LeaveEntitlement {
 	
 	@OneToMany (fetch=FetchType.LAZY, mappedBy="leaveEntitlement")
 	private List<LeaveEntitlementItem> items = new ArrayList<>();
+	
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "employee_leaves_entitlement",
+            joinColumns = {@JoinColumn(name = "leave_entitlement_id")},
+            inverseJoinColumns = {@JoinColumn(name = "employee_id")}
+    )
+	private List<Employee> employees = new ArrayList<>();
+	
 	
 	public LeaveEntitlement() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -78,5 +90,14 @@ public class LeaveEntitlement {
 		this.description = description;
 	}
 
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
+	
 
 }

@@ -158,6 +158,8 @@ public class Menu {
 	}
 	
 	public boolean hasRole(User user) {
+		if ( user == null ) return false;
+		if ( user.getRole() == null ) return false;
 		if ( hasRole(user.getRole())) return true;
 		return user.getSecondaryRoles().stream().filter(r -> hasRole(r)).findFirst().isPresent();
 	}  

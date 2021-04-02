@@ -11,6 +11,10 @@ public class SetupCountryStateDistrictData {
 		
 		Persistence db = Persistence.db();
 		
+		db.execute("delete from District d");
+		db.execute("delete from State s");
+		db.execute("delete from Country c");
+		
 		Country[] cntries = new Country[countryItems.length];
 		int i = 0;
 		for ( String[] item : countryItems ) {
