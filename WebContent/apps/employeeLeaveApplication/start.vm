@@ -1,0 +1,7 @@
+<div class="module_title">Employee Leaves</div>
+	
+<div id="div_main">
+	
+	#parse("apps/employeeLeaveApplication/listEmployeeLeaves.vm")
+	
+</div>

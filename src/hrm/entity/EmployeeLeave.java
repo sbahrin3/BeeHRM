@@ -1,6 +1,8 @@
 package hrm.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import hrm.module.Util;
 
 /**
  * 
@@ -91,6 +95,10 @@ public class EmployeeLeave {
 	public Date getRequestDate() {
 		return requestDate;
 	}
+	
+	public String getRequestDateStr() {
+		return Util.toStr(requestDate);
+	}
 
 	public void setRequestDate(Date requestDate) {
 		this.requestDate = requestDate;
@@ -98,6 +106,10 @@ public class EmployeeLeave {
 
 	public Date getRequestFromDate() {
 		return requestFromDate;
+	}
+	
+	public String getRequestFromDateStr() {
+		return Util.toStr(requestFromDate);
 	}
 
 	public void setRequestFromDate(Date requestFromDate) {
@@ -107,6 +119,10 @@ public class EmployeeLeave {
 	public Date getRequestToDate() {
 		return requestToDate;
 	}
+	
+	public String getRequestToDateStr() {
+		return Util.toStr(requestToDate);
+	}
 
 	public void setRequestToDate(Date requestToDate) {
 		this.requestToDate = requestToDate;
@@ -115,6 +131,10 @@ public class EmployeeLeave {
 	public Date getApproveDate() {
 		return approveDate;
 	}
+	
+	public String getApproveDateStr() {
+		return Util.toStr(approveDate);
+	}
 
 	public void setApproveDate(Date approveDate) {
 		this.approveDate = approveDate;
@@ -122,6 +142,10 @@ public class EmployeeLeave {
 
 	public Date getApproveFromDate() {
 		return approveFromDate;
+	}
+	
+	public String getApproveFromDateStr() {
+		return Util.toStr(approveFromDate);
 	}
 
 	public void setApproveFromDate(Date approveFromDate) {
@@ -132,6 +156,10 @@ public class EmployeeLeave {
 		return approveToDate;
 	}
 
+	public String getApproveToDateStr() {
+		return Util.toStr(approveToDate);
+	}
+	
 	public void setApproveToDate(Date approveToDate) {
 		this.approveToDate = approveToDate;
 	}
@@ -143,5 +171,28 @@ public class EmployeeLeave {
 	public void setTotalDays(int totalDays) {
 		this.totalDays = totalDays;
 	}	
+	
+	public int getRequestedNumberOfDays() {
+
+		long diffInMillies = Math.abs(requestToDate.getTime() - requestFromDate.getTime());
+		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		
+		return (int) diff;
+	}
+	
+	public String getLeaveStatusStr() {
+		switch (status) {
+			case 0:
+				return "New";
+			case 1:
+				return "Process";
+			case 2:
+				return "Approved";
+			case 3:
+				return "Rejected";
+				
+		}
+		return "";
+	}
 
 }

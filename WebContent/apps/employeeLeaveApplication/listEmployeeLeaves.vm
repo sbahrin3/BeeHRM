@@ -1,0 +1,44 @@
+
+<div style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax('newLeaveApplication','div_main','')"><span><i class="fa fa-file-o" aria-hidden="true"></i></span> New Leave Application</button>
+</div>
+<br/>
+<table class="table">
+	<thead<
+		<tr>
+			<th></th>
+			<th>Employee Name</th>
+			<th style="text-align:center">Days</th>
+			<th>Leave From</th>
+			<th>Leave To</th>
+			
+			<th>Apply On</th>
+			<th style="text-align:center">Status</th>
+			<th></th>
+		</tr>
+	</thead>
+	
+	#foreach ( $employeeLeave in $employeeLeaves )
+		<tr>
+			<td style="width:20px">$velocityCount.</td>
+			<td>$!employeeLeave.employee.name</td>
+			<td style="text-align:center">$!employeeLeave.requestedNumberOfDays</td>
+			<td>$!employeeLeave.requestFromDateStr</td>
+			<td>$!employeeLeave.requestToDateStr</td>
+			
+			<td>$!employeeLeave.requestDateStr</td>
+			<td style="text-align:center">
+				$!employeeLeave.leaveStatusStr
+			</td>
+			<td>
+				<div class="btn-group">
+					<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editEmployeeLeave','div_main','employeeLeaveId=$!employeeLeave.id')"><span><i class="fa fa-pencil" aria-hidden="true"></i></span></button>
+
+				</div>
+			</td>
+		</tr>
+		
+	#end
+	
+</table>
+	

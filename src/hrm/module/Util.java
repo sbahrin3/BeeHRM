@@ -29,5 +29,11 @@ public class Util {
 		}
 		return date;
 	}
+	
+	public static String toStr(Date date) {
+		return date != null ? new SimpleDateFormat("dd/MM/yyyy").format(date) : "";
+	}
+	
+	
 
 }
