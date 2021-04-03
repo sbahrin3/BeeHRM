@@ -18,7 +18,7 @@
 				</ul>
 			</td>
 			<td style="text-align:right">
-                <button type="button" class="btn btn-success btn-xs" onclick="sendAjax2('saveLeaveEntitlement','div_leave','leaveEntitlementId=$leaveEntitlement.id&employeeId=$!employee.id')"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Select</button>
+                <button type="button" class="btn btn-warning btn-sm" onclick="sendAjax2('saveLeaveEntitlement','div_leave','leaveEntitlementId=$leaveEntitlement.id&employeeId=$!employee.id')"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Select</button>
 			</td>
 		</tr>
 	#end

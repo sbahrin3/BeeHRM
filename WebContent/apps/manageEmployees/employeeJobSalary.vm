@@ -1,6 +1,10 @@
 
 #if ( $employeeJob.salary.salaryConfig.code )
 	
+	    <div class="form-group" style="text-align:right">
+    	<button type="button" class="btn btn-danger" onclick="sendAjax2('listSalaryConfigs','div_salary','employeeJobId=$!employeeJob.id&employeeId=$!employee.id')"><i class="fa fa-pencil" aria-hidden="true"></i> Change Salary Entitlement </button>		
+    </div>
+	
 	<div class="form-group">
 		<label>Basic Salary</label>
 		<input  name="employeeJobBasicAmount" value="$!employeeJob.salary.basicAmountStr" style="width:150px" type="text" class="form-control">
@@ -19,9 +23,8 @@
 	#parse("apps/manageEmployees/listDeductions.vm")
 	
 	<br/>
-<div class="form-group" style="text-align:right">
-	<button type="button" class="btn btn-danger" onclick="sendAjax2('listSalaryConfigs','div_salary','employeeJobId=$!employeeJob.id&employeeId=$!employee.id')"><i class="fa fa-pencil" aria-hidden="true"></i> Change Salary Entitlement </button>		
-</div>
+	
+
 
 #else
 	

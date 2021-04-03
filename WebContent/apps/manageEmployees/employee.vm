@@ -1,6 +1,7 @@
 
-<div class="section_title">Personal Biodata</div>
 
+<h3>$!employee.name</h3>
+<div class="section_title" style="margin-top:20px">Personal Biodata</div>
 	
 <div id="div_edit"  #if ( $employee ) style="display:none" #end>
    
