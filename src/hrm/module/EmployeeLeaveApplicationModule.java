@@ -152,7 +152,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	
 		db.update(employeeLeave);
 		
-		return path + "/employeeLeaveStatus.vm";
+		return listEmployeeLeaves();
 	}
 	
 	@Command("deleteEmployeeLeave")

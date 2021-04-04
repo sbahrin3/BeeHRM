@@ -22,7 +22,18 @@ password.default=
 url.default=jdbc:h2:file:~/h2db/beehrm
 ```
 
-MySQL Database.
+POSTGRESQL Database
+
+```
+title.default=LIGHT AND EASY
+driver.default=org.postgresql.Driver
+dialect.default=org.hibernate.dialect.PostgreSQLDialect
+user.default=postgres
+password.default=sbahrin1234
+url.default=jdbc:postgresql://localhost:5432/mydb
+```
+
+MySQL/MARIADB Database.
 
 ```
 driver.default=com.mysql.cj.jdbc.Driver

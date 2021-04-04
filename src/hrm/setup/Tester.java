@@ -13,12 +13,7 @@ public class Tester {
 		// this will let hibernate creates all tables declared in hibernate.cfg.xml
 		Persistence db = Persistence.db();
 		
-		List<Timedemo> ts = Persistence.db().list("select t from Timedemo t");
-		Timedemo t = ts.get(0);
-		System.out.println(new SimpleDateFormat("dd/MM/yyyy").format(t.getDate()));
-		System.out.println(new SimpleDateFormat("hh:mm a").format(t.getTimeIn()));
-		System.out.println(new SimpleDateFormat("hh:mm a").format(t.getTimeOut()));
-		
+	
 	}
 
 }
