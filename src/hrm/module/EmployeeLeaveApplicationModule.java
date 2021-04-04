@@ -2,6 +2,7 @@ package hrm.module;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -128,6 +129,9 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		context.put("employeeLeave", employeeLeave);
 		context.put("employee", employeeLeave.getEmployee());
 		
+		int daysAvailable = checkAvailableDays();
+		
+		
 		return path + "/employeeLeaveStatus.vm";
 	}
 	
@@ -173,14 +177,29 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	
 	private int checkAvailableDays() {
 		Employee employee = db.find(Employee.class, getParam("employeeId"));
-		context.put("employee", employee);
 		
 		LeaveEntitlementItem item = db.find(LeaveEntitlementItem.class, getParam("leaveEntitlementItemId"));
-		int daysEntitled = item.getNumberOfDays();
+		int daysEntitled = 0;
+		if ( item != null ) {
+			daysEntitled = item.getNumberOfDays();
+		} else {
+			EmployeeLeave employeeLeave = db.find(EmployeeLeave.class, getParam("employeeLeaveId"));
+			System.out.println("=== " + employeeLeave);
+			Leave leave = employeeLeave.getLeave();
+			employee = employeeLeave.getEmployee();
+			
+			Optional<LeaveEntitlementItem> opt = employee.getLeaveEntitlement().getItems().stream().filter(i -> i.getLeave().getId().equals(leave.getId())).findFirst();
+			if ( opt.isPresent() ) {
+				item = opt.get();
+				daysEntitled = item.getNumberOfDays();
+			}
+		}
+		
 		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l where l.employee.id = '" + employee.getId() + "' and l.leave.id = '" + item.getLeave().getId() + "'");
 		int daysTaken = employeeLeaves.stream().collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 		int daysAvailable = daysEntitled - daysTaken;
 		
+		context.put("employee", employee);
 		context.put("leave", item.getLeave());
 		context.put("daysEntitled", daysEntitled);
 		context.put("daysTaken", daysTaken);
