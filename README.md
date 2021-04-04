@@ -10,7 +10,7 @@ This repository is an Eclipse project, so you need an Eclipse IDE to clone the p
 
 ## Database
 
-Database configuration parameters are declared in the dbconnection.properties file.  This project support any database.  I have created a sample connections for H2, POSTRESQL and MySQL in the dbconnection.properties.copy file.
+Database configuration parameters are declared in the dbconnection.properties file.  This project support any database.  I have created a sample connections for H2, PostgreSQL and MySQL/MariaDB in the dbconnection.properties.copy file.
 
 H2 Database.
 
@@ -22,10 +22,9 @@ password.default=
 url.default=jdbc:h2:file:~/h2db/beehrm
 ```
 
-POSTGRESQL Database
+PostgreSQL Database
 
 ```
-title.default=LIGHT AND EASY
 driver.default=org.postgresql.Driver
 dialect.default=org.hibernate.dialect.PostgreSQLDialect
 user.default=postgres
@@ -33,7 +32,7 @@ password.default=sbahrin1234
 url.default=jdbc:postgresql://localhost:5432/mydb
 ```
 
-MySQL/MARIADB Database.
+MySQL/MariaDB Database.
 
 ```
 driver.default=com.mysql.cj.jdbc.Driver
