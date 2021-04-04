@@ -10,7 +10,7 @@ This repository is an Eclipse project, so you need an Eclipse IDE to clone the p
 
 ## Database
 
-Database configuration parameters are declared in the dbconnection.properties file.  This project support any database.  I have created a sample connections for H2 and MySQL in the dbconnection.properties.copy file.
+Database configuration parameters are declared in the dbconnection.properties file.  This project support any database.  I have created a sample connections for H2, POSTRESQL and MySQL in the dbconnection.properties.copy file.
 
 H2 Database.
 
