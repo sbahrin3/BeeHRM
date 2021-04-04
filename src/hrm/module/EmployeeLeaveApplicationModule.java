@@ -131,6 +131,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		return path + "/employeeLeaveStatus.vm";
 	}
 	
+
 	@Command("updateEmployeeLeaveStatus")
 	public String updateEmployeeLeaveStatus() {
 		
@@ -145,6 +146,8 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		
 		return path + "/employeeLeaveStatus.vm";
 	}
+	
+	
 	
 	@Command("deleteEmployeeLeave")
 	public String deleteEmployeeLeave() {

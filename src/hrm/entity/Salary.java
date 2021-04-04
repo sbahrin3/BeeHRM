@@ -85,7 +85,6 @@ public class Salary {
 	}
 	
 	public SalaryConfig getSalaryConfig() {
-		if ( salaryConfig == null ) salaryConfig = new SalaryConfig();
 		return salaryConfig;
 	}
 

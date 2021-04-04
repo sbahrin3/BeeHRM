@@ -52,7 +52,8 @@ public class CreateHRMenus {
 				{"administration","salary_entitlements","Salary Entitlements","hrm.module.SetupSalaryConfigModule"},
 				{"administration","leave_types","Leave Types","hrm.module.SetupLeaveModule"},
 				{"administration","leave_entitlements","Leave Entitlements","hrm.module.SetupLeaveEntitlementModule"},
-				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule"}
+				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule"},
+				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeavesApplicationModule"}
 	
 		};
 		

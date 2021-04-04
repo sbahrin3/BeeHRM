@@ -73,7 +73,7 @@
 			#parse("vtl/main/modal-window.vm")
 			#parse("vtl/main/modal-window2.vm")
 			#parse("vtl/main/modal-confirmation.vm")
-			<input type="text" style="width:0px"> <!-- this is buffer input.. do not remove! -->
+			<input type="text" style="width:0px;height:0px;border:0px"> <!-- this is buffer input.. do not remove! -->
 		</form>
 	</div>
 	

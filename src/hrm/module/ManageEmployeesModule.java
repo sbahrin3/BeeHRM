@@ -84,6 +84,13 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		return path + "/employee.vm";
 	}
+	
+	
+	private void updateEmployeeData(Employee employee) {
+				
+		db.update(employee);
+	}
+	
 
 	@Command("updateEmployee")
 	public String updateEmployee() {
