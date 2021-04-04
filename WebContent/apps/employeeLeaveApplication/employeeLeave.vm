@@ -1,25 +1,11 @@
 <div class="section_title">Leave Application: $!employee.name</div>
 	
 
-#** 
-<div class="form-group">
-	<label>Select Leave Type</label>
-	<table class="table">
-		#foreach ( $item in $employee.leaveEntitlement.items )
-			<tr>
-				<td><input type="radio" name="leaveEntitlementItemId" value="$item.id" onchange="$('selectedLeaveType').value = this.value" #if ( $employeeLeave.leave.id == $item.leave.id ) checked #end></td>
-				<td>$item.leave.code - $item.leave.name</td>
-				<td>$item.numberOfDays days</td>
-			</tr>
-		#end
-	</table>
-	<input type="hidden" id="selectedLeaveType" name="selectedLeaveType" value="$!employeeLeave.id"  data-required="true" data-msg="Please select leave type">
-</div>
-**#
+
 
 <div class="form-group">
 	<label>Select Leave Type</label>
-	<select name="leaveEntitlementItemId" class="form-control" onchange="$('selectedLeaveType').value = this.value" #if ( $employeeLeave.leave.id == $item.leave.id ) checked #end>
+	<select name="leaveEntitlementItemId" class="form-control" onchange="$('selectedLeaveType').value = this.value;sendAjaxQuiet('checkEmployeeLeaveStatus','div_leave_status','employeeId=$!employee.id');" #if ( $employeeLeave.leave.id == $item.leave.id ) checked #end>
 		<option value=""> - </option>
 		#foreach ( $item in $employee.leaveEntitlement.items )
 			<option value="$item.id" #if ( $employeeLeave.leave.id == $item.leave.id ) selected #end>$item.leave.code - $item.leave.name</option>
@@ -27,10 +13,13 @@
 	</select>
 	<input type="hidden" id="selectedLeaveType" name="selectedLeaveType" value="$!employeeLeave.id"  data-required="true" data-msg="Please select leave type">
 </div>
+
+<div id="div_leave_status" class="form-group"></div>
+
 <div class="row form-group">
 	<div class="col-sm-6">
 		<label>Date From</label>
-		<input name="requestFromDate" value="$!employeeLeave.requestFromDateStr" data-required="true" data-msg="Please enter date from" type="text" class="form-control">
+		<input name="requestFromDate" value="$!employeeLeave.requestFromDateStr" data-required="true" data-msg="Please enter from date" type="text" class="form-control">
 	</div>
 	<div class="col-sm-6">
 		<label>Date To</label>
@@ -38,6 +27,7 @@
 	</div>
 </div>
 	
+<div id="div_check_days" class="form-group"></div>
 
 <div style="margin-top:20px;text-align:right">
 	
@@ -52,8 +42,8 @@
 		</button>
 	#else
 		<button type="button" class="btn btn-link" onclick="sendAjax('newEmployeeLeave','div_main','employeeId=$!employee.id')"><span><i class="fa fa-refresh" aria-hidden="true"></i></span> Reload</button>	
-		<button type="button" class="btn btn-success" onclick="saveData('saveNewEmployeeLeave','div_main','employeeId=$!employee.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Submit Leave</button>	
-
+		<button type="button" class="btn btn-success" onclick="saveData('checkDays','div_check_days','employeeId=$!employee.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Submit Leave</button>	
+		##saveData('saveNewEmployeeLeave','div_main','employeeId=$!employee.id')
 	#end
 	</div>
 	

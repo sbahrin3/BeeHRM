@@ -1,0 +1,7 @@
+$accepted - $requestedNumberOfDays
+
+#if ( $accepted )
+	<script>
+		sendAjax('saveNewEmployeeLeave','div_main','employeeId=$!employee.id');
+	</script>
+#end

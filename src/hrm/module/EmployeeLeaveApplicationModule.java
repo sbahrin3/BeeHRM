@@ -3,11 +3,13 @@ package hrm.module;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import hrm.entity.Employee;
 import hrm.entity.EmployeeLeave;
 import hrm.entity.Leave;
 import hrm.entity.LeaveEntitlementItem;
+import lebah.db.entity.Persistence;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
@@ -63,8 +65,6 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	
 	@Command("saveNewEmployeeLeave")
 	public String saveNewEmployeeLeave() {
-		
-		
 		Employee employee = db.find(Employee.class, getParam("employeeId"));
 		context.put("employee", employee);
 		
@@ -142,12 +142,14 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		employeeLeave.setStatus(Util.getInt(getParam("leaveStatus")));
 		employeeLeave.setRemark(getParam("employeeLeaveRemark"));
 		
+		employeeLeave.setApproveDate(employeeLeave.getStatus() == 2 ? new Date() : null);
+		employeeLeave.setApproveFromDate(employeeLeave.getStatus() == 2 ? employeeLeave.getRequestFromDate() : null);
+		employeeLeave.setApproveToDate(employeeLeave.getStatus() == 2 ? employeeLeave.getRequestToDate() : null);
+	
 		db.update(employeeLeave);
 		
 		return path + "/employeeLeaveStatus.vm";
 	}
-	
-	
 	
 	@Command("deleteEmployeeLeave")
 	public String deleteEmployeeLeave() {
@@ -160,6 +162,66 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 			e.printStackTrace();
 		}
 		return listEmployeeLeaves();
+	}
+	
+	@Command("checkEmployeeLeaveStatus")
+	public String checkEmployeeLeaveStatus() {
+		
+		checkAvailableDays();
+		return path + "/checkStatus.vm";
+	}
+	
+	private int checkAvailableDays() {
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		
+		LeaveEntitlementItem item = db.find(LeaveEntitlementItem.class, getParam("leaveEntitlementItemId"));
+		int daysEntitled = item.getNumberOfDays();
+		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l where l.employee.id = '" + employee.getId() + "' and l.leave.id = '" + item.getLeave().getId() + "'");
+		int daysTaken = employeeLeaves.stream().collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
+		int daysAvailable = daysEntitled - daysTaken;
+		
+		context.put("leave", item.getLeave());
+		context.put("daysEntitled", daysEntitled);
+		context.put("daysTaken", daysTaken);
+		context.put("daysAvailable", daysAvailable);
+		
+		return daysAvailable;
+	}
+	
+	@Command("checkDays")
+	public String checkDays() {
+		
+		boolean accepted = false;
+				
+		Date requestToDate = Util.toDate(getParam("requestToDate"));
+		Date requestFromDate = Util.toDate(getParam("requestFromDate"));
+		
+		long requestedNumberOfDays = 0;
+		if ( requestToDate != null && requestFromDate != null ) {
+			
+			int daysAvailable = checkAvailableDays();
+			long diffInMillies = Math.abs(requestToDate.getTime() - requestFromDate.getTime());
+			requestedNumberOfDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+			accepted = requestedNumberOfDays <= daysAvailable;
+			
+		}
+		context.put("requestedNumberOfDays", requestedNumberOfDays);
+		context.put("accepted", accepted);
+		
+		return path + "/checkDays.vm";
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		String id = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
+		Employee employee = Persistence.db().find(Employee.class, id);
+		List<EmployeeLeave> employeeLeaves = Persistence.db().list("select l from EmployeeLeave l where l.employee.id = '" + employee.getId() + "'");
+
+		int totalDays = employeeLeaves.stream().collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
+		System.out.println("Total Days = " + totalDays);
+		
 	}
 	
 }

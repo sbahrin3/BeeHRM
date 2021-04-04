@@ -176,17 +176,19 @@ public class EmployeeLeave {
 		this.totalDays = totalDays;
 	}	
 	
-	
-	
 	public int getRequestedNumberOfDays() {
-
+		if ( requestToDate == null || requestFromDate == null ) return 0;
 		long diffInMillies = Math.abs(requestToDate.getTime() - requestFromDate.getTime());
 		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		
 		return (int) diff;
 	}
 	
-	
+	public int getApprovedNumberOfDays() {
+		if ( approveToDate == null || approveFromDate == null ) return 0;
+		long diffInMillies = Math.abs(approveToDate.getTime() - approveFromDate.getTime());
+		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		return (int) diff;
+	}
 	
 	public String getRemark() {
 		return remark;
