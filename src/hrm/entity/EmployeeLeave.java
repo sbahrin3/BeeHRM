@@ -1,6 +1,5 @@
 package hrm.entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -8,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -54,6 +54,10 @@ public class EmployeeLeave {
 	private Date approveToDate;
 	
 	private int totalDays;
+	
+	@Lob @Column(length=1000)
+	private String remark;
+	
 	
 	
 	public EmployeeLeave() {
@@ -172,6 +176,8 @@ public class EmployeeLeave {
 		this.totalDays = totalDays;
 	}	
 	
+	
+	
 	public int getRequestedNumberOfDays() {
 
 		long diffInMillies = Math.abs(requestToDate.getTime() - requestFromDate.getTime());
@@ -180,6 +186,16 @@ public class EmployeeLeave {
 		return (int) diff;
 	}
 	
+	
+	
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	public String getLeaveStatusStr() {
 		switch (status) {
 			case 0:

@@ -1,0 +1,58 @@
+<div class="section_title">Leave Application</div>
+
+<div style="text-align:right">
+	<div class="btn-group">
+		<button type="button" class="btn btn-link" onclick="sendAjax('listEmployeeLeaves','div_main','')"> Back</button>	
+	</div>
+</div>
+
+<div style="font-weight:bold;margin-bottom:20px;font-size:12pt">
+	#if ( $employeeLeave.status == 1 )
+		<span>IN PROCESS</span>
+	#elseif ( $employeeLeave.status == 2 )
+		<span>APPROVED</span>
+	#elseif ( $employeeLeave.status == 3 )
+		<span style="color:red">REJECTED</span>
+	#end
+</div>
+
+<div style="font-weight:bold;margin-bottom:20px;font-size:12pt">
+	$employee.name<br/>
+	$employee.job.name<br/>
+	$employee.department.name, $employee.department.company.name
+</div>
+	
+<table class="table">
+	<tr><td class="line_title">Leave</td><td class="line_sep">:</td><td class="line_data">$!employeeLeave.leave.code - $!employeeLeave.leave.name</td></tr>
+	<tr><td class="line_title">From Date</td><td class="line_sep">:</td><td class="line_data">$!employeeLeave.requestFromDateStr</td></tr>
+	<tr><td class="line_title">To Date</td><td class="line_sep">:</td><td class="line_data">$!employeeLeave.requestToDateStr</td></tr>
+	<tr><td class="line_title">Number of Days</td><td class="line_sep">:</td><td class="line_data">
+			$!employeeLeave.requestedNumberOfDays #if ( $employeeLeave.requestedNumberOfDays > 1 ) days #else day #end
+	</td></tr>
+
+</table>
+	
+<div class="form-group">
+	<label>Approval</label>
+	<select name="leaveStatus" class="form-control">
+		<option value="1" #if ( $employeeLeave.status == 1 ) selected #end> </option>
+		<option value="2" #if ( $employeeLeave.status == 2 ) selected #end> Approve this leave </option>
+		<option value="3" #if ( $employeeLeave.status == 3 ) selected #end> Reject this leave </option>
+	</select>
+</div>
+	
+<div class="form-group">
+	<label>Remarks</label>
+    <textarea name="employeeLeaveRemark" class="form-control" style="height:100px">$!employeeLeave.remark</textarea>
+</div>
+	
+
+<div style="margin-top:20px;text-align:right">
+	
+	<div class="btn-group">
+		<button type="button" class="btn btn-link" onclick="sendAjax('listEmployeeLeaves','div_main','')"> Back</button>	
+		<button type="button" class="btn btn-success" onclick="saveData('updateEmployeeLeaveStatus','div_main','employeeLeaveId=$!employeeLeave.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Update Status</button>	
+
+	</div>
+	
+</div>

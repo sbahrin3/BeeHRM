@@ -41,17 +41,20 @@
 
 <div style="margin-top:20px;text-align:right">
 	
+	<div class="btn-group">
 	<button type="button" class="btn btn-link" onclick="sendAjax('listEmployeeLeaves','div_main','')"> Cancel</button>	
 
 	#if ( $employeeLeave )
 		<button type="button" class="btn btn-link" onclick="sendAjax('editEmployeeLeave','div_main','employeeLeaveId=$!employeeLeave.id')"><span><i class="fa fa-refresh" aria-hidden="true"></i></span> Reload</button>	
 		<button type="button" class="btn btn-success" onclick="saveData('updateEmployeeLeave','div_main','employeeLeaveId=$!employeeLeave.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Update Leave</button>	
-
+		<button type="button" class="btn btn-confirmation btn-danger"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteEmployeeLeave','div_main','employeeLeaveId=$!employeeLeave.id')">
+			<i class="fa fa-trash-o" aria-hidden="true"></i>
+		</button>
 	#else
 		<button type="button" class="btn btn-link" onclick="sendAjax('newEmployeeLeave','div_main','employeeId=$!employee.id')"><span><i class="fa fa-refresh" aria-hidden="true"></i></span> Reload</button>	
 		<button type="button" class="btn btn-success" onclick="saveData('saveNewEmployeeLeave','div_main','employeeId=$!employee.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Submit Leave</button>	
 
 	#end
-
+	</div>
 	
 </div>

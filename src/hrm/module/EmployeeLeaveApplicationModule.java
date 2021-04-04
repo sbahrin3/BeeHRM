@@ -83,7 +83,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		employeeLeave.setTotalDays(employeeLeave.getRequestedNumberOfDays());
 		db.save(employeeLeave);
 		
-		return path + "/employeeLeaveSubmitted.vm";
+		return listEmployeeLeaves();
 	}
 	
 	@Command("editEmployeeLeave")
@@ -121,10 +121,42 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		return path + "/employeeLeave.vm";
 	}
 	
+	@Command("editEmployeeLeaveStatus")
+	public String editEmployeeLeaveStatus() {
+		
+		EmployeeLeave employeeLeave = db.find(EmployeeLeave.class, getParam("employeeLeaveId"));
+		context.put("employeeLeave", employeeLeave);
+		context.put("employee", employeeLeave.getEmployee());
+		
+		return path + "/employeeLeaveStatus.vm";
+	}
+	
 	@Command("updateEmployeeLeaveStatus")
 	public String updateEmployeeLeaveStatus() {
 		
-		return path + "/employeeLeave.vm";
+		EmployeeLeave employeeLeave = db.find(EmployeeLeave.class, getParam("employeeLeaveId"));
+		context.put("employeeLeave", employeeLeave);
+		context.put("employee", employeeLeave.getEmployee());
+		
+		employeeLeave.setStatus(Util.getInt(getParam("leaveStatus")));
+		employeeLeave.setRemark(getParam("employeeLeaveRemark"));
+		
+		db.update(employeeLeave);
+		
+		return path + "/employeeLeaveStatus.vm";
+	}
+	
+	@Command("deleteEmployeeLeave")
+	public String deleteEmployeeLeave() {
+		context.remove("delete_error");
+		EmployeeLeave employeeLeave = db.find(EmployeeLeave.class, getParam("employeeLeaveId"));
+		try {
+			db.delete(employeeLeave);
+		} catch ( Exception e ) {
+			context.put("delete_error", e.getMessage());
+			e.printStackTrace();
+		}
+		return listEmployeeLeaves();
 	}
 	
 }
