@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import hrm.entity.Department;
 import hrm.entity.Employee;
 import hrm.entity.EmployeeJob;
+import hrm.entity.EmployeeLeave;
 import hrm.entity.Job;
+import hrm.entity.Leave;
 import hrm.entity.LeaveEntitlement;
 import hrm.entity.SalaryAllowance;
 import hrm.entity.SalaryConfig;
@@ -411,6 +413,24 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		
 		return path + "/leaveEntitlement.vm";		
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		
+		Persistence db = Persistence.db();
+		String id = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
+		
+		Employee employee = db.find(Employee.class, id);
+		List<EmployeeLeave> employeeLeaves = employee.getEmployeeLeaves();
+		
+		String leaveId = "5f4b530b3c53d757e98fbb148b3e10de6326be12";
+		Leave leave = db.find(Leave.class, leaveId);
+		
+		int sum = employeeLeaves.stream().filter(l -> l.getLeave().getId().equals(leave.getId())).collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
+		
 	}
 
 }

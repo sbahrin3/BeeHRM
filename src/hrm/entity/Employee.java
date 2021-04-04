@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -57,6 +58,9 @@ public class Employee {
 	
 	@ManyToOne @JoinColumn(name="leave_entitlement_id")
 	private LeaveEntitlement leaveEntitlement;
+	
+	@OneToMany (fetch=FetchType.LAZY, mappedBy="employee")
+	private List<EmployeeLeave> employeeLeaves;
 		
 	public Employee() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -174,6 +178,20 @@ public class Employee {
 	public void setLeaveEntitlement(LeaveEntitlement leaveEntitlement) {
 		this.leaveEntitlement = leaveEntitlement;
 	}
+
+	public List<EmployeeLeave> getEmployeeLeaves() {
+		return employeeLeaves;
+	}
+
+	public void setEmployeeLeaves(List<EmployeeLeave> employeeLeaves) {
+		this.employeeLeaves = employeeLeaves;
+	}
 	
+	public int getLeaveDaysTaken(Leave leave) {
+		return employeeLeaves.stream()
+				.filter(l -> l.getLeave().getId().equals(leave.getId()))
+				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
+
+	}
 	
 }

@@ -27,13 +27,15 @@
                     </thead>
 					<tbody>
                 	#foreach ( $item in $employee.leaveEntitlement.items )
+						#set ( $total_taken = $employee.getLeaveDaysTaken($item.leave) )
+						#set ( $total_available = $item.numberOfDays - $total_taken )
                 		<tr>
                 			<td>$velocityCount.</td>
                 			<td>$!item.leave.name</td>
                 			<td>#if ( $!item.leave.paid ) Paid #else Unpaid #end</td>
                 			<td style="text-align:center">$!item.numberOfDays</td>	
-							<td style="text-align:center">0</td>
-							<td style="text-align:center">$!item.numberOfDays</td>
+							<td style="text-align:center">$!total_taken</td>
+							<td style="text-align:center">$!total_available</td>
                 		</tr>
                 	#end
                     </tbody>
