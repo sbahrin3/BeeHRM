@@ -97,7 +97,7 @@ function callAjaxLogin(e, username, password) {
 <script type="text/javascript" src="${relativeDir}vtl/main/other_scripts.js" ></script>
 
 
-<script type="text/javascript" src="${relativeDir}ckeditor/ckeditor.js" ></script>		
+##<script type="text/javascript" src="${relativeDir}ckeditor/ckeditor.js" ></script>		
 
 <script src="${relativeDir}js/canvasjs.min.js"></script>		
 
@@ -107,7 +107,8 @@ function callAjaxLogin(e, username, password) {
 
 
 <script src="${relativeDir}js/idle.js"></script>		
-
+<script src="${relativeDir}js/inputmask.min.js"></script>	
+<script src="${relativeDir}js/inputmask.binding.js"></script>
 <script>
 var _jqb = jQuery.noConflict();
     jQuery.noConflict();

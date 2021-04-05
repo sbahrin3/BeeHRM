@@ -40,8 +40,8 @@
 
 <script>
 
-var img_1=new Image();
-img_1.src="../img/loading3.gif";
+//var img_1=new Image();
+//img_1.src="../img/loading3.gif";
 
 
 function doLogin() {

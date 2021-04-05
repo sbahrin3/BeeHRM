@@ -1,0 +1,8 @@
+
+<input data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
+
+<script>
+_jq(document).ready(function() {
+	Inputmask().mask(document.querySelectorAll("input"));
+});
+</script>

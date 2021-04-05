@@ -58,8 +58,6 @@ public class EmployeeLeave {
 	@Lob @Column(length=1000)
 	private String remark;
 	
-	
-	
 	public EmployeeLeave() {
 		setId(lebah.util.UIDGenerator.getUID());
 	}

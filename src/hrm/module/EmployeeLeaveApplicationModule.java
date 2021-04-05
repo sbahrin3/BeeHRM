@@ -82,6 +82,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		employeeLeave.setRequestDate(new Date());
 		employeeLeave.setLeave(leave);
 		employeeLeave.setTotalDays(employeeLeave.getRequestedNumberOfDays());
+		employeeLeave.setRemark(getParam("employeeLeaveRemark"));
 		db.save(employeeLeave);
 		
 		return listEmployeeLeaves();
@@ -116,6 +117,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		employeeLeave.setRequestDate(new Date());
 		employeeLeave.setLeave(leave);
 		employeeLeave.setTotalDays(employeeLeave.getRequestedNumberOfDays());
+		employeeLeave.setRemark(getParam("employeeLeaveRemark"));
 		db.update(employeeLeave);
 		
 		

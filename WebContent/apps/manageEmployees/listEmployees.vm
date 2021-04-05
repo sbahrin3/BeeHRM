@@ -14,8 +14,9 @@
 		<tr>
 			<td style="cursor:pointer" onclick="sendAjax('editEmployee','div_main','employeeId=$!employee.id')">$velocityCount.</td>
 			<td>
-				$!employee.idNumber<br/>
-				$!employee.name
+				$!employee.name,
+				$!employee.idNumber
+				
 			</td>
 			<td>
 				$!employee.job.name<br/>
@@ -25,8 +26,8 @@
 			</td>
 			<td style="text-align:right">
 				<div class="btn-group">
-				<button type="button" class="btn btn-success btn-xs" onclick="sendAjax('editEmployee','div_main','employeeId=$!employee.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-				<button type="button" class="btn btn-confirmation btn-danger btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteEmployee','div_main','employeeId=$employee.id')">
+				<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editEmployee','div_main','employeeId=$!employee.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+				<button type="button" class="btn btn-confirmation btn-default btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteEmployee','div_main','employeeId=$employee.id')">
     				<i class="fa fa-trash-o" aria-hidden="true"></i>
     			</button>
 				</div>

@@ -19,12 +19,18 @@
 <div class="row form-group">
 	<div class="col-sm-6">
 		<label>Date From</label>
-		<input name="requestFromDate" value="$!employeeLeave.requestFromDateStr" data-required="true" data-msg="Please enter from date" type="text" class="form-control">
+		<input name="requestFromDate" value="$!employeeLeave.requestFromDateStr" data-required="true" data-msg="Please enter from date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
 	</div>
 	<div class="col-sm-6">
 		<label>Date To</label>
-		<input name="requestToDate" value="$!employeeLeave.requestToDateStr" data-required="true" data-msg="Please enter to date" type="text" class="form-control">
+		<input name="requestToDate" value="$!employeeLeave.requestToDateStr" data-required="true" data-msg="Please enter to date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
 	</div>
+</div>
+
+<div class="form-group">
+    <label>Remark</label>
+	<textarea name="employeeLeaveRemark" class="form-control" style="height:100px">$!employeeLeave.remark</textarea>
+	
 </div>
 	
 <div id="div_check_days" class="form-group"></div>
@@ -48,3 +54,9 @@
 	</div>
 	
 </div>
+	
+<script>
+_jq(document).ready(function() {
+	Inputmask().mask(document.querySelectorAll("input"));
+});
+</script>

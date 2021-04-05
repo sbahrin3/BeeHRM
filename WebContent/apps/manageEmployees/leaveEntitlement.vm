@@ -1,5 +1,5 @@
  <div class="form-group" style="text-align:right">
-	<button type="button" class="btn btn-danger" onclick="sendAjax2('selectLeaveEntitlement','div_leave','employeeId=$!employee.id')"><span><i class="fa fa-pencil" aria-hidden="true"></i></span> Change Leave Entitlement </button>
+	<button type="button" class="btn btn-primary" onclick="sendAjax2('selectLeaveEntitlement','div_leave','employeeId=$!employee.id')"><span><i class="fa fa-pencil" aria-hidden="true"></i></span> Change Leave Entitlement </button>
 </div>	
 
 #if ( !$employee.leaveEntitlement )
@@ -9,43 +9,38 @@
 
 #else
 	
-    <table class="table">
-    	<tr><td class="line_title">Category</td><td class="line_sep">:</td><td class="line_data">$!employee.leaveEntitlement.code</td></tr>
-       	<tr>
-			<td class="line_title">Leaves Entitled</td><td class="line_sep">:</td><td class="line_data">
-
-				<table class="table">
-					<thead>
-				    <tr>
-            			<th style="width:10px"></th>
-            			<th>Name</th>
-            			<th>Paid?</th>
-            			<th style="text-align:center">Total days</th>	
-						<th style="text-align:center">Total taken</th>
-						<th style="text-align:center">Available</th>
-            		</tr>
-                    </thead>
-					<tbody>
-                	#foreach ( $item in $employee.leaveEntitlement.items )
-						#set ( $total_taken = $employee.getLeaveDaysTaken($item.leave) )
-						#set ( $total_available = $item.numberOfDays - $total_taken )
-                		<tr>
-                			<td>$velocityCount.</td>
-                			<td>$!item.leave.name</td>
-                			<td>#if ( $!item.leave.paid ) Paid #else Unpaid #end</td>
-                			<td style="text-align:center">$!item.numberOfDays</td>	
-							<td style="text-align:center">$!total_taken</td>
-							<td style="text-align:center">$!total_available</td>
-                		</tr>
-                	#end
-                    </tbody>
-                </table>
-				
-				
-			</td>
+	<div>
+		<label>$!employee.leaveEntitlement.code</label>
+	</div>
+	
+	<table class="table">
+		<thead>
+	    <tr>
+			<th style="width:10px"></th>
+			<th>Leave Type</th>
+			<th>Paid?</th>
+			<th style="text-align:center">Entitled</th>	
+			<th style="text-align:center">Taken</th>
+			<th style="text-align:center">Available</th>
 		</tr>
- </table>
- 
+        </thead>
+		<tbody>
+    	#foreach ( $item in $employee.leaveEntitlement.items )
+			#set ( $total_taken = $employee.getLeaveDaysTaken($item.leave) )
+			#set ( $total_available = $item.numberOfDays - $total_taken )
+    		<tr>
+    			<td>$velocityCount.</td>
+    			<td>$!item.leave.name</td>
+    			<td>#if ( $!item.leave.paid ) Paid #else Unpaid #end</td>
+    			<td style="text-align:center">$!item.numberOfDays #if ( $item.numberOfDays > 1 ) days #else day #end</td>	
+				<td style="text-align:center">$!total_taken #if ( $total_taken  > 1 ) days #else day #end</td>
+				<td style="text-align:center">$!total_available #if ( $total_available > 1 ) days #else day #end</td>
+    		</tr>
+    	#end
+        </tbody>
+    </table>
+				
+	
 
 	
 #end
