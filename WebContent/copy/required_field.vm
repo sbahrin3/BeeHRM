@@ -1,0 +1,3 @@
+
+
+<input data-required="true" data-msg="Isikan Nama Kategori." type="text" maxlength="100" class="form-control" id="category_name" name="category_name" value="$!category.name"  placeholder="">

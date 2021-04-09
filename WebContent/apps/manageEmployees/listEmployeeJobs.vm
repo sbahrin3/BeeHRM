@@ -14,7 +14,13 @@
 			<tr><td class="line_title">Appointment Date</td><td class="line_sep">:</td><td class="line_data">$employeeJob.startDateStr</td></tr>
 			##<tr><td class="line_title">Exit Date</td><td class="line_sep">:</td><td class="line_data">$employeeJob.endDateStr</td></tr>
 
-			<tr><td class="line_title">Salary Type</td><td class="line_sep">:</td><td class="line_data">$!employeeJob.salary.salaryConfig.code - $!employeeJob.salary.salaryConfig.description </td></tr>
+			<tr><td class="line_title">Salary Entitlement</td><td class="line_sep">:</td><td class="line_data">
+					#if ( $employeeJob.salary.salaryConfig )
+						$!employeeJob.salary.salaryConfig.code - $!employeeJob.salary.salaryConfig.description 
+					#else
+						Not Entitled.
+					#end
+			</td></tr>
 			
 			<tr>
     			<td colspan="3" style="text-align:right">

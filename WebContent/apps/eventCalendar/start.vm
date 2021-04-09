@@ -1,0 +1,6 @@
+<div class="module_title">Events Calendar</div>
+	
+<div id="div_main">
+	#parse("apps/eventCalendar/listEvents.vm")
+	
+</div>

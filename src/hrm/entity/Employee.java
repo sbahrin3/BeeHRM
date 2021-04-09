@@ -188,7 +188,8 @@ public class Employee {
 	}
 	
 	public int getLeaveDaysTaken(Leave leave) {
-		return employeeLeaves.stream()
+		
+		return employeeLeaves.size() == 0 ? 0 : employeeLeaves.stream()
 				.filter(l -> l.getLeave().getId().equals(leave.getId()))
 				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 

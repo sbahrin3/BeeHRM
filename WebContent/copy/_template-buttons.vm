@@ -1,0 +1,129 @@
+ADD
+	<button type="button" class="btn btn-primary" onclick="sendAjax('addGroup','data_main','')">Add New&nbsp;<i class="fa fa-plus" aria-hidden="true"></i></button>
+
+
+DELETE
+	<button type="button" class="btn btn-confirmation btn-danger"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this Quotation?', 'deleteQuotation','data_main','quotation_id=$!purchaseQuotation.id')">
+		<i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;Delete
+	</button>
+			
+	&nbsp;&nbsp;&nbsp;
+
+
+SAVE
+	<button type="button" class="btn btn-success" onclick="sendAjax2('','','')">Save&nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+	
+BACK	
+	<button type="button" class="btn btn-default" onclick="sendAjax('','','')"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>
+
+	
+PDF
+	<a class="btn btn-primary" target="blank" href="../pdflet/mafex.modules.ShoppingOrderListPDF?order_id=$!purchaseOrder.id">PDF&nbsp;<i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+
+PRINT
+	<button type="button" class="btn btn-primary" onclick="printPdf('../pdflet/mafex.modules.ShoppingOrderListPDF?purchase_id=$!purchaseNote.id')"><i class="fa fa-print" aria-hidden="true"></i></button>
+	
+OR USING PRINT.JS
+
+	<button type="button" class="btn btn-primary" onclick="printJS({printable:'mafex/pdflet/mafex.modules.ShoppingOrderListPDF?purchase_id=$!purchaseNote.id', type:'pdf', showModal:true})"><i class="fa fa-print" aria-hidden="true"></i></button>
+
+OPEN MODAL WINDOW
+		<a href="javascript:void(0)" class="btn btn-link" data-toggle="modal" data-target="#modalWindow" 
+			onclick="$('div_modal_window').innerHTML='Please wait...';sendAjax2('selectBidItem','div_modal_window','bidItem_id=$item.id')">
+			<i class="fa fa-gavel" aria-hidden="true"></i>
+		</a>
+
+CLOSE MODAL WINDOW
+		<button type="button" class="btn btn-default" onclick="_jq('#modalWindow').modal('hide');"><i class="fa fa-times" aria-hidden="true"></i></button>
+	
+	
+BUTTON-GROUP
+	<div class="btn-group">
+		<button type="button" class="btn btn-default btn-sm" onclick="sendAjax('editProduct', 'data_main', 'productId=$product.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
+		<button type="button" class="btn btn-confirmation btn-default btn-sm"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteProduct','data_main','productId=$product.id')">
+			<i class="fa fa-trash-o" aria-hidden="true"></i>
+		</button>
+	</div>
+	
+#if ( $command == "saveProduct" )
+<script>
+	showNotifyMessage("Data successfully saved...");
+</script>
+#end
+
+#if ( $item.product.imageFileName )
+	<img style="width:50px" src="../download?filename=$!item.product.imageFileName" />
+#end
+
+DATE
+	$util.getDateTime($date, "dd/MM/yyyy hh:mm a")
+	
+RM
+	RM $util.formatDecimal($!purchaseQuotation.totalPrice)
+
+DATE INPUT
+<label>Date Accepted</label>
+<input class="form-control" type="datetime-local" name="date_accepted" value="$util.htmlDateTime($!courierNote.acceptDate)">
+
+ROW
+<div class="row">
+	<div class="col-sm-4">
+	
+	</div>
+	<div class="col-sm-8">
+	
+	</div>
+</div>		
+
+REQUIRED FIELD
+	<input data-required="true" data-msg="Isikan Nama Kategori." type="text" maxlength="100" class="form-control" id="category_name" name="category_name" value="$!category.name"  placeholder="">
+	
+			
+CLOSE MODAL WINDOW
+
+	<button type="button" class="btn btn-default" onclick="_jq('#modalWindow').modal('hide');"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+		
+TABLE RESPONSIVE
+<div class="table-responsive">
+<table class="table">
+
+
+		Hashtable<String, Object> h = new Hashtable<>();
+		h.put("seller_id", seller.getId());
+		h.put("product_id", purchaseItem.getProduct().getId());
+		h.put("delivery_date", purchaseNote.getDeliveryDate());
+		
+		String q = "select i from StockItem i join i.stock.vendorSeller vs "
+				+ "where vs.seller.id = :seller_id "
+				+ "and i.product.id = :product_id " 
+				+ "and :delivery_date between i.startDate and i.endDate ";
+		
+		List<StockItem> stockItems = db.list(q, h);
+		context.put("stockItems", stockItems);
+		
+		
+<input type="hidden" id="current_date" name="current_date">
+<script>
+	
+	_jq( document ).ready(function() {
+		
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; 
+		var yyyy = today.getFullYear();
+		var hour = today.getHours();
+		var min = today.getMinutes();
+		if ( dd < 10)  dd = '0' + dd;
+		if ( mm < 10 ) mm = '0' + mm;
+		if ( hour < 10 ) hour = '0' + hour;
+		if ( min < 10 ) min = '0' + min;
+				
+		today = dd+'/'+mm+'/'+yyyy + " " + hour+':'+min;
+		document.getElementById('current_date').value = today;
+	     
+	});
+
+</script>		
+		

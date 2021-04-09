@@ -1,4 +1,4 @@
-	<select name="departmentId" class="form-control">
+	<select name="departmentId" class="form-control" data-required="true" data-msg="Please select Department.">
 		#foreach ( $department in $departments )
 			<option value="$department.id" #if ( $employeeJob.department.id == $department.id ) selected #end>$department.name</option>
 		#end

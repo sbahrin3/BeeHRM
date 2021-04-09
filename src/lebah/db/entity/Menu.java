@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +34,7 @@ public class Menu {
 	private String icon;
 	@Column(length=100)
 	private String moduleClassName;
+
 	private int orderNo;
 	@ManyToOne
 	private Menu parent;
@@ -169,7 +170,8 @@ public class Menu {
 		Menu m = (Menu) o;
 		return m.getId().equals(getId());
 	}
-	
+
+
 	@Override
 	public int hashCode() {
         int hash = 3;

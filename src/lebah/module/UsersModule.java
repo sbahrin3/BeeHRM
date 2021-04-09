@@ -91,20 +91,6 @@ public class UsersModule extends LebahAdminModule {
 			Role role = db.find(Role.class, roleId);
 			if ( role != null ) user.setRole(role);
 			
-			/*
-			String otherRoleId = getParam("otherRoleId");
-			if ( !"".equals(otherRoleId)) {
-				Role otherRole = db.find(Role.class, otherRoleId);
-				
-				if ( !user.getSecondaryRoles().contains(otherRole)) {
-					user.getSecondaryRoles().clear();
-					user.getSecondaryRoles().add(otherRole);
-				}
-			} else {
-				user.getSecondaryRoles().clear();
-			}
-			*/
-			
 			user.getSecondaryRoles().clear();
 			String[] roleIds = request.getParameterValues("otherRoleIds");
 			if ( roleIds != null ) {
