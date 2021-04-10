@@ -31,6 +31,7 @@ public class EventCalendarModule extends LebahUserModule {
 	@Command("addNewEvent")
 	public String addNewEvent() {
 		context.remove("event");
+		SelectList.listStates(context);
 		return path + "/event.vm";
 	}
 
@@ -63,6 +64,9 @@ public class EventCalendarModule extends LebahUserModule {
 	public String editEvent() {
 		EventCalendar event = db.find(EventCalendar.class, getParam("eventId"));
 		context.put("event", event);
+		
+		SelectList.listStates(context);
+		
 		return path + "/event.vm";
 	}
 	
@@ -91,6 +95,9 @@ public class EventCalendarModule extends LebahUserModule {
 				.filter(s ->!event.getStates().contains(s))
 				.forEach(s -> event.getStates().add(s));;
 		}
+		
+		db.update(event);
+		
 		return listEvents();
 	}
 	

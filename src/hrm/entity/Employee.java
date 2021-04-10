@@ -40,7 +40,7 @@ public class Employee {
 	private String name;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy="employee")
-	private List<EmployeeJob> jobs = new ArrayList<>();
+	private List<EmployeeJob> jobs;
 	
 	@Embedded
     private Address address;
@@ -89,6 +89,7 @@ public class Employee {
 	}
 
 	public List<EmployeeJob> getJobs() {
+		if ( jobs == null ) jobs = new ArrayList<>();
 		Collections.sort(jobs, new SortByPrimaryJob());
 		return jobs;
 	}

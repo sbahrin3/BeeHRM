@@ -38,13 +38,13 @@ public abstract class Company {
 	private String registrationNumber;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="company")
-	private List<Office> offices = new ArrayList<>();
+	private List<Office> offices;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="parent")
-	private List<Company> branches = new ArrayList<>();
+	private List<Company> branches;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="company")
-	private List<Department> departments = new ArrayList<>();
+	private List<Department> departments;
 	
 
 	@ManyToOne  @JoinColumn(name="parent_id")
@@ -81,6 +81,7 @@ public abstract class Company {
 	}
 
 	public List<Office> getOffices() {
+		if ( offices == null ) offices = new ArrayList<>();
 		return offices;
 	}
 
@@ -89,6 +90,7 @@ public abstract class Company {
 	}
 
 	public List<Company> getBranches() {
+		if ( branches == null ) branches = new ArrayList<>();
 		return branches;
 	}
 
@@ -99,6 +101,7 @@ public abstract class Company {
 	
 
 	public List<Department> getDepartments() {
+		if ( departments == null ) departments = new ArrayList<>();
 		return departments;
 	}
 

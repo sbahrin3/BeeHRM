@@ -35,7 +35,7 @@ public class LeaveEntitlement {
 	private String description;
 	
 	@OneToMany (fetch=FetchType.LAZY, mappedBy="leaveEntitlement")
-	private List<LeaveEntitlementItem> items = new ArrayList<>();
+	private List<LeaveEntitlementItem> items;
 	
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -43,7 +43,7 @@ public class LeaveEntitlement {
             joinColumns = {@JoinColumn(name = "leave_entitlement_id")},
             inverseJoinColumns = {@JoinColumn(name = "employee_id")}
     )
-	private List<Employee> employees = new ArrayList<>();
+	private List<Employee> employees;
 	
 	
 	public LeaveEntitlement() {
@@ -67,6 +67,7 @@ public class LeaveEntitlement {
 	}
 
 	public List<LeaveEntitlementItem> getItems() {
+		if ( items == null ) items = new ArrayList<>();
 		return items;
 	}
 
@@ -91,6 +92,7 @@ public class LeaveEntitlement {
 	}
 
 	public List<Employee> getEmployees() {
+		if ( employees == null ) employees = new ArrayList<>();
 		return employees;
 	}
 

@@ -12,6 +12,7 @@
 		<th style="text-align:center">From</th>
 		<th style="text-align:center">To</th>
 		<th style="text-align:center">Holiday</th>
+		<th>States</th>
 		<th></th>
 	</tr>
 	#foreach ( $event in $events )
@@ -23,6 +24,13 @@
 			<td style="text-align:center">$event.toDateStr</td>
 			<td style="text-align:center">
 				#if ( $event.holiday ) Yes #else No #end
+			</td>
+			<td>
+			#if ( $event.states.size() > 1 )
+				$event.states.size() states
+			#elseif ( $event.states.size() == 1 )
+				$event.states.get(0).name only
+			#end
 			</td>
 			<td style="text-align:right">
             	<div class="btn-group">

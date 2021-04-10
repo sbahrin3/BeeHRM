@@ -159,7 +159,10 @@ public class EventCalendar {
         return hash;
 	}
 	
-	
+	public boolean hasState(State state) {
+		if ( states == null ) return false;
+		return states.stream().filter(s -> s.getId().equals(state.getId())).findAny().isPresent();
+	}
 
 	
 }

@@ -39,14 +39,14 @@ public class SalaryConfig {
             joinColumns = {@JoinColumn(name = "salary_config_id")},
             inverseJoinColumns = {@JoinColumn(name = "deduction_id")}
     )
-	private List<SalaryDeductionItem> deductions = new ArrayList<>();
+	private List<SalaryDeductionItem> deductions;
 	
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "salary_allowance_items",
             joinColumns = {@JoinColumn(name = "salary_config_id")},
             inverseJoinColumns = {@JoinColumn(name = "allowance_id")}
-    )	private List<SalaryAllowance> allowances = new ArrayList<>();
+    )	private List<SalaryAllowance> allowances;
 	
 	public SalaryConfig() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -77,6 +77,7 @@ public class SalaryConfig {
 	}
 
 	public List<SalaryDeductionItem> getDeductions() {
+		if ( deductions == null ) deductions = new ArrayList<>();
 		return deductions;
 	}
 
@@ -85,6 +86,7 @@ public class SalaryConfig {
 	}
 
 	public List<SalaryAllowance> getAllowances() {
+		if ( allowances == null ) allowances = new ArrayList<>();
 		return allowances;
 	}
 

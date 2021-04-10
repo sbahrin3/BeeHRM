@@ -1,5 +1,5 @@
 ADD
-	<button type="button" class="btn btn-primary" onclick="sendAjax('addGroup','data_main','')">Add New&nbsp;<i class="fa fa-plus" aria-hidden="true"></i></button>
+	<button type="button" class="btn btn-primary" onclick="sendAjax('','','')"><i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
 
 
 DELETE
@@ -11,7 +11,7 @@ DELETE
 
 
 SAVE
-	<button type="button" class="btn btn-success" onclick="sendAjax2('','','')">Save&nbsp;<i class="fa fa-floppy-o" aria-hidden="true"></i></button>
+	<button type="button" class="btn btn-success" onclick="sendAjax2('','','')"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
 	
 BACK	
 	<button type="button" class="btn btn-default" onclick="sendAjax('','','')"><i class="fa fa-chevron-left" aria-hidden="true"></i></button>

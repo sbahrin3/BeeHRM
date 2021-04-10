@@ -50,7 +50,7 @@ public class EmployeeJob {
 	private Salary salary;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy="employeeJob")
-	private List<SalaryItem> salaryItems = new ArrayList<>();
+	private List<SalaryItem> salaryItems;
 	
 	
 	private int primaryJob;
@@ -134,6 +134,7 @@ public class EmployeeJob {
 	}
 
 	public List<SalaryItem> getSalaryItems() {
+		if ( salaryItems == null ) salaryItems = new ArrayList<>();
 		Collections.sort(salaryItems, new SortBySalaryItemOrder());
 		return salaryItems;
 	}

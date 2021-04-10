@@ -25,6 +25,12 @@ public class SelectList {
 		
 	}
 	
+	public static void listStates(VelocityContext context) {
+		List<State> states = Persistence.db().list("select s from State s order by s.country.id, s.id");
+		context.put("states", states);
+		
+	}	
+	
 	public static void listDistricts(VelocityContext context, String stateId) {
 		List<District> districts = Persistence.db().list("select d from District d where d.state.id = '" + stateId + "' order by d.id");
 		context.put("districts", districts);
