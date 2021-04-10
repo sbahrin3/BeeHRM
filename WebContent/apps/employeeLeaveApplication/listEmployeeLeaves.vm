@@ -8,10 +8,9 @@
 		<tr>
 			<th></th>
 			<th>Employee Name</th>
-			<th style="text-align:center">Days</th>
 			<th>Leave From</th>
 			<th>Leave To</th>
-			
+			<th style="text-align:center">Days</th>
 			<th>Apply On</th>
 			<th style="text-align:center">Status</th>
 			<th></th>
@@ -22,9 +21,17 @@
 		<tr #if ( $employeeLeave.status == 3 ) class="danger" #elseif ($employeeLeave.status == 2 ) class="success" #end>
 			<td style="width:20px">$velocityCount.</td>
 			<td>$!employeeLeave.employee.name</td>
-			<td style="text-align:center">$!employeeLeave.requestedNumberOfDays</td>
 			<td>$!employeeLeave.requestFromDateStr</td>
 			<td>$!employeeLeave.requestToDateStr</td>
+			
+			<td style="text-align:center">
+				$!employeeLeave.requestedNumberOfDays
+				#if ( $employeeLeave.requestedNumberOfDays == 1 ) 
+					day 
+				#elseif ( $employeeLeave.requestedNumberOfDays > 1 ) 
+					days
+				#end
+			</td>
 			
 			<td>$!employeeLeave.requestDateStr</td>
 			<td style="text-align:center">
