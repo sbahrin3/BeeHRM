@@ -1,7 +1,9 @@
 package hrm.entity;
 
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import hrm.module.Params;
 import hrm.module.Util;
+import lebah.db.entity.Persistence;
 
 /**
  * 
@@ -176,16 +180,22 @@ public class EmployeeLeave {
 	
 	public int getRequestedNumberOfDays() {
 		if ( requestToDate == null || requestFromDate == null ) return 0;
+		//between these date, check number of holidays
+		int holidays = Util.getNumberOfHolidays(requestFromDate, requestToDate);
+		
 		long diffInMillies = Math.abs(requestToDate.getTime() - requestFromDate.getTime());
 		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		return (int) diff;
+		return (int) diff - holidays;
 	}
 	
 	public int getApprovedNumberOfDays() {
 		if ( approveToDate == null || approveFromDate == null ) return 0;
+		//between these date, check number of holidays
+		int holidays = Util.getNumberOfHolidays(approveFromDate, approveToDate);
+		
 		long diffInMillies = Math.abs(approveToDate.getTime() - approveFromDate.getTime());
 		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		return (int) diff;
+		return (int) diff - holidays;
 	}
 	
 	public String getRemark() {

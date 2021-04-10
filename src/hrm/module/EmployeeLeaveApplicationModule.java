@@ -1,6 +1,7 @@
 package hrm.module;
 
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 import hrm.entity.Employee;
 import hrm.entity.EmployeeLeave;
+import hrm.entity.EventCalendar;
 import hrm.entity.Leave;
 import hrm.entity.LeaveEntitlementItem;
 import lebah.db.entity.Persistence;
@@ -186,7 +188,6 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 			daysEntitled = item.getNumberOfDays();
 		} else {
 			EmployeeLeave employeeLeave = db.find(EmployeeLeave.class, getParam("employeeLeaveId"));
-			System.out.println("=== " + employeeLeave);
 			Leave leave = employeeLeave.getLeave();
 			employee = employeeLeave.getEmployee();
 			
@@ -234,15 +235,39 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	}
 	
 	
+	static int numberOfDaysBetween(Date fromDate, Date toDate) {
+		long diffInMillies = Math.abs(toDate.getTime() - fromDate.getTime());
+		long numberOfDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);;
+		return (int) numberOfDays;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		
+		Persistence db = Persistence.db();
+		
+		/*
 		String id = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
 		Employee employee = Persistence.db().find(Employee.class, id);
 		List<EmployeeLeave> employeeLeaves = Persistence.db().list("select l from EmployeeLeave l where l.employee.id = '" + employee.getId() + "'");
 
 		int totalDays = employeeLeaves.stream().collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 		System.out.println("Total Days = " + totalDays);
+		*/
 		
+		Date fromDate = Util.toDate("01/04/2021");
+		Date toDate = Util.toDate("20/04/2021");
+		
+		Params<String, Object> params = new Params<>();
+		params.put("fromDate", fromDate);
+		params.put("toDate", toDate);
+		List<EventCalendar> holidays = db.list("select e from EventCalendar e where e.holiday = 1 and e.fromDate >= :fromDate and e.toDate <= :toDate", params);
+		int total = holidays.stream()
+						.map(e -> numberOfDaysBetween(e.getFromDate(), e.getToDate()))
+						.collect(Collectors.summingInt(Integer::intValue));
+		
+		System.out.println(total);
 	}
 	
 }

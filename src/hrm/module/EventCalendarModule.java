@@ -1,11 +1,13 @@
 package hrm.module;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import hrm.entity.EventCalendar;
 import hrm.entity.State;
+import lebah.db.entity.Persistence;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
@@ -87,13 +89,11 @@ public class EventCalendarModule extends LebahUserModule {
 		
 		String[] stateIds = request.getParameterValues("stateIds");
 		if (stateIds != null ) {
-			List<State> states = Stream.of(stateIds)
-									.map(stateId -> db.find(State.class, stateId))
-									.collect(Collectors.toList());
-			
-			states.stream()
-				.filter(s ->!event.getStates().contains(s))
-				.forEach(s -> event.getStates().add(s));;
+			Stream.of(stateIds)
+					.map(stateId -> db.find(State.class, stateId))
+					.collect(Collectors.toList())
+					.stream().filter(s ->!event.getStates().contains(s))
+					.forEach(s -> event.getStates().add(s));
 		}
 		
 		db.update(event);
@@ -113,5 +113,7 @@ public class EventCalendarModule extends LebahUserModule {
 		
 		return listEvents();
 	}
+	
+	
 	
 }

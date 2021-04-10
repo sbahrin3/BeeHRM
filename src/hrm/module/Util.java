@@ -1,8 +1,13 @@
 package hrm.module;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+
+import hrm.entity.EventCalendar;
+import lebah.db.entity.Persistence;
 
 public class Util {
 	
@@ -34,6 +39,21 @@ public class Util {
 		return date != null ? new SimpleDateFormat("dd/MM/yyyy").format(date) : "";
 	}
 	
+	public static int numberOfDaysBetween(Date fromDate, Date toDate) {
+		long diffInMillies = Math.abs(toDate.getTime() - fromDate.getTime());
+		long numberOfDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);;
+		return (int) numberOfDays;
+	}
 	
+	public static int getNumberOfHolidays(Date fromDate, Date toDate) {
+		Params<String, Object> params = new Params<>();
+		params.put("fromDate", fromDate);
+		params.put("toDate", toDate);
+		List<EventCalendar> holidays = Persistence.db().list("select e from EventCalendar e where e.holiday = 1 and e.fromDate >= :fromDate and e.toDate <= :toDate", params);
+		return holidays.stream()
+						.map(e -> numberOfDaysBetween(e.getFromDate(), e.getToDate()))
+						.collect(Collectors.summingInt(Integer::intValue));
+		
+	}
 
 }

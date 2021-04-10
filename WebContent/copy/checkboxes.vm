@@ -1,0 +1,21 @@
+
+
+<div class="form-group">
+	<label>Select States</label>
+	<br/>
+	<div id="check_states">
+    	#foreach( $state in $states )
+    	<input type="checkbox" name="stateIds" value="$state.id" #if ( $event.hasState($state) ) checked #end>&nbsp;$state.name<br/>
+    	#end
+	</div>
+	<br/>
+	<input type="checkbox" onclick="
+		var elements = document.getElementById('check_states').getElementsByTagName('input');
+		for (i = 0; i < elements.length; i++) {
+			if ( elements[i].type === 'checkbox' ) elements[i].checked = this.checked;
+		}
+	">
+	&nbsp;Check/Uncheck All
+	
+</div>
+
