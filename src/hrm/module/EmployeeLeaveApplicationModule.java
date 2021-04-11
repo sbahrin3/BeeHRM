@@ -208,7 +208,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l where l.employee.id = '" + employee.getId() + "' and l.leave.id = '" + item.getLeave().getId() + "'");
 		int daysTaken = employeeLeaves.stream().collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 		
-		int daysCarryForward = employee.getLeaveCarryForward(item.getLeave(), currentYear);
+		int daysCarryForward = employee.getLeaveDaysCarryForward(item.getLeave(), currentYear);
 		
 		int daysAvailable = daysEntitled + daysCarryForward - daysTaken;
 		

@@ -27,8 +27,8 @@
 		<tbody>
     	#foreach ( $item in $employee.leaveEntitlement.items )
 			#set ( $total_taken = $employee.getLeaveDaysTaken($item.leave, $currentYear) )
-			#set ( $carry_forward = $employee.getLeaveCarryForward($item.leave, $currentYear) )
-			#set ( $total_available = $item.numberOfDays + $carry_forward - $total_taken )
+			#set ( $carry_forward = $employee.getLeaveDaysCarryForward($item.leave, $currentYear) )
+			#set ( $total_available = $employee.getLeaveDaysAvailable($item.leave, $currentYear) )
     		<tr>
     			<td>$velocityCount.</td>
     			<td>$!item.leave.name</td>

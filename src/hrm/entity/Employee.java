@@ -195,7 +195,7 @@ public class Employee {
 		return leaveCarryForwards;
 	}
 	
-	public int getLeaveCarryForward(Leave leave, int year) {
+	public int getLeaveDaysCarryForward(Leave leave, int year) {
 		Optional<LeaveCarryForward> optional =
                                         leaveCarryForwards.stream()
                                         .filter(c -> c.getYear() == year && c.getLeave().getId().equals(leave.getId()))
@@ -241,6 +241,18 @@ public class Employee {
 				.filter(l -> l.getLeave().getId().equals(leave.getId()))
 				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 
+	}
+	
+	public int getLeaveDaysEntitled(Leave leave, int year) {
+		Optional<LeaveEntitlementItem> optional = getLeaveEntitlement().getItems().stream().filter(i -> i.getLeave().getId().equals(leave.getId())).findFirst();
+		return optional.isPresent() ? optional.get().getNumberOfDays() : 0;
+	}
+	
+	public int getLeaveDaysAvailable(Leave leave, int year) {
+		int carryFwdCount = getLeaveDaysCarryForward(leave, year);
+		int entitledCount = getLeaveDaysEntitled(leave, year);
+		int takenCount = getLeaveDaysTaken(leave, year);
+		return carryFwdCount + entitledCount - takenCount;
 	}
 	
 }
