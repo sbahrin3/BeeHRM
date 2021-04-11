@@ -1,5 +1,6 @@
 package hrm.module;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,11 +25,12 @@ import lebah.portal.action.Command;
 public class ManageEmployeesModule extends LebahUserModule {
 	
 	String path = "apps/manageEmployees";
+	int currentYear;
 	
 	public void preProcess() {
 		super.preProcess();
-		context.put("currentYear", 2021);
-	}
+		currentYear = LocalDate.now().getYear();
+		context.put("currentYear", currentYear);	}
 	
 	@Override
 	public String start() {

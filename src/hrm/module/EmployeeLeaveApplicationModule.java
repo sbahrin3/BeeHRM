@@ -1,7 +1,7 @@
 package hrm.module;
 
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +29,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	
 	public void preProcess() {
 		super.preProcess();
-		currentYear = 2021;
+		currentYear = LocalDate.now().getYear();
 		context.put("currentYear", currentYear);
 	}
 	
