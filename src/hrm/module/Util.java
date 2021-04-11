@@ -45,6 +45,12 @@ public class Util {
 		return (int) numberOfDays;
 	}
 	
+	public static int differenceInDays(Date fromDate, Date toDate) {
+		long diffInMillies = Math.abs(toDate.getTime() - fromDate.getTime());
+		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		return (int) diff;
+	}
+	
 	public static int getNumberOfHolidays(Date fromDate, Date toDate) {
 		Params<String, Object> params = new Params<>();
 		params.put("fromDate", fromDate);

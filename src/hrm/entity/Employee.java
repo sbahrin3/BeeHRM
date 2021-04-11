@@ -20,6 +20,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import hrm.module.Util;
+
 
 /**
  * 
@@ -189,8 +191,18 @@ public class Employee {
 	}
 	
 	public int getLeaveDaysTaken(Leave leave) {
-		
 		return employeeLeaves.size() == 0 ? 0 : employeeLeaves.stream()
+				.filter(l -> l.getLeave().getId().equals(leave.getId()))
+				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
+	}
+	
+	public int getLeaveDaysTaken(Leave leave, int year) {
+		Date startOfYear = Util.toDate("01/01/" + year);
+		Date endOfYear = Util.toDate("31/12/" + year);
+		List<EmployeeLeave> filteredList =  employeeLeaves.stream()
+			.filter(l -> l.getApproveFromDate() != null && l.getApproveFromDate().after(startOfYear) && l.getApproveFromDate().before(endOfYear))
+			.collect(Collectors.toList());
+		return filteredList.size() == 0 ? 0 : filteredList.stream()
 				.filter(l -> l.getLeave().getId().equals(leave.getId()))
 				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 

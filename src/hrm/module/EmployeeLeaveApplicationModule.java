@@ -235,11 +235,6 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	}
 	
 	
-	static int numberOfDaysBetween(Date fromDate, Date toDate) {
-		long diffInMillies = Math.abs(toDate.getTime() - fromDate.getTime());
-		long numberOfDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);;
-		return (int) numberOfDays;
-	}
 	
 	
 	@SuppressWarnings("unchecked")
@@ -264,7 +259,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		params.put("toDate", toDate);
 		List<EventCalendar> holidays = db.list("select e from EventCalendar e where e.holiday = 1 and e.fromDate >= :fromDate and e.toDate <= :toDate", params);
 		int total = holidays.stream()
-						.map(e -> numberOfDaysBetween(e.getFromDate(), e.getToDate()))
+						.map(e -> Util.differenceInDays(e.getFromDate(), e.getToDate()))
 						.collect(Collectors.summingInt(Integer::intValue));
 		
 		System.out.println(total);

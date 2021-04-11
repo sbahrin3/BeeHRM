@@ -180,22 +180,16 @@ public class EmployeeLeave {
 	
 	public int getRequestedNumberOfDays() {
 		if ( requestToDate == null || requestFromDate == null ) return 0;
-		//between these date, check number of holidays
 		int holidays = Util.getNumberOfHolidays(requestFromDate, requestToDate);
-		
-		long diffInMillies = Math.abs(requestToDate.getTime() - requestFromDate.getTime());
-		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		return (int) diff - holidays;
+		int days = Util.differenceInDays(requestFromDate, requestToDate);
+		return days - holidays;
 	}
 	
 	public int getApprovedNumberOfDays() {
 		if ( approveToDate == null || approveFromDate == null ) return 0;
-		//between these date, check number of holidays
 		int holidays = Util.getNumberOfHolidays(approveFromDate, approveToDate);
-		
-		long diffInMillies = Math.abs(approveToDate.getTime() - approveFromDate.getTime());
-		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-		return (int) diff - holidays;
+		int days = Util.differenceInDays(approveFromDate, approveToDate);
+		return days - holidays;
 	}
 	
 	public String getRemark() {
