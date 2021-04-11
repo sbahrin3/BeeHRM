@@ -196,9 +196,10 @@ public class Employee {
 	}
 	
 	public int getLeaveCarryForward(Leave leave, int year) {
-		Optional<LeaveCarryForward> optional = leaveCarryForwards.stream()
-												.filter(c -> c.getYear() == year && c.getLeave().getId().equals(leave.getId()))
-												.findFirst();
+		Optional<LeaveCarryForward> optional =
+						leaveCarryForwards.stream()
+										.filter(c -> c.getYear() == year && c.getLeave().getId().equals(leave.getId()))
+										.findFirst();
 		if ( optional.isPresent())
 			return optional.get().getNumberOfDays();
 		return 0;
