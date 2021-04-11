@@ -47,20 +47,8 @@
          <mapping class="hrm.entity.EmployeeLeave" />
          
          <mapping class="hrm.entity.EventCalendar" />
-         
-        <!-- 
+         <mapping class="hrm.entity.LeaveCarryForward" />
         
-                
-       
-        <mapping class="hrm.entity.EmployeeSkill" />
-        <mapping class="hrm.entity.EmployeeTimesheet" />
-       
-       
-        <mapping class="hrm.entity.Skill" />
-        <mapping class="hrm.entity.SkillLevel" /> 
-       
-        <mapping class="hrm.entity.Timesheet" /> 
-        -->
         
     </session-factory>
 </hibernate-configuration>

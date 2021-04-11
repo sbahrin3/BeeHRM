@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
@@ -63,6 +64,9 @@ public class Employee {
 	
 	@OneToMany (fetch=FetchType.LAZY, mappedBy="employee")
 	private List<EmployeeLeave> employeeLeaves;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="employee")
+	private List<LeaveCarryForward> leaveCarryForwards;
 		
 	public Employee() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -185,23 +189,53 @@ public class Employee {
 	public List<EmployeeLeave> getEmployeeLeaves() {
 		return employeeLeaves;
 	}
+	
+	public List<LeaveCarryForward> getLeaveCarryForwards() {
+		if ( leaveCarryForwards == null ) leaveCarryForwards = new ArrayList<>();
+		return leaveCarryForwards;
+	}
+	
+	public int getLeaveCarryForward(Leave leave, int year) {
+		Optional<LeaveCarryForward> optional = leaveCarryForwards.stream()
+												.filter(c -> c.getYear() == year && c.getLeave().getId().equals(leave.getId()))
+												.findFirst();
+		if ( optional.isPresent())
+			return optional.get().getNumberOfDays();
+		return 0;
+	}
 
+	public void setLeaveCarryForwards(List<LeaveCarryForward> leaveCarryForwards) {
+		this.leaveCarryForwards = leaveCarryForwards;
+	}
+	
 	public void setEmployeeLeaves(List<EmployeeLeave> employeeLeaves) {
 		this.employeeLeaves = employeeLeaves;
 	}
-	
+
 	public int getLeaveDaysTaken(Leave leave) {
 		return employeeLeaves.size() == 0 ? 0 : employeeLeaves.stream()
 				.filter(l -> l.getLeave().getId().equals(leave.getId()))
 				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 	}
 	
-	public int getLeaveDaysTaken(Leave leave, int year) {
+	public List<EmployeeLeave> getAllEmployeeLeaves(int year) {
 		Date startOfYear = Util.toDate("01/01/" + year);
 		Date endOfYear = Util.toDate("31/12/" + year);
-		List<EmployeeLeave> filteredList =  employeeLeaves.stream()
+		return employeeLeaves.stream()
 			.filter(l -> l.getApproveFromDate() != null && l.getApproveFromDate().after(startOfYear) && l.getApproveFromDate().before(endOfYear))
 			.collect(Collectors.toList());
+	}
+	
+	public List<EmployeeLeave> getApprovedEmployeeLeaves(int year) {
+		Date startOfYear = Util.toDate("01/01/" + year);
+		Date endOfYear = Util.toDate("31/12/" + year);
+		return employeeLeaves.stream()
+			.filter(l -> l.getApproveFromDate() != null && l.getStatus() == 2 && l.getApproveFromDate().after(startOfYear) && l.getApproveFromDate().before(endOfYear))
+			.collect(Collectors.toList());
+	}
+	
+	public int getLeaveDaysTaken(Leave leave, int year) {
+		List<EmployeeLeave> filteredList =  getApprovedEmployeeLeaves(year);
 		return filteredList.size() == 0 ? 0 : filteredList.stream()
 				.filter(l -> l.getLeave().getId().equals(leave.getId()))
 				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));

@@ -10,7 +10,9 @@ import hrm.entity.EmployeeJob;
 import hrm.entity.EmployeeLeave;
 import hrm.entity.Job;
 import hrm.entity.Leave;
+import hrm.entity.LeaveCarryForward;
 import hrm.entity.LeaveEntitlement;
+import hrm.entity.LeaveEntitlementItem;
 import hrm.entity.SalaryAllowance;
 import hrm.entity.SalaryConfig;
 import hrm.entity.SalaryDeductionItem;
@@ -22,6 +24,11 @@ import lebah.portal.action.Command;
 public class ManageEmployeesModule extends LebahUserModule {
 	
 	String path = "apps/manageEmployees";
+	
+	public void preProcess() {
+		super.preProcess();
+		context.put("currentYear", 2021);
+	}
 	
 	@Override
 	public String start() {
@@ -410,13 +417,48 @@ public class ManageEmployeesModule extends LebahUserModule {
 	public String cancelSelectLeaveEntitlement() {
 		Employee employee = db.find(Employee.class, getParam("employeeId"));
 		context.put("employee", employee);
-		
-		
 		return path + "/leaveEntitlement.vm";		
 	}
 	
+	@Command("editLeaveCarryForward")
+	public String editLeaveCarryForward() {
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		LeaveEntitlementItem item = db.find(LeaveEntitlementItem.class, getParam("leaveEntitlementItemId"));
+		context.put("leaveEntitlementItem", item);
+		context.put("leave", item.getLeave());
+		
+		return path + "/leaveCarryForward.vm";
+	}
 	
-	
+	@Command("saveLeaveCarryForward")
+	public String saveLeaveCarryForward() {
+		Employee employee = db.find(Employee.class, getParam("employeeId"));
+		context.put("employee", employee);
+		LeaveEntitlementItem item = db.find(LeaveEntitlementItem.class, getParam("leaveEntitlementItemId"));
+		Leave leave = item.getLeave();
+		LeaveCarryForward leaveCarry = db.get("select c from LeaveCarryForward c where c.employee.id = '" + employee.getId()+  "' and c.leave.id = '" + leave.getId() + "' ");
+		if ( leaveCarry == null ) {
+			leaveCarry = new LeaveCarryForward();
+			leaveCarry.setEmployee(employee);
+			leaveCarry.setLeave(leave);
+			leaveCarry.setYear(Util.getInt(getParam("currentYear")));
+			leaveCarry.setNumberOfDays(Util.getInt(getParam("numberOfDays")));
+			db.save(leaveCarry);
+		}
+		else {
+			leaveCarry.setYear(Util.getInt(getParam("currentYear")));
+			leaveCarry.setNumberOfDays(Util.getInt(getParam("numberOfDays")));
+			db.update(leaveCarry);
+		}
+		
+		if ( !employee.getLeaveCarryForwards().contains(leaveCarry)) {
+			employee.getLeaveCarryForwards().add(leaveCarry);
+			db.update(employee);
+		}
+		
+		return path + "/leaveEntitlement.vm";
+	}
 	
 	public static void main(String[] args) {
 		
@@ -429,8 +471,12 @@ public class ManageEmployeesModule extends LebahUserModule {
 		String leaveId = "5f4b530b3c53d757e98fbb148b3e10de6326be12";
 		Leave leave = db.find(Leave.class, leaveId);
 		
-		int sum = employeeLeaves.stream().filter(l -> l.getLeave().getId().equals(leave.getId())).collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
+		int sum = employeeLeaves.stream()
+				.filter(l -> l.getLeave().getId().equals(leave.getId()))
+				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
 		
 	}
+	
+
 
 }

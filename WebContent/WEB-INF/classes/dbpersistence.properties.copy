@@ -3,7 +3,7 @@ driver.default=org.postgresql.Driver
 dialect.default=org.hibernate.dialect.PostgreSQLDialect
 user.default=postgres
 password.default=sbahrin1234
-url.default=jdbc:postgresql://localhost:5432/mydb
+url.default=jdbc:postgresql://localhost:5432/beehrmdata
 
 
 

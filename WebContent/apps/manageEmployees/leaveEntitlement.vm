@@ -18,7 +18,7 @@
 	    <tr>
 			<th style="width:10px"></th>
 			<th>Leave Type</th>
-			<th>Paid?</th>
+			<th style="text-align:right">Carry Fwd.</th>
 			<th style="text-align:center">Entitled</th>	
 			<th style="text-align:center">Taken</th>
 			<th style="text-align:center">Available</th>
@@ -26,12 +26,19 @@
         </thead>
 		<tbody>
     	#foreach ( $item in $employee.leaveEntitlement.items )
-			#set ( $total_taken = $employee.getLeaveDaysTaken($item.leave) )
-			#set ( $total_available = $item.numberOfDays - $total_taken )
+			#set ( $total_taken = $employee.getLeaveDaysTaken($item.leave, $currentYear) )
+			#set ( $carry_forward = $employee.getLeaveCarryForward($item.leave, $currentYear) )
+			#set ( $total_available = $item.numberOfDays + $carry_forward - $total_taken )
     		<tr>
     			<td>$velocityCount.</td>
     			<td>$!item.leave.name</td>
-    			<td>#if ( $!item.leave.paid ) Paid #else Unpaid #end</td>
+				<td  style="text-align:right">
+					
+					$!carry_forward
+					#if ( $carry_forward  > 1 ) days #else day #end
+					<button type="button" class="btn btn-default btn-xs" onclick="sendAjax2('editLeaveCarryForward','div_leave','employeeId=$!employee.id&leaveEntitlementItemId=$!item.id')"><i class="fa fa-share" aria-hidden="true"></i></button>
+
+				</td>
     			<td style="text-align:center">$!item.numberOfDays #if ( $item.numberOfDays > 1 ) days #else day #end</td>	
 				<td style="text-align:center">$!total_taken #if ( $total_taken  > 1 ) days #else day #end</td>
 				<td style="text-align:center">$!total_available #if ( $total_available > 1 ) days #else day #end</td>
