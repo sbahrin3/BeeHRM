@@ -246,34 +246,6 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	}
 	
 	
-	
-	
-	@SuppressWarnings("unchecked")
-	public static void main(String[] args) {
-		
-		Persistence db = Persistence.db();
-		
-		/*
-		String id = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
-		Employee employee = Persistence.db().find(Employee.class, id);
-		List<EmployeeLeave> employeeLeaves = Persistence.db().list("select l from EmployeeLeave l where l.employee.id = '" + employee.getId() + "'");
 
-		int totalDays = employeeLeaves.stream().collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
-		System.out.println("Total Days = " + totalDays);
-		*/
-		
-		Date fromDate = Util.toDate("01/04/2021");
-		Date toDate = Util.toDate("20/04/2021");
-		
-		Params<String, Object> params = new Params<>();
-		params.put("fromDate", fromDate);
-		params.put("toDate", toDate);
-		List<EventCalendar> holidays = db.list("select e from EventCalendar e where e.holiday = 1 and e.fromDate >= :fromDate and e.toDate <= :toDate", params);
-		int total = holidays.stream()
-						.map(e -> Util.differenceInDays(e.getFromDate(), e.getToDate()))
-						.collect(Collectors.summingInt(Integer::intValue));
-		
-		System.out.println(total);
-	}
 	
 }

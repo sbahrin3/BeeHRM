@@ -26,6 +26,8 @@
 	<tr><td class="line_title">Leave</td><td class="line_sep">:</td><td class="line_data">$!employeeLeave.leave.code - $!employeeLeave.leave.name</td></tr>
 
 	<tr><td class="line_title">Entitled</td><td class="line_sep">:</td><td class="line_data">$!daysEntitled days</td></tr>
+	<tr><td class="line_title">Days Carry Fwd.</td><td class="line_sep">:</td><td class="line_data">$!daysCarryForward days</td></tr>
+
 	<tr><td class="line_title">Taken</td><td class="line_sep">:</td><td class="line_data">$!daysTaken #if ( $daysTaken > 0 ) days #else day #end</td></tr>
 	<tr><td class="line_title">Availability</td><td class="line_sep">:</td><td class="line_data">$!daysAvailable #if ( $daysAvailable > 0 ) days #else day #end</td></tr>
 	<tr><td colspan="3"><label>Applying Leave:</label></td></tr>

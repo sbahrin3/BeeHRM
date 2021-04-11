@@ -181,15 +181,18 @@ public class EmployeeLeave {
 	public int getRequestedNumberOfDays() {
 		if ( requestToDate == null || requestFromDate == null ) return 0;
 		int holidays = Util.getNumberOfHolidays(requestFromDate, requestToDate);
-		int days = Util.differenceInDays(requestFromDate, requestToDate);
-		return days - holidays;
+		int weekends = Util.getNumberOfWeekends(requestFromDate, requestToDate);
+		int days = Util.numberOfDaysBetween(requestFromDate, requestToDate);
+		
+		return days - holidays - weekends;
 	}
 	
 	public int getApprovedNumberOfDays() {
 		if ( approveToDate == null || approveFromDate == null ) return 0;
 		int holidays = Util.getNumberOfHolidays(approveFromDate, approveToDate);
-		int days = Util.differenceInDays(approveFromDate, approveToDate);
-		return days - holidays;
+		int weekends = Util.getNumberOfWeekends(approveFromDate, approveToDate);
+		int days = Util.numberOfDaysBetween(approveFromDate, approveToDate);
+		return days - holidays - weekends;
 	}
 	
 	public String getRemark() {
