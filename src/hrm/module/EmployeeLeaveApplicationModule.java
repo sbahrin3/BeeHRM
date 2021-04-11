@@ -25,6 +25,13 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	
 	
 	String path = "apps/employeeLeaveApplication";
+	int currentYear;
+	
+	public void preProcess() {
+		super.preProcess();
+		currentYear = 2021;
+		context.put("currentYear", currentYear);
+	}
 	
 	
 	@Override
@@ -200,11 +207,15 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		
 		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l where l.employee.id = '" + employee.getId() + "' and l.leave.id = '" + item.getLeave().getId() + "'");
 		int daysTaken = employeeLeaves.stream().collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
-		int daysAvailable = daysEntitled - daysTaken;
+		
+		int daysCarryForward = employee.getLeaveCarryForward(item.getLeave(), currentYear);
+		
+		int daysAvailable = daysEntitled + daysCarryForward - daysTaken;
 		
 		context.put("employee", employee);
 		context.put("leave", item.getLeave());
 		context.put("daysEntitled", daysEntitled);
+		context.put("daysCarryForward", daysCarryForward);
 		context.put("daysTaken", daysTaken);
 		context.put("daysAvailable", daysAvailable);
 		
