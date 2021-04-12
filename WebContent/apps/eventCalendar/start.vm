@@ -1,4 +1,4 @@
-<div class="module_title">Events Calendar</div>
+<div class="module_title">Holidays Calendar</div>
 	
 <div id="div_main">
 	#parse("apps/eventCalendar/listEvents.vm")

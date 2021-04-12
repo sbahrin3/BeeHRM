@@ -46,12 +46,13 @@ public class CreateHRMenus {
 		String[][] childs = {{"company", "holding_company","Holding Company", "hrm.module.CompanyHQModule"},
 				{"company","company_subsidiaries","Subsidiaries Company","hrm.module.CompanySubsidiariesModule"},
 				{"administration","job_levels","Job Levels","hrm.module.SetupJobLevelModule"},
-				{"administration","job_positions","Job Positions","hrm.module.SetupJobModule"},
+				{"administration","job_positions","Job Titles","hrm.module.SetupJobModule"},
 				{"administration","salary_allowances","Salary Allowances","hrm.module.SetupSalaryAllowancesModule"},
 				{"administration","salary_deductions","Salary Deductions","hrm.module.SetupSalaryDeductionsModule"},
 				{"administration","salary_entitlements","Salary Entitlements","hrm.module.SetupSalaryConfigModule"},
 				{"administration","leave_types","Leave Types","hrm.module.SetupLeaveModule"},
 				{"administration","leave_entitlements","Leave Entitlements","hrm.module.SetupLeaveEntitlementModule"},
+				{"administration","events_calendar","Holidays Calendar","hrm.module.EventCalendarModule"},
 				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule"},
 				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeavesApplicationModule"}
 	

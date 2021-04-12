@@ -11,7 +11,7 @@
 			<th>Leave From</th>
 			<th>Leave To</th>
 			<th style="text-align:center">Days</th>
-			<th>Apply On</th>
+			##<th>Apply On</th>
 			<th style="text-align:center">Status</th>
 			<th></th>
 		</tr>
@@ -33,7 +33,8 @@
 				#end
 			</td>
 			
-			<td>$!employeeLeave.requestDateStr</td>
+			##<td>$!employeeLeave.requestDateStr</td>
+			
 			<td style="text-align:center">
 				$!employeeLeave.leaveStatusStr
 			</td>

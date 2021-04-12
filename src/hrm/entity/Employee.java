@@ -67,6 +67,9 @@ public class Employee {
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="employee")
 	private List<LeaveCarryForward> leaveCarryForwards;
+	
+	@ManyToOne @JoinColumn(name="office_id")
+	private Office office; //where this employee leave data will be based on
 		
 	public Employee() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -111,6 +114,11 @@ public class Employee {
 			return ej1.isPrimaryJob() ? -1 : 1;
 		}
 		
+	}
+	
+	public EmployeeJob getPrimaryEmployeeJob() {
+		if ( getJobs().size() == 0 ) return null;
+		return getJobs().get(0);
 	}
 
 	public String getIdNumber() {
@@ -176,6 +184,14 @@ public class Employee {
 
 	public void setGender(int gender) {
 		this.gender = gender;
+	}
+
+	public Office getOffice() {
+		return office;
+	}
+
+	public void setOffice(Office office) {
+		this.office = office;
 	}
 
 	public LeaveEntitlement getLeaveEntitlement() {

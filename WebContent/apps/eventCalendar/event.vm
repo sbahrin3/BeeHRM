@@ -20,13 +20,17 @@
 	</div>
 </div>
 
+#** 
 <div class="form-group">
 	<label>Holiday?</label>
     <select name="eventIsHoliday" class="form-control">
-		<option value="">No</option>
 		<option value="1" #if ( $event.holiday ) selected #end>Yes</option>
+		<option value="">No</option>
 	</select>
 </div>
+**#
+<input type="hidden" name="eventIsHoliday" value="1">
+
 
 <div class="form-group">
 	<label>Select States</label>
@@ -49,7 +53,7 @@
 
 <div class="form-group" style="text-align:right">
 	
-	<button type="button" class="btn btn-link" onclick="saveData2('listEvents','div_main','')"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>		
+	<button type="button" class="btn btn-link" onclick="sendAjax('listEvents','div_main','')"><i class="fa fa-times" aria-hidden="true"></i> Cancel</button>		
 
 	#if ( $event )
 	<button type="button" class="btn btn-primary" onclick="saveData2('updateEvent','div_main','eventId=$event.id')"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button>		

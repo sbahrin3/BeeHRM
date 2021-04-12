@@ -42,7 +42,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	
 	@Command("listEmployeeLeaves")
 	public String listEmployeeLeaves() {
-		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l order by l.requestDate desc");
+		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l order by l.requestFromDate desc");
 		context.put("employeeLeaves", employeeLeaves);
 		
 		return path + "/listEmployeeLeaves.vm";

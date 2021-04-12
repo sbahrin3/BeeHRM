@@ -1,5 +1,5 @@
 <div style="text-align:right">
-	<button type="button" class="btn btn-primary" onclick="sendAjax('addNewEvent','div_main','')">Add New Event&nbsp;<i class="fa fa-plus" aria-hidden="true"></i></button>
+	<button type="button" class="btn btn-primary" onclick="sendAjax('addNewEvent','div_main','')">Add New Holiday&nbsp;<i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>
 
 <div style="margin:20px">
@@ -8,9 +8,9 @@
 	<tr>
 		<th style="width:10px"></th>
 		<th>Name</th>
-		<th>Description</th>
 		<th style="text-align:center">From</th>
 		<th style="text-align:center">To</th>
+		<th style="text-align:center">Days</th>
 		<th style="text-align:center">Holiday</th>
 		<th>States</th>
 		<th></th>
@@ -19,17 +19,21 @@
 		<tr>
 			<td>$velocityCount.</th>
 			<td>$event.name</td>
-			<td>$event.description</td>
 			<td style="text-align:center">$event.fromDateStr</td>
 			<td style="text-align:center">$event.toDateStr</td>
+			<td style="text-align:center">$event.numberOfDays</td>
 			<td style="text-align:center">
 				#if ( $event.holiday ) Yes #else No #end
 			</td>
 			<td>
 			#if ( $event.states.size() > 1 )
-				$event.states.size() states
+				#if ( $event.states.size() == 16 )
+					All
+				#else
+					$event.states.size() states
+				#end
 			#elseif ( $event.states.size() == 1 )
-				$event.states.get(0).name only
+				$event.states.get(0).name
 			#end
 			</td>
 			<td style="text-align:right">

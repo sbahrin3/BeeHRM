@@ -24,7 +24,7 @@ public class EventCalendarModule extends LebahUserModule {
 	@Command("listEvents")
 	public String listEvents() {
 		
-		List<EventCalendar> events = db.list("select c from EventCalendar c order by c.fromDate desc");
+		List<EventCalendar> events = db.list("select c from EventCalendar c order by c.fromDate");
 		context.put("events", events);
 		
 		return path + "/listEvents.vm";
@@ -43,8 +43,12 @@ public class EventCalendarModule extends LebahUserModule {
 		event.setCode(getParam("eventCode"));
 		event.setName(getParam("eventName"));
 		event.setDescription(getParam("eventDescription"));
-		event.setFromDate(Util.toDate(getParam("fromDate")));		
-		event.setToDate(Util.toDate(getParam("toDate")));
+		event.setFromDate(Util.toDate(getParam("fromDate")));	
+		if ( "".equals(getParam("toDate")))
+			event.setToDate(Util.toDate(getParam("fromDate")));
+		else 
+			event.setToDate(Util.toDate(getParam("toDate")));
+		
 		event.setHoliday("1".equals(getParam("eventIsHoliday")));
 		
 		String[] stateIds = request.getParameterValues("stateIds");
@@ -84,7 +88,10 @@ public class EventCalendarModule extends LebahUserModule {
 		event.setName(getParam("eventName"));
 		event.setDescription(getParam("eventDescription"));
 		event.setFromDate(Util.toDate(getParam("fromDate")));		
-		event.setToDate(Util.toDate(getParam("toDate")));
+		if ( "".equals(getParam("toDate")))
+			event.setToDate(Util.toDate(getParam("fromDate")));
+		else 
+			event.setToDate(Util.toDate(getParam("toDate")));
 		event.setHoliday("1".equals(getParam("eventIsHoliday")));
 		
 		String[] stateIds = request.getParameterValues("stateIds");

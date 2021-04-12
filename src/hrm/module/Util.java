@@ -12,9 +12,12 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import hrm.entity.Company;
 import hrm.entity.Employee;
+import hrm.entity.EmployeeJob;
 import hrm.entity.EventCalendar;
-import hrm.entity.Leave;
+import hrm.entity.Office;
+import hrm.entity.State;
 import lebah.db.entity.Persistence;
 
 public class Util {
@@ -51,22 +54,46 @@ public class Util {
 	public static int numberOfDaysBetween(Date fromDate, Date toDate) {
 		long diffInMillies = Math.abs(toDate.getTime() - fromDate.getTime());
 		long numberOfDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);;
-		return (int) numberOfDays;
+		return (int) numberOfDays + 1;
 	}
 	
-	public static int getNumberOfHolidays(Date fromDate, Date toDate) {
+	public static int getNumberOfHolidays(Date fromDate, Date toDate, State state) {
 		Params<String, Object> params = new Params<>();
 		params.put("fromDate", fromDate);
 		params.put("toDate", toDate);
-		List<EventCalendar> holidays = Persistence.db().list("select e from EventCalendar e where e.holiday = 1 and e.fromDate >= :fromDate and e.toDate <= :toDate", params);
+		params.put("state", state);
+		List<EventCalendar> holidays = Persistence.db().list("select e from EventCalendar e Join e.states s where e.holiday = 1 and e.fromDate >= :fromDate and e.toDate <= :toDate and s = :state", params);
 		return holidays.stream()
                         .map(e -> numberOfDaysBetween(e.getFromDate(), e.getToDate()))
                         .collect(Collectors.summingInt(Integer::intValue));
 		
 	}
-
 	
+	public static int getNumberOfHolidays(Date fromDate, Date toDate, Employee employee) {
+		State state = null;
+		try {
+			Office office = employee.getOffice();
+			if ( office != null ) 
+				state = office.getAddress().getDistrict().getState();
+			if ( state == null ) {
+				EmployeeJob employeeJob = employee.getPrimaryEmployeeJob();
+				office = employeeJob.getDepartment().getCompany().getOffices().get(0);
+				state = office.getAddress().getDistrict().getState(); 
+			}
+		} catch ( Exception e ) {
+			e.printStackTrace();
+			Company company = Persistence.db().find(Company.class, "HQ");
+			Office office = company.getOffices().get(0);
+			if ( office != null ) state = office.getAddress().getDistrict().getState();
+		}
+		return getNumberOfHolidays(fromDate, toDate, state);
+	}
+
 	public static int getNumberOfWeekends(Date fromDate, Date toDate) {
+		return getNumberOfWeekends(fromDate, toDate, 1);
+	}
+	
+	public static int getNumberOfWeekends(Date fromDate, Date toDate, int weekendType) {
 		/*
 		 * Somehow, getting date from database cannot be recognize when try to convert to localdate
 		 * so need to do these workaround first,
@@ -75,11 +102,37 @@ public class Util {
 		String fromDateStr = new SimpleDateFormat("dd/MM/yyyy").format(fromDate);
 		String toDateStr = new SimpleDateFormat("dd/MM/yyyy").format(toDate);
 		
-		Predicate<LocalDate> isWeekend = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY;
-		long daysBetween = ChronoUnit.DAYS.between(toLocalDate(fromDateStr), toLocalDate(toDateStr));
+		Predicate<LocalDate> weekendTypePredicate = filterByWeekendType(weekendType);
+		
+		long daysBetween = ChronoUnit.DAYS.between(toLocalDate(fromDateStr), toLocalDate(toDateStr)) + 1;
 		long weekends = Stream.iterate(toLocalDate(fromDateStr), date -> date.plusDays(1)).limit(daysBetween)
-                                  .filter(isWeekend).count();
+                              .filter(weekendTypePredicate).count();
+		
 		return (int) weekends;
+	}
+	
+	static Predicate<LocalDate> wkSaturdayAndSunday = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY;
+	static Predicate<LocalDate> wkFridayAndSaturday = date -> date.getDayOfWeek() == DayOfWeek.FRIDAY || date.getDayOfWeek() == DayOfWeek.SATURDAY;
+	static Predicate<LocalDate> wkSundayOnly = date -> date.getDayOfWeek() == DayOfWeek.SUNDAY;
+	static Predicate<LocalDate> wkSaturdayOnly = date -> date.getDayOfWeek() == DayOfWeek.SATURDAY;
+	static Predicate<LocalDate> wkFridayOnly = date -> date.getDayOfWeek() == DayOfWeek.FRIDAY;
+	
+	static Predicate<LocalDate> filterByWeekendType(int type) {
+		
+		switch (type) {
+		case 1:
+			return wkSaturdayAndSunday;
+		case 2:
+			return wkFridayAndSaturday;
+		case 3:
+			return wkSundayOnly;
+		case 4:
+			return wkSaturdayOnly;
+		case 5:
+			return wkFridayOnly;
+		}
+		
+		return wkSaturdayAndSunday;
 	}
 	
 	public static LocalDate toLocalDate(String dateStr) {
@@ -96,21 +149,13 @@ public class Util {
 	public static void main(String[] args) {
 		
 		Persistence db = Persistence.db();
-		
-		String empid = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
-		String leaveid = "5f4b530b3c53d757e98fbb148b3e10de6326be12";
-		
-		Employee emp = db.find(Employee.class, empid);
-		Leave leave = db.find(Leave.class, leaveid);
-		
-		int days = emp.getLeaveDaysTaken(leave, 2021);
-		
-		System.out.println(days);
-		
-		
-		//get localdate from 2021-05-09
 
-		  
+		
+		//State state = db.find(State.class, "05");
+		//System.out.println(state.getName());
+		
+		int days = getNumberOfWeekends(Util.toDate("17/04/2021"), Util.toDate("18/04/2021"));
+		System.out.println(days);
 
 	}
 	

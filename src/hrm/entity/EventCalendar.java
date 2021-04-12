@@ -146,6 +146,10 @@ public class EventCalendar {
 		this.states = states;
 	}
 	
+	public int getNumberOfDays() {
+		return Util.numberOfDaysBetween(fromDate, toDate);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		EventCalendar m = (EventCalendar) o;
