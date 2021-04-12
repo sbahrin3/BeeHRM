@@ -21,6 +21,16 @@ public class State {
 	@Column(length=100)
 	private String name;
 	
+	
+	/*
+	 * 1 - Saturday and Sunday
+	 * 2 - Friday and Saturday
+	 * 3 - Sunday only
+	 * 4 - Saturday only
+	 * 5 - Friday only
+	 */
+	private int weekendType;
+	
 	@ManyToOne
 	private Country country;
 	
@@ -50,6 +60,14 @@ public class State {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public int getWeekendType() {
+		return weekendType;
+	}
+
+	public void setWeekendType(int weekendType) {
+		this.weekendType = weekendType;
 	}
 	
 	

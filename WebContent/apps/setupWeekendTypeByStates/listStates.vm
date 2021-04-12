@@ -1,0 +1,33 @@
+
+<table class="table">
+	
+	<tr>
+		<th style="width:10px"></th>
+		<th>State</th>
+		<th>Weekend</th>
+	</tr>
+	#foreach( $state in $states )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$state.name</td>
+			<td>
+				
+                    #if ( $state.weekendType == 1 ) Saturday and Sunday
+					#elseif ( $state.weekendType == 2 ) Friday and Saturday
+					#elseif ( $state.weekendType == 3 ) Sunday only
+					#elseif ( $state.weekendType == 4 ) Saturday only
+					#elseif ( $state.weekendType == 5 ) Friday only #end
+
+				</select>
+			
+			</td>
+			
+		</tr>
+	#end
+	
+</table>
+	
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax('editStates','div_main','')"><i class="fa fa-pencil-o" aria-hidden="true"></i> Edit</button>
+
+</div>

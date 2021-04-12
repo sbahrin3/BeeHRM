@@ -1,0 +1,7 @@
+<div class="module_title">States Weekends</div>
+	
+<div id="div_main">
+	
+	#parse("apps/setupWeekendTypeByStates/listStates.vm")
+	
+</div>
