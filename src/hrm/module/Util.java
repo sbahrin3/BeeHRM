@@ -20,6 +20,12 @@ import hrm.entity.Office;
 import hrm.entity.State;
 import lebah.db.entity.Persistence;
 
+
+/**
+ * 
+ * @author shamsulbahrin
+ *
+ */
 public class Util {
 	
 	public static double getDouble(String value) {
