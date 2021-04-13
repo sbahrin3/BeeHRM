@@ -53,6 +53,7 @@ public class CreateHRMenus {
 				{"administration","leave_types","Leave Types","hrm.module.SetupLeaveModule"},
 				{"administration","leave_entitlements","Leave Entitlements","hrm.module.SetupLeaveEntitlementModule"},
 				{"administration","events_calendar","Holidays Calendar","hrm.module.EventCalendarModule"},
+				{"administration","weekends_states","Weekends by States","hrm.module.SetupWeekendTypeByStatesModule"},
 				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule"},
 				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeavesApplicationModule"}
 	
@@ -75,6 +76,8 @@ public class CreateHRMenus {
 			menu.getRoles().add(role);
 			
 			childMenus.add(menu);
+			
+			System.out.println("Menu: " + menu.getParent().getTitle() + " - " + menu.getTitle() + ", " + menu.getModuleClassName());
 		}
 		
 		db.save(childMenus.toArray());
