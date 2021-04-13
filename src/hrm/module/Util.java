@@ -100,20 +100,9 @@ public class Util {
 	}
 	
 	public static int getNumberOfWeekends(Date fromDate, Date toDate, int weekendType) {
-		/*
-		 * Somehow, getting date from database cannot be recognize when try to convert to localdate
-		 * so need to do these workaround first,
-		 * convert to String representation and convert to Date back
-		 */
-		String fromDateStr = new SimpleDateFormat("dd/MM/yyyy").format(fromDate);
-		String toDateStr = new SimpleDateFormat("dd/MM/yyyy").format(toDate);
-		
 		Predicate<LocalDate> weekendTypePredicate = filterByWeekendType(weekendType);
-		
-		long daysBetween = ChronoUnit.DAYS.between(toLocalDate(fromDateStr), toLocalDate(toDateStr)) + 1;
-		long weekends = Stream.iterate(toLocalDate(fromDateStr), date -> date.plusDays(1)).limit(daysBetween)
-                              .filter(weekendTypePredicate).count();
-		
+		long daysBetween = ChronoUnit.DAYS.between(toLocalDate(fromDate), toLocalDate(toDate)) + 1;
+		long weekends = Stream.iterate(toLocalDate(fromDate), date -> date.plusDays(1)).limit(daysBetween).filter(weekendTypePredicate).count();
 		return (int) weekends;
 	}
 	
@@ -124,7 +113,6 @@ public class Util {
 	static Predicate<LocalDate> wkFridayOnly = date -> date.getDayOfWeek() == DayOfWeek.FRIDAY;
 	
 	static Predicate<LocalDate> filterByWeekendType(int type) {
-		
 		switch (type) {
 		case 1:
 			return wkSaturdayAndSunday;
@@ -137,32 +125,27 @@ public class Util {
 		case 5:
 			return wkFridayOnly;
 		}
-		
 		return wkSaturdayAndSunday;
 	}
 	
 	public static LocalDate toLocalDate(String dateStr) {
-		Date date = Util.toDate(dateStr);
-		return toLocalDate(date);
+		return toLocalDate(Util.toDate(dateStr));
 	}
 	
 	public static LocalDate toLocalDate(Date date) {
-	    return date.toInstant()
-	      .atZone(ZoneId.systemDefault())
-	      .toLocalDate();
+		if ( date instanceof java.sql.Date ) {
+			return new Date(date.getTime()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		}
+	    return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 	
 	public static void main(String[] args) {
 		
 		Persistence db = Persistence.db();
-
 		
-		//State state = db.find(State.class, "05");
-		//System.out.println(state.getName());
+		String empid = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
+		Employee employee = db.find(Employee.class, empid);
 		
-		int days = getNumberOfWeekends(Util.toDate("17/04/2021"), Util.toDate("18/04/2021"));
-		System.out.println(days);
-
 	}
 	
 
