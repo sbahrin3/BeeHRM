@@ -44,8 +44,11 @@
         <mapping class="hrm.entity.EmployeeLeave" />
         <mapping class="hrm.entity.EventCalendar" />
         <mapping class="hrm.entity.LeaveCarryForward" />
-       
-       
+       	<mapping class="hrm.entity.Timesheet" /> 
+     	<mapping class="hrm.entity.Project" />
+     	
+     	
+     	   
         <mapping class="hrm.entity.Timedemo" /> 
     </session-factory>
 </hibernate-configuration>

@@ -55,7 +55,7 @@ public class CreateHRMenus {
 				{"administration","events_calendar","Holidays Calendar","hrm.module.EventCalendarModule"},
 				{"administration","weekends_states","Weekends by States","hrm.module.SetupWeekendTypeByStatesModule"},
 				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule"},
-				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeavesApplicationModule"}
+				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeaveApplicationModule"}
 	
 		};
 		

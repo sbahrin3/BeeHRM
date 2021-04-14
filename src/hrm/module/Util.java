@@ -52,6 +52,16 @@ public class Util {
 		return date;
 	}
 	
+	public static Date toTime(String timeStr) {
+		Date date = null;
+		try {
+			date = new SimpleDateFormat("hh:mm a").parse(timeStr);
+		} catch ( Exception e ) {
+			//e.printStackTrace();
+		}
+		return date;
+	}
+	
 	public static String toStr(Date date) {
 		return date != null ? new SimpleDateFormat("dd/MM/yyyy").format(date) : "";
 	}

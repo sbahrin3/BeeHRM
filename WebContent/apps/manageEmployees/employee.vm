@@ -3,6 +3,9 @@
 </div>
 
 <h3>$!employee.name</h3>
+
+
+## PERSONAL BIODATA 
 <div class="section_title" style="margin-top:20px">Personal Biodata</div>
 	
 <div id="div_edit"  #if ( $employee ) style="display:none" #end>
@@ -55,6 +58,8 @@
 	
 </div>
 	
+
+## JOB ASSIGNMENTS
 #if ( $employee )
 	<div class="section_title" style="margin-top:10px">Job Assignments</div>
 	
@@ -72,10 +77,17 @@
 
 	</div>
 	
+
+		
+#end
+
+
+## LEAVE ENTITLEMENT
+#if ( $employee )
 	<div class="section_title">Leave Entitlement</div>
 	
 	<div id="div_leave">#parse("apps/manageEmployees/leaveEntitlement.vm")</div>
-		
+	
 #end
 
 
