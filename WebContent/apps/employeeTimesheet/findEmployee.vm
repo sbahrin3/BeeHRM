@@ -1,0 +1,15 @@
+
+<div style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax('listTimesheets','div_main','')">Back</button>
+</div>
+<br/>
+
+	
+<div class="input-group margin-bottom-sm">
+	<input name="searchName" class="form-control" type="text" placeholder="Search employee name" onkeyup="if ( event.keyCode === 13 ) { sendAjax2('searchEmployees','div_result',''); }">
+	<span class="input-group-addon" onclick="sendAjax2('searchEmployees','div_result','')"><i class="fa fa-search fa-fw"></i></span>
+</div>
+
+
+<div id="div_result"></div>
+	

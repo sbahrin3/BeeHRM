@@ -43,8 +43,10 @@ public class CreateHRMenus {
 		db.save(parentMenus.toArray());
 		
 		
-		String[][] childs = {{"company", "holding_company","Holding Company", "hrm.module.CompanyHQModule"},
+		String[][] childs = {
+				{"company", "holding_company","Holding Company", "hrm.module.CompanyHQModule"},
 				{"company","company_subsidiaries","Subsidiaries Company","hrm.module.CompanySubsidiariesModule"},
+				
 				{"administration","job_levels","Job Levels","hrm.module.SetupJobLevelModule"},
 				{"administration","job_positions","Job Titles","hrm.module.SetupJobModule"},
 				{"administration","salary_allowances","Salary Allowances","hrm.module.SetupSalaryAllowancesModule"},
@@ -54,8 +56,11 @@ public class CreateHRMenus {
 				{"administration","leave_entitlements","Leave Entitlements","hrm.module.SetupLeaveEntitlementModule"},
 				{"administration","events_calendar","Holidays Calendar","hrm.module.EventCalendarModule"},
 				{"administration","weekends_states","Weekends by States","hrm.module.SetupWeekendTypeByStatesModule"},
+				{"administration","setup_projects","Projects","hrm.module.SetupProjectsModule"},
+				
 				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule"},
-				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeaveApplicationModule"}
+				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeaveApplicationModule"},
+				{"employees","employees_timesheets","Employee Timesheet","hrm.module.EmployeeTimesheetModule"}
 	
 		};
 		

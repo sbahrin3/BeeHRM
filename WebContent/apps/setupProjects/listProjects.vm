@@ -1,0 +1,38 @@
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax('addNewProject','div_main','')"><i class="fa fa-plus" aria-hidden="true"></i> Add New Project</button>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Project Name</th>
+			<th>From Date</th>
+			<th>To Date</th>
+			<th>
+				
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach( $project in $projects )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$!project.name</td>
+			<td>$!project.fromDateStr</td>
+			<td>$!project.toDateStr</td>
+			<td>
+				
+				<div class="btn-group">
+            		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editProject', 'div_main', 'projectId=$project.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            
+            		<button type="button" class="btn btn-confirmation btn-default btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteProject','div_main','projectId=$project.id')">
+            			<i class="fa fa-trash-o" aria-hidden="true"></i>
+            		</button>
+            	</div>
+				
+			</td>
+		</tr>
+	#end
+    </tbody>
+</table>

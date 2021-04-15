@@ -1,0 +1,9 @@
+
+<table class="table">
+	#foreach ( $employee in $employees )
+		<tr>
+			<td style="width:20px">$velocityCount.</td>
+			<td style="cursor:pointer" onclick="sendAjax2('addNewTimesheet','div_main','employeeId=$!employee.id')">$!employee.name</td>
+		</tr>
+	#end
+</table>

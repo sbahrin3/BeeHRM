@@ -1,0 +1,8 @@
+<div class="module_title">Projects</div>
+	
+<div id="div_main">
+	
+	#parse("apps/setupProjects/listProjects.vm")
+	
+</div>
+	

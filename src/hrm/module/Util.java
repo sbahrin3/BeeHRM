@@ -66,6 +66,14 @@ public class Util {
 		return date != null ? new SimpleDateFormat("dd/MM/yyyy").format(date) : "";
 	}
 	
+	public static String toDateStr(Date date) {
+		return date != null ? new SimpleDateFormat("dd/MM/yyyy").format(date) : "";
+	}
+	
+	public static String toTimeStr(Date time) {
+		return time != null ? new SimpleDateFormat("hh:mm a").format(time) : "";
+	}
+	
 	
 	public static int numberOfDaysBetween(Date fromDate, Date toDate) {
 		long diffInMillies = Math.abs(toDate.getTime() - fromDate.getTime());

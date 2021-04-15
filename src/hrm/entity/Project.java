@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import hrm.module.Util;
+
 /**
  * 
  * @author Shamsul Bahrin
@@ -49,6 +51,10 @@ public class Project {
 	public Date getFromDate() {
 		return fromDate;
 	}
+	
+	public String getFromDateStr() {
+		return Util.toStr(fromDate);
+	}
 
 	public void setFromDate(Date fromDate) {
 		this.fromDate = fromDate;
@@ -56,6 +62,10 @@ public class Project {
 
 	public Date getToDate() {
 		return toDate;
+	}
+	
+	public String getToDateStr() {
+		return Util.toStr(toDate);
 	}
 
 	public void setToDate(Date toDate) {

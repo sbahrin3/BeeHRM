@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import hrm.module.Util;
+
 /**
  * 
  * @author Shamsul Bahrin
@@ -70,6 +72,10 @@ public class Timesheet {
 	public Date getDate() {
 		return date;
 	}
+	
+	public String getDateStr() {
+		return Util.toStr(date);
+	}
 
 	public void setDate(Date date) {
 		this.date = date;
@@ -78,6 +84,18 @@ public class Timesheet {
 	public Date getTimeIn() {
 		return timeIn;
 	}
+	
+	public String getTimeInStr() {
+		return Util.toTimeStr(timeIn);
+	}
+	
+	public String getTimeInStr1() {
+		return getTimeInStr().length() > 4 ? getTimeInStr().substring(0, 5) : "";
+	}
+	
+	public String getTimeInStr2() {
+		return getTimeInStr().length() > 5 ? getTimeInStr().substring(6) : "";
+	}
 
 	public void setTimeIn(Date timeIn) {
 		this.timeIn = timeIn;
@@ -85,6 +103,18 @@ public class Timesheet {
 
 	public Date getTimeOut() {
 		return timeOut;
+	}
+	
+	public String getTimeOutStr() {
+		return Util.toTimeStr(timeOut);
+	}
+	
+	public String getTimeOutStr1() {
+		return getTimeOutStr().length() > 4 ? getTimeOutStr().substring(0, 5) : "";
+	}
+	
+	public String getTimeOutStr2() {
+		return  getTimeOutStr().length() > 5 ? getTimeOutStr().substring(6) : "";
 	}
 
 	public void setTimeOut(Date timeOut) {
@@ -98,6 +128,13 @@ public class Timesheet {
 
 	public void setProjects(List<Project> projects) {
 		this.projects = projects;
+	}
+	
+	public boolean hasProject(Project project) {
+		return projects.size() > 0 ? projects.stream()
+                                             .filter(p -> p.getId().equals(project.getId()))
+                                             .findAny()
+                                             .isPresent() : false;
 	}
 	
 	@Override
