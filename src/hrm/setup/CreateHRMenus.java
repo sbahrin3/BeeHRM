@@ -7,11 +7,52 @@ import java.util.List;
 import lebah.db.entity.Menu;
 import lebah.db.entity.Persistence;
 import lebah.db.entity.Role;
+import lebah.db.entity.User;
 
 public class CreateHRMenus {
 	
 	public static void main(String[] args) {
+		checkRequiredRolesAndAdmin();
 		run();
+	}
+	
+	public static void checkRequiredRolesAndAdmin() {
+		Persistence db = Persistence.db();
+		
+		String[][] roles = { {"admin", "Admin"}, {"anon", "Anon"}, {"user", "User"} };
+		for ( String[] r : roles ) {
+			
+			Role role = db.find(Role.class, r[0]);
+			if ( role == null ) {
+				role = new Role();
+				role.setId(r[0]);
+				role.setName(r[1]);
+				
+				Persistence.db().save(role);
+			
+			}
+		}
+		
+		
+		
+		User user = db.get("select u from User u where u.userName = 'admin'");
+		
+		if ( user == null ) {
+			
+			user = new User();
+			
+			user.setUserName("admin");
+			user.setUserPassword("admin");
+			
+			user.setFirstName("Admin");
+			
+			Role role = Persistence.db().find(Role.class, "admin");
+			user.setRole(role);
+			
+			Persistence.db().save(user);
+		
+		}
+		
 	}
 	
 	public static void run() {
@@ -24,7 +65,8 @@ public class CreateHRMenus {
 		String[][] parents = {
 				{"company","Company"},
 				{"administration","Administration"},
-				{"employees","Employees"}
+				{"employees","Employees"},
+				{"employee_services","Employee Services"}
 		};
 		
 		List<Menu> parentMenus = new ArrayList<>();
@@ -44,23 +86,26 @@ public class CreateHRMenus {
 		
 		
 		String[][] childs = {
-				{"company", "holding_company","Holding Company", "hrm.module.CompanyHQModule"},
-				{"company","company_subsidiaries","Subsidiaries Company","hrm.module.CompanySubsidiariesModule"},
+				{"company", "holding_company","Holding Company", "hrm.module.CompanyHQModule", "admin"},
+				{"company","company_subsidiaries","Subsidiaries Company","hrm.module.CompanySubsidiariesModule", "admin"},
 				
-				{"administration","job_levels","Job Levels","hrm.module.SetupJobLevelModule"},
-				{"administration","job_positions","Job Titles","hrm.module.SetupJobModule"},
-				{"administration","salary_allowances","Salary Allowances","hrm.module.SetupSalaryAllowancesModule"},
-				{"administration","salary_deductions","Salary Deductions","hrm.module.SetupSalaryDeductionsModule"},
-				{"administration","salary_entitlements","Salary Entitlements","hrm.module.SetupSalaryConfigModule"},
-				{"administration","leave_types","Leave Types","hrm.module.SetupLeaveModule"},
-				{"administration","leave_entitlements","Leave Entitlements","hrm.module.SetupLeaveEntitlementModule"},
-				{"administration","events_calendar","Holidays Calendar","hrm.module.EventCalendarModule"},
-				{"administration","weekends_states","Weekends by States","hrm.module.SetupWeekendTypeByStatesModule"},
-				{"administration","setup_projects","Projects","hrm.module.SetupProjectsModule"},
+				{"administration","job_levels","Job Levels","hrm.module.SetupJobLevelModule", "admin"},
+				{"administration","job_positions","Job Titles","hrm.module.SetupJobModule", "admin"},
+				{"administration","salary_allowances","Salary Allowances","hrm.module.SetupSalaryAllowancesModule", "admin"},
+				{"administration","salary_deductions","Salary Deductions","hrm.module.SetupSalaryDeductionsModule", "admin"},
+				{"administration","salary_entitlements","Salary Entitlements","hrm.module.SetupSalaryConfigModule", "admin"},
+				{"administration","leave_types","Leave Types","hrm.module.SetupLeaveModule", "admin"},
+				{"administration","leave_entitlements","Leave Entitlements","hrm.module.SetupLeaveEntitlementModule", "admin"},
+				{"administration","events_calendar","Holidays Calendar","hrm.module.EventCalendarModule", "admin"},
+				{"administration","weekends_states","Weekends by States","hrm.module.SetupWeekendTypeByStatesModule", "admin"},
+				{"administration","setup_projects","Projects","hrm.module.SetupProjectsModule", "admin"},
 				
-				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule"},
-				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeaveApplicationModule"},
-				{"employees","employees_timesheets","Employee Timesheet","hrm.module.EmployeeTimesheetModule"}
+				{"employees","employees_records","Employees Records","hrm.module.ManageEmployeesModule", "admin"},
+				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeaveApplicationModule", "admin"},
+				{"employees","employees_timesheets","Employee Timesheet","hrm.module.EmployeeTimesheetModule", "admin"},
+				
+				{"employee_services","my_timesheets","Timesheet","hrm.module.MyTimesheetModule", "user"},
+				{"employee_services","my_leaves","Leave","hrm.module.MyLeaveApplicationModule", "user"}
 	
 		};
 		
@@ -77,7 +122,7 @@ public class CreateHRMenus {
 			menu.setOrderNo(i);
 			menu.setIcon("fa fa-square-o");
 			
-			Role role = db.find(Role.class, "admin");
+			Role role = db.find(Role.class, item[4]);
 			menu.getRoles().add(role);
 			
 			childMenus.add(menu);
