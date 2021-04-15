@@ -1,0 +1,8 @@
+<table class="table">
+	<tr><td class="line_title">Leave Type</td><td class="line_sep">:</td><td class="line_data">$!leave.code - $!leave.name</td></tr>
+	<tr><td class="line_title">Days Entitled</td><td class="line_sep">:</td><td class="line_data">$!daysEntitled days</td></tr>
+	<tr><td class="line_title">Days Carry Fwd.</td><td class="line_sep">:</td><td class="line_data">$!daysCarryForward days</td></tr>
+	<tr><td class="line_title">Days Taken</td><td class="line_sep">:</td><td class="line_data">$!daysTaken #if ( $daysTaken > 1 ) days #else day #end</td></tr>
+	<tr><td class="line_title" style="font-weight:bold">Days Available</td><td class="line_sep">:</td><td class="line_data"  style="font-weight:bold">$!daysAvailable #if ( $daysAvailable > 1 ) days #else day #end</td></tr>
+	
+</table>

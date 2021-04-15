@@ -19,6 +19,8 @@ import hrm.entity.SalaryConfig;
 import hrm.entity.SalaryDeductionItem;
 import hrm.entity.SalaryItem;
 import lebah.db.entity.Persistence;
+import lebah.db.entity.Role;
+import lebah.db.entity.User;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
@@ -84,6 +86,8 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		context.put("employee", employee);
 		
+		createUser(employee);
+		
 		return path + "/employee.vm";
 	}
 	
@@ -106,7 +110,41 @@ public class ManageEmployeesModule extends LebahUserModule {
 		
 		context.put("employee", employee);
 		
+		//register employee as user
+		createUser(employee);
+		
+		
 		return path + "/employee.vm";
+	}
+
+	private void createUser(Employee employee) {
+		if ( employee.getUser() == null ) {
+			Role role = db.find(Role.class, "user");
+			User user = new User();
+			user.setRole(role);
+			user.setEmployee(employee);
+			user.setUserName(employee.getIdNumber());
+			user.setUserPassword("1234");
+			user.setFirstName(employee.getName());
+			
+			db.save(user);
+			
+			employee.setUser(user);
+			db.update(employee);
+			
+		} else {
+			changeUsername(employee);
+		}
+	}
+	
+	private void changeUsername(Employee employee) {
+		User user = employee.getUser();
+		String prevUsername = user.getUserName();
+		User testUser = db.get("select u from User u where u.id <> '" + user.getId() + "' and u.userName = '" + prevUsername + "'");
+		if ( testUser == null && user.getUserName() != employee.getIdNumber()) {
+			user.setUserName(employee.getIdNumber());
+			db.update(user);
+		}
 	}
 	
 	@Command("deleteEmployee")
@@ -234,6 +272,10 @@ public class ManageEmployeesModule extends LebahUserModule {
 		} catch ( Exception e ) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		
 		
 		return listEmployeeJobs();
 	}

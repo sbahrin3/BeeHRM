@@ -12,8 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import hrm.entity.Employee;
 import lebah.util.PasswordService;
 
 
@@ -85,6 +87,9 @@ public class User {
 	private String documentFileName4;
 	@Column(length=200)
 	private String documentFileName5;
+	
+	@OneToOne @JoinColumn(name="employee_id")
+	private Employee employee;
 	
 	public User() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -334,6 +339,15 @@ public class User {
 	public void setDocumentFileName5(String documentFileName5) {
 		this.documentFileName5 = documentFileName5;
 	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+	
 	
 	
 	

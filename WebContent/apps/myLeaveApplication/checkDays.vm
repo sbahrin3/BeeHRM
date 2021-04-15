@@ -1,0 +1,15 @@
+
+#if ( $accepted )
+	<script>
+		sendAjax('saveNewEmployeeLeave','div_main','employeeId=$!employee.id');
+	</script>
+#else
+	
+	<div class="alert alert-danger">
+		<strong>Warning!</strong> Number of days has exceeded entitled availabilty!.
+	</div>
+
+	<script>
+		showWarningMessage("Number of days has exceeded entitled availabilty!");
+	</script>
+#end

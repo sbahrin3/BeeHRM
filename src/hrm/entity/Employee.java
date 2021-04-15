@@ -17,11 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import hrm.module.Util;
+import lebah.db.entity.User;
 
 
 /**
@@ -70,6 +72,9 @@ public class Employee {
 	
 	@ManyToOne @JoinColumn(name="office_id")
 	private Office office; //where this employee leave data will be based on
+	
+	@OneToOne @JoinColumn(name="user_id")
+	private User user;
 		
 	public Employee() {
 		setId(lebah.util.UIDGenerator.getUID());
@@ -270,5 +275,15 @@ public class Employee {
 		int takenCount = getLeaveDaysTaken(leave, year);
 		return carryFwdCount + entitledCount - takenCount;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
 	
 }

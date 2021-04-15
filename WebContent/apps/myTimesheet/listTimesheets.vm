@@ -1,0 +1,56 @@
+
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax('addNewTimesheet','div_main','')"><i class="fa fa-plus" aria-hidden="true"></i> Add New Timesheet</button>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Date</th>
+			<th>Time In</th>
+			<th>Time Out</th>
+			<th>Project</th>
+			
+			<th>
+				
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach( $ts in $timesheets )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$!ts.dateStr</td>
+			<td>$!ts.timeInStr</td>
+			<td>$!ts.timeOutStr</td>
+			<td>
+				<ul>
+				#foreach ( $p in $ts.projects )
+					<li>$p.name</li>
+				#end
+				</ul>
+			</td>
+			<td>
+				
+				<div class="btn-group">
+            		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editTimesheet', 'div_main', 'timesheetId=$ts.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            
+            		<button type="button" class="btn btn-confirmation btn-default btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteTimesheet','div_main','timesheetId=$!ts.id')">
+            			<i class="fa fa-trash-o" aria-hidden="true"></i>
+            		</button>
+            	</div>
+				
+			</td>
+		</tr>
+	#end
+    </tbody>
+</table>
+	
+
+#if ( $command == "deleteTimesheet" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end
+
