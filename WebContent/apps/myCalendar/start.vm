@@ -1,0 +1,7 @@
+<div class="module_title">Calendar</div>
+	
+<div id="div_main">
+	
+	#parse("apps/myCalendar/calendar.vm")
+	
+</div>

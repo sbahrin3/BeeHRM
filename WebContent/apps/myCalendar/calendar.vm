@@ -1,0 +1,20 @@
+
+<div style="font-weight:bold; font-size:18pt">$c.title</div>
+
+<table class="table">
+	#foreach( $d in [1..$c.totalDays] )
+		<tr>
+			<td style="width:30px;font-weight:bold">$c.getDayName($d)</td>
+			<td style="width:20px;text-align:right;font-weight:bold">$d</td>
+			<td>
+				#if ( $c.getEvents($d).size() > 0 )
+					<ul>
+						#foreach ( $e in $c.getEvents($d) )
+							<li>$e.name</li>
+						#end
+					</ui>
+				#end
+			</td>
+		</tr>
+	#end
+</table>

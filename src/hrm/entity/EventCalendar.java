@@ -1,6 +1,7 @@
 package hrm.entity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +74,12 @@ public class EventCalendar {
 		return fromDate;
 	}
 	
+	public Calendar getFromDateCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(fromDate);
+		return c;
+	}
+	
 	public String getFromDateStr() {
 		return fromDate != null ? Util.toStr(fromDate) : "";
 	}
@@ -85,6 +92,12 @@ public class EventCalendar {
 
 	public Date getToDate() {
 		return toDate;
+	}
+	
+	public Calendar getToDateCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(toDate);
+		return c;
 	}
 
 	public String getToDateStr() {
@@ -168,5 +181,18 @@ public class EventCalendar {
 		return states.stream().filter(s -> s.getId().equals(state.getId())).findAny().isPresent();
 	}
 
+	public int getFromDay() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(fromDate);
+		return c.get(Calendar.DAY_OF_MONTH);
+	}
+	
+	public int getToDay() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(toDate);
+		return c.get(Calendar.DAY_OF_MONTH);
+	}	
+	
+	
 	
 }
