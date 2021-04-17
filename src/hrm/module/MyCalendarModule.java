@@ -3,11 +3,11 @@ package hrm.module;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
-import hrm.entity.EventCalendar;
+import hrm.entity.Employee;
+import hrm.entity.EmployeeLeave;
 import lebah.db.entity.Persistence;
+import lebah.db.entity.User;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
@@ -15,9 +15,14 @@ public class MyCalendarModule extends LebahUserModule {
 	
 	String path = "apps/myCalendar";
 	int currentYear, currentMonth, currentDay;
+	Employee employee;
 	
 	@Override
 	public String start() {
+		
+		User user = (User) context.get("user");
+		employee = user.getEmployee();
+		
 		getCalendar();
 		return path + "/start.vm";
 	}
@@ -25,7 +30,7 @@ public class MyCalendarModule extends LebahUserModule {
 	@Command("getCalendar")
 	public String getCalendar() {
 		Date today = new Date();
-		MyCalendar myc = new MyCalendar(today);
+		MyCalendar myc = new MyCalendar(today, employee);
 		context.put("c", myc);
 		
 		Calendar c1 = Calendar.getInstance();
@@ -37,21 +42,32 @@ public class MyCalendarModule extends LebahUserModule {
 	
 
 	public static void main(String[] args) {
+		
+		String empId = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
+		Employee employee = Persistence.db().find(Employee.class, empId);
 				
 		Date today = new Date();
-		MyCalendar myc = new MyCalendar(today);
+		MyCalendar myc = new MyCalendar(today, employee);
 		
-		IntStream.range(1, myc.getTotalDays()+1).forEach(i -> {
-			List<EventCalendar> evs = myc.getEvents(i);
-			System.out.print(i + "" );
+		
+		for ( int d = 1; d < myc.getTotalDays(); d++ ) {
+			System.out.println(d + ")");
+			/*
+			List<EventCalendar> evs = myc.getEvents(d);
 			if ( evs.size() > 0 ) {
 				evs.forEach(e -> {
-					System.out.print(e.getName() + ", ");
+					System.out.println(e.getName() + ", ");
 				});
 			}
-			System.out.println();
-		});
-		
+			*/
+			
+			List<EmployeeLeave> leaves = myc.getLeaves(d);
+			if ( leaves.size() > 0 ) {
+				leaves.forEach(e -> {
+					System.out.println(e.getLeave().getName() + ", ");
+				});
+			}
+		}
 			
 		
 		

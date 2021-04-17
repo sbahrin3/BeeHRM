@@ -1,5 +1,6 @@
 package hrm.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -121,6 +122,12 @@ public class EmployeeLeave {
 	public void setRequestFromDate(Date requestFromDate) {
 		this.requestFromDate = requestFromDate;
 	}
+	
+	public Calendar getRequestFromDateCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(requestFromDate);
+		return c;
+	}
 
 	public Date getRequestToDate() {
 		return requestToDate;
@@ -128,6 +135,12 @@ public class EmployeeLeave {
 	
 	public String getRequestToDateStr() {
 		return Util.toStr(requestToDate);
+	}
+	
+	public Calendar getRequestToDateCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(requestToDate);
+		return c;
 	}
 
 	public void setRequestToDate(Date requestToDate) {
@@ -137,6 +150,8 @@ public class EmployeeLeave {
 	public Date getApproveDate() {
 		return approveDate;
 	}
+	
+
 	
 	public String getApproveDateStr() {
 		return Util.toStr(approveDate);
@@ -150,6 +165,12 @@ public class EmployeeLeave {
 		return approveFromDate;
 	}
 	
+	public Calendar getApproveFromDateCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(approveFromDate);
+		return c;
+	}
+	
 	public String getApproveFromDateStr() {
 		return Util.toStr(approveFromDate);
 	}
@@ -160,6 +181,12 @@ public class EmployeeLeave {
 
 	public Date getApproveToDate() {
 		return approveToDate;
+	}
+	
+	public Calendar getApproveToDateCalendar() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(approveToDate);
+		return c;
 	}
 
 	public String getApproveToDateStr() {
@@ -216,6 +243,18 @@ public class EmployeeLeave {
 				
 		}
 		return "";
+	}
+	
+	public int getApproveFromDay() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(approveFromDate);
+		return c.get(Calendar.DAY_OF_MONTH);
+	}
+	
+	public int getApproveToDay() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(approveToDate);
+		return c.get(Calendar.DAY_OF_MONTH);
 	}
 
 }

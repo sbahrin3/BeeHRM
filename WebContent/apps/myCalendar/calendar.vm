@@ -7,12 +7,20 @@
 			<td style="width:30px;font-weight:bold">$c.getDayName($d)</td>
 			<td style="width:20px;text-align:right;font-weight:bold">$d</td>
 			<td>
-				#if ( $c.getEvents($d).size() > 0 )
-					<ul>
-						#foreach ( $e in $c.getEvents($d) )
-							<li>$e.name</li>
+				#if ( $c.getLeaves($d).size() > 0 )
+					<table>
+						#foreach ( $e in $c.getLeaves($d) )
+							<tr><td style="width:20px"><i class="fa fa-square" aria-hidden="true"></i></td><td>$e.leave.name</td></tr>
 						#end
-					</ui>
+					</table>
+				#end
+				
+				#if ( $c.getEvents($d).size() > 0 )
+					<table>
+						#foreach ( $e in $c.getEvents($d) )
+							<tr><td style="width:20px"><i class="fa fa-square-o" aria-hidden="true"></i></td><td>$e.name</td></tr>
+						#end
+					</table>
 				#end
 			</td>
 		</tr>

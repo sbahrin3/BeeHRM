@@ -1,5 +1,7 @@
 package hrm.entity;
 
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -71,6 +73,4 @@ public class Leave {
 		this.orderNo = orderNo;
 	}
 	
-	
-
 }
