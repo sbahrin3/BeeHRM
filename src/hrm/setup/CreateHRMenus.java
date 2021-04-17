@@ -104,7 +104,7 @@ public class CreateHRMenus {
 				{"employees","employees_leaves","Employee Leaves","hrm.module.EmployeeLeaveApplicationModule", "admin"},
 				{"employees","employees_timesheets","Employee Timesheet","hrm.module.EmployeeTimesheetModule", "admin"},
 				
-				{"employee_services","my_calendar","Timesheet","hrm.module.MyCalendarModule", "user"},
+				{"employee_services","my_calendar","Calendar","hrm.module.MyCalendarModule", "user"},
 				{"employee_services","my_timesheets","Timesheet","hrm.module.MyTimesheetModule", "user"},
 				{"employee_services","my_leaves","Leave","hrm.module.MyLeaveApplicationModule", "user"}
 	

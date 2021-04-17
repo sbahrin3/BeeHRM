@@ -20,7 +20,8 @@ public class MyCalendar {
 	Employee employee;
 	
 	List<EventCalendar> events = new ArrayList<>();
-	List<EmployeeLeave> leaves = new ArrayList<>();
+	List<EmployeeLeave> approveLeaves = new ArrayList<>();
+	List<EmployeeLeave> requestLeaves = new ArrayList<>();
 
 	
 	public MyCalendar(Date date, Employee employee) {
@@ -28,7 +29,8 @@ public class MyCalendar {
 		calendar.setTime(date);
 		this.employee = employee;
 		retrieveEvents();
-		retrieveLeaves();
+		retrieveApproveLeaves();
+		retrieveRequestLeaves();
 	}
 	
 	public String getTitle() {
@@ -92,12 +94,21 @@ public class MyCalendar {
                      .collect(Collectors.toList());
 	}
 	
-	public List<EmployeeLeave> getLeaves(int day) {
+	public List<EmployeeLeave> getApproveLeaves(int day) {
 		Calendar c = Calendar.getInstance();
 		c.set(getYear(), getMonth(), day);
 		
-		return leaves.stream()
+		return approveLeaves.stream()
                      .filter(e -> e.getApproveFromDay() == day || e.getApproveToDay() == day || (c.after(e.getApproveFromDateCalendar()) && c.before(e.getApproveToDateCalendar()) ))
+                     .collect(Collectors.toList());
+	}
+	
+	public List<EmployeeLeave> getRequestLeaves(int day) {
+		Calendar c = Calendar.getInstance();
+		c.set(getYear(), getMonth(), day);
+		
+		return requestLeaves.stream()
+                     .filter(e -> e.getRequestFromDay() == day || e.getRequestToDay() == day || (c.after(e.getRequestFromDateCalendar()) && c.before(e.getRequestToDateCalendar()) ))
                      .collect(Collectors.toList());
 	}
 	
@@ -118,7 +129,7 @@ public class MyCalendar {
 		
 	}
 	
-	private void retrieveLeaves() {
+	private void retrieveApproveLeaves() {
 		Calendar c1 = Calendar.getInstance();
 		c1.set(getYear(), getMonth(), 1);
 		c1.add(Calendar.DATE, -1);
@@ -132,11 +143,47 @@ public class MyCalendar {
 		p.put("date1", c1.getTime());
 		p.put("date2", c2.getTime());
 		
-		leaves = Persistence.db().list("select e from EmployeeLeave e where e.employee.id = :employeeId and e.approveFromDate >= :date1 and e.approveFromDate <= :date2", p);
+		approveLeaves = Persistence.db().list("select e from EmployeeLeave e where e.employee.id = :employeeId and e.approveFromDate >= :date1 and e.approveFromDate <= :date2", p);
+		
+	}
+	
+	private void retrieveRequestLeaves() {
+		Calendar c1 = Calendar.getInstance();
+		c1.set(getYear(), getMonth(), 1);
+		c1.add(Calendar.DATE, -1);
+				
+		Calendar c2 = Calendar.getInstance();
+		c2.set(getYear(), getMonth(), getTotalDays()-1);
+		c2.add(Calendar.DATE, 1);
+				
+		Params<String, Object> p = new Params<>();
+		p.put("employeeId", employee.getId());
+		p.put("date1", c1.getTime());
+		p.put("date2", c2.getTime());
+		
+		requestLeaves = Persistence.db().list("select e from EmployeeLeave e where e.employee.id = :employeeId and e.requestFromDate >= :date1 and e.requestFromDate <= :date2 and e.status < 2", p);
 		
 	}
 
 	public static void main(String[] args) {
+		
+		String empId = "d3d5bb87ca71e40d6c32a0cae7da087ec9e9ec3d";
+		Employee employee = Persistence.db().find(Employee.class, empId);
+				
+		Date today = new Date();
+		MyCalendar myc = new MyCalendar(today, employee);
+		
+		
+		for ( int d = 1; d < myc.getTotalDays(); d++ ) {
+			System.out.println(d + ")");
+			
+			List<EmployeeLeave> leaves = myc.getApproveLeaves(d);
+			if ( leaves.size() > 0 ) {
+				leaves.forEach(e -> {
+					System.out.println(e.getLeave().getName() + ", ");
+				});
+			}
+		}		
 	
 	}
 

@@ -256,5 +256,17 @@ public class EmployeeLeave {
 		c.setTime(approveToDate);
 		return c.get(Calendar.DAY_OF_MONTH);
 	}
+	
+	public int getRequestFromDay() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(requestFromDate);
+		return c.get(Calendar.DAY_OF_MONTH);
+	}
+	
+	public int getRequestToDay() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(requestToDate);
+		return c.get(Calendar.DAY_OF_MONTH);
+	}
 
 }

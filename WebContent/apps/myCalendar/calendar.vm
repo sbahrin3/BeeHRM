@@ -7,10 +7,18 @@
 			<td style="width:30px;font-weight:bold">$c.getDayName($d)</td>
 			<td style="width:20px;text-align:right;font-weight:bold">$d</td>
 			<td>
-				#if ( $c.getLeaves($d).size() > 0 )
+				#if ( $c.getApproveLeaves($d).size() > 0 )
 					<table>
-						#foreach ( $e in $c.getLeaves($d) )
-							<tr><td style="width:20px"><i class="fa fa-square" aria-hidden="true"></i></td><td>$e.leave.name</td></tr>
+						#foreach ( $e in $c.getApproveLeaves($d) )
+							<tr><td style="width:20px"><i class="fa fa-check-square-o" aria-hidden="true"></i></td><td>$e.leave.name</td></tr>
+						#end
+					</table>
+				#end
+				
+				#if ( $c.getRequestLeaves($d).size() > 0 )
+					<table>
+						#foreach ( $r in $c.getRequestLeaves($d) )
+							<tr><td style="width:20px"><i class="fa fa-square-o" aria-hidden="true"></i></td><td>$r.leave.name (PENDING APPROVAL)</td></tr>
 						#end
 					</table>
 				#end
@@ -18,7 +26,7 @@
 				#if ( $c.getEvents($d).size() > 0 )
 					<table>
 						#foreach ( $e in $c.getEvents($d) )
-							<tr><td style="width:20px"><i class="fa fa-square-o" aria-hidden="true"></i></td><td>$e.name</td></tr>
+							<tr><td style="width:20px"><i class="fa fa-calendar" aria-hidden="true"></i></td><td>$e.name</td></tr>
 						#end
 					</table>
 				#end

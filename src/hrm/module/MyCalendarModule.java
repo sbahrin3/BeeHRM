@@ -61,7 +61,7 @@ public class MyCalendarModule extends LebahUserModule {
 			}
 			*/
 			
-			List<EmployeeLeave> leaves = myc.getLeaves(d);
+			List<EmployeeLeave> leaves = myc.getApproveLeaves(d);
 			if ( leaves.size() > 0 ) {
 				leaves.forEach(e -> {
 					System.out.println(e.getLeave().getName() + ", ");
