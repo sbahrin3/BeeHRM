@@ -47,6 +47,8 @@
        	<mapping class="hrm.entity.Timesheet" /> 
      	<mapping class="hrm.entity.Project" />
      	
+     	<mapping class="hrm.entity.MyCalendarNotes" />
+     	
      	
      	   
         <mapping class="hrm.entity.Timedemo" /> 

@@ -1,7 +1,7 @@
 
 
 <div class="form-group" style="text-align:right">
-	<button type="button" class="btn btn-success" onclick="sendAjax('addNewEmployee','div_main','')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add New Employee</button>
+	<button type="button" class="btn btn-primary" onclick="sendAjax('addNewEmployee','div_main','')"><span><i class="fa fa-plus" aria-hidden="true"></i></span> Add New Employee</button>
 </div>	
 
 <table class="table">
@@ -10,7 +10,10 @@
 		<tr>
 			<th style="width:10px"></th>
 			<th>Name</th>
-			<th>Position</th>
+			<th>Job Title</th>
+			<th>Dept.</th>
+			<th>Company</th>
+			
 			<th></th>
 		</tr>
 	</thead>
@@ -18,16 +21,20 @@
 	#foreach( $employee in $employees )
 		<tr>
 			<td style="cursor:pointer" onclick="sendAjax('editEmployee','div_main','employeeId=$!employee.id')">$velocityCount.</td>
+
 			<td>
 				$!employee.name,
 				$!employee.idNumber
 				
 			</td>
 			<td>
-				$!employee.job.name<br/>
-				$!employee.department.name<br/>
+				$!employee.job.name
+			</td>
+			<td>
+				$!employee.department.name
+			</td>
+			<td>
 				$!employee.department.company.name
-				
 			</td>
 			<td style="text-align:right">
 				<div class="btn-group">
@@ -37,6 +44,7 @@
     			</button>
 				</div>
 			</td>
+			
 		</tr>
 	#end
 	</tbody>
