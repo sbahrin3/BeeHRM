@@ -1,5 +1,6 @@
 package hrm.module;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -23,7 +24,7 @@ public class MyCalendarModule extends LebahUserModule {
 		User user = (User) context.get("user");
 		employee = user.getEmployee();
 		
-		getCalendar();
+		getCalendars();
 		return path + "/start.vm";
 	}
 	
@@ -32,12 +33,28 @@ public class MyCalendarModule extends LebahUserModule {
 		Date today = new Date();
 		MyCalendar myc = new MyCalendar(today, employee);
 		context.put("c", myc);
-		
-		Calendar c1 = Calendar.getInstance();
-		c1.set(myc.getYear(), myc.getMonth(), 1);
-		c1.add(Calendar.DATE, -1);
-		
 		return path + "/calendar.vm";
+	}
+	
+	@Command("getCalendars")
+	public String getCalendars() {
+		Date today = new Date();
+		Calendar todayCalendar = Calendar.getInstance();
+		todayCalendar.setTime(today);
+		int currentYear = todayCalendar.get(Calendar.YEAR);
+		context.put("currentYear", currentYear);
+		
+		List<MyCalendar> myCalendars = new ArrayList<>();
+		context.put("myCalendars", myCalendars);
+		for ( int m = 0; m < 12; m++ ) {
+			Calendar c = Calendar.getInstance();
+			c.set(currentYear, m, 1);
+			MyCalendar myc = new MyCalendar(c.getTime(), employee);
+			myCalendars.add(myc);
+
+		}
+		
+		return path + "/calendars.vm";
 	}
 	
 

@@ -2,27 +2,33 @@
 
 <div class="form-group">
 	<label>Employee Name</label>
-	<input name="employeeName" value="$!employee.name" readonly class="form-control">
+	<div style="font-weight:bold;font-size:18pt">
+		$!employee.name
+	</div>
+	
 	<input type="hidden" name="employeeId" value="$!employee.id">
 </div>
 
 <div class="row form-group">
 	<div class="col-sm-4">
 		<label>Date</label>
-		<input name="timesheetDate" value="$!timesheet.dateStr" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
+		<input name="timesheetDate" #if ( $timesheet ) value="$!timesheet.dateStr" #else value="$!today" #end   class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
 	</div>	
 	<div class="col-sm-4">
 		<label>Time In</label>
 		
 		<table>
-			<tr><td>
+			<tr>
+				<td>
 					<input name="timesheetTimeIn" value="$!timesheet.timeInStr1" class="form-control"  data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" inputmode="numeric">
-			</td><td>
+				</td>
+				<td>
 					<select name="timesheetTimeInAMPM" class="form-control" style="width:80px">
 						<option value="AM" #if ( $timesheet.timeInStr2 == "AM" ) selected #end>AM</option>
 						<option value="PM" #if ( $timesheet.timeInStr2 == "PM" ) selected #end>PM</option>
 					</select>
-			</td></tr>
+				</td>
+			</tr>
 		</table>		
 
 	</div>
@@ -40,12 +46,19 @@
 		</table>		
 	</div>
 </div>	
+
 <div class="form-group">
 	<label>Project(s)</label>
 	<table class="table">
 		#foreach( $project in $projects )
 			<tr>
-				<td style="width:20px"><input type="checkbox" name="projectIds" value="$!project.id" #if ( $timesheet.hasProject($project) ) checked #end></td>
+				<td style="width:20px"><input type="checkbox" name="projectIds" value="$!project.id" 
+					#if ( $timesheet && $timesheet.hasProject($project) ) 
+						checked 
+					#elseif ( $myprojects.contains($project) )
+						checked
+					#end>
+				</td>
 				<td>$project.name</td>
 			</tr>
 		#end

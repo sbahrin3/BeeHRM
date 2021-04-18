@@ -1,6 +1,7 @@
 package hrm.module;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -42,8 +43,20 @@ public class MyTimesheetModule extends LebahUserModule {
 	@Command("addNewTimesheet")
 	public String addNewTimesheet() {
 		context.remove("timesheet");
-		List<Project> projects = db.list("select p from Project p");
+		List<Project> projects = db.list("select p from Project p order by p.name");
 		context.put("projects", projects);
+		
+		context.remove("myprojects");
+		List<Project> myprojects = new ArrayList<>();
+		List<Timesheet> timesheets = db.list("select t from Timesheet t order by t.date desc");
+		if ( timesheets.size() > 0 ) {
+			Timesheet t = timesheets.get(0);
+			if ( t.getProjects().size() > 0 ) t.getProjects().forEach(p -> myprojects.add(p));
+			context.put("myprojects", myprojects);
+		}
+				
+		Date today = new Date();
+		context.put("today", Util.toStr(today));
 		return path + "/timesheet.vm";
 	}
 	
@@ -69,7 +82,7 @@ public class MyTimesheetModule extends LebahUserModule {
 	public String editTimesheet() {
 		Timesheet timesheet = db.find(Timesheet.class, getParam("timesheetId"));
 		context.put("timesheet", timesheet);
-		List<Project> projects = db.list("select p from Project p");
+		List<Project> projects = db.list("select p from Project p order by p.name");
 		context.put("projects", projects);
 		return path + "/timesheet.vm";
 	}

@@ -94,6 +94,14 @@ public class MyCalendar {
                      .collect(Collectors.toList());
 	}
 	
+	public boolean isPublicHoliday(int day) {
+		Calendar c = Calendar.getInstance();
+		c.set(getYear(), getMonth(), day);
+		return events.stream()
+        .filter(e -> e.getFromDay() == day || e.getToDay() == day || (c.after(e.getFromDateCalendar()) && c.before(e.getToDateCalendar()) ))
+        .filter(e -> e.isPublicHoliday()).findAny().isPresent();
+	}
+	
 	public List<EmployeeLeave> getApproveLeaves(int day) {
 		Calendar c = Calendar.getInstance();
 		c.set(getYear(), getMonth(), day);
@@ -145,6 +153,7 @@ public class MyCalendar {
 		
 		approveLeaves = Persistence.db().list("select e from EmployeeLeave e where e.employee.id = :employeeId and e.approveFromDate >= :date1 and e.approveFromDate <= :date2", p);
 		
+		
 	}
 	
 	private void retrieveRequestLeaves() {
@@ -173,17 +182,15 @@ public class MyCalendar {
 		Date today = new Date();
 		MyCalendar myc = new MyCalendar(today, employee);
 		
+		System.out.println(myc.isPublicHoliday(29));
 		
+		/*
 		for ( int d = 1; d < myc.getTotalDays(); d++ ) {
 			System.out.println(d + ")");
 			
-			List<EmployeeLeave> leaves = myc.getApproveLeaves(d);
-			if ( leaves.size() > 0 ) {
-				leaves.forEach(e -> {
-					System.out.println(e.getLeave().getName() + ", ");
-				});
-			}
+			
 		}		
+		*/
 	
 	}
 

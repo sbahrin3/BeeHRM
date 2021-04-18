@@ -217,6 +217,7 @@ public class Employee {
 	}
 	
 	public int getLeaveDaysCarryForward(Leave leave, int year) {
+		if ( leaveCarryForwards == null ) return 0;
 		Optional<LeaveCarryForward> optional =
                                         leaveCarryForwards.stream()
                                         .filter(c -> c.getYear() == year && c.getLeave().getId().equals(leave.getId()))
@@ -235,6 +236,7 @@ public class Employee {
 	}
 
 	public int getLeaveDaysTaken(Leave leave) {
+		if ( employeeLeaves == null ) return 0;
 		return employeeLeaves.size() == 0 ? 0 : employeeLeaves.stream()
 				.filter(l -> l.getLeave().getId().equals(leave.getId()))
 				.collect(Collectors.summingInt(l -> l.getApprovedNumberOfDays()));
@@ -243,7 +245,7 @@ public class Employee {
 	public List<EmployeeLeave> getAllEmployeeLeaves(int year) {
 		Date startOfYear = Util.toDate("01/01/" + year);
 		Date endOfYear = Util.toDate("31/12/" + year);
-		return employeeLeaves.stream()
+		return employeeLeaves == null ? new ArrayList<>() :  employeeLeaves.stream()
 			.filter(l -> l.getApproveFromDate() != null && l.getApproveFromDate().after(startOfYear) && l.getApproveFromDate().before(endOfYear))
 			.collect(Collectors.toList());
 	}
@@ -251,7 +253,7 @@ public class Employee {
 	public List<EmployeeLeave> getApprovedEmployeeLeaves(int year) {
 		Date startOfYear = Util.toDate("01/01/" + year);
 		Date endOfYear = Util.toDate("31/12/" + year);
-		return employeeLeaves.stream()
+		return employeeLeaves == null ? new ArrayList<>() : employeeLeaves.stream()
 			.filter(l -> l.getApproveFromDate() != null && l.getStatus() == 2 && l.getApproveFromDate().after(startOfYear) && l.getApproveFromDate().before(endOfYear))
 			.collect(Collectors.toList());
 	}

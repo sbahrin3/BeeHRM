@@ -11,10 +11,7 @@
 			<th>Time In</th>
 			<th>Time Out</th>
 			<th>Project</th>
-			
-			<th>
-				
-			</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,8 +28,7 @@
 				#end
 				</ul>
 			</td>
-			<td>
-				
+			<td style="text-align:right">
 				<div class="btn-group">
             		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editTimesheet', 'div_main', 'timesheetId=$ts.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             

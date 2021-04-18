@@ -1,6 +1,7 @@
 package hrm.module;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -50,6 +51,9 @@ public class EmployeeTimesheetModule extends LebahUserModule {
 		context.put("employee", employee);
 		List<Project> projects = db.list("select p from Project p");
 		context.put("projects", projects);
+		
+		Date today = new Date();
+		context.put("today", Util.toStr(today));
 		return path + "/timesheet.vm";
 	}
 	

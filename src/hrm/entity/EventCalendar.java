@@ -180,6 +180,14 @@ public class EventCalendar {
 		if ( states == null ) return false;
 		return states.stream().filter(s -> s.getId().equals(state.getId())).findAny().isPresent();
 	}
+	
+	/**
+	 * Assume public holiday if number of states involves more than 13
+	 * @return true if public holiday
+	 */
+	public boolean isPublicHoliday() {
+		return states.size() > 13;
+	}
 
 	public int getFromDay() {
 		Calendar c = Calendar.getInstance();

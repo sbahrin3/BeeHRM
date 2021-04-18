@@ -2,6 +2,6 @@
 	
 <div id="div_main">
 	
-	#parse("apps/myCalendar/calendar.vm")
+	#parse("apps/myCalendar/calendars.vm")
 	
 </div>

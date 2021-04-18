@@ -1,12 +1,21 @@
 
-<div style="font-weight:bold; font-size:18pt">$c.title</div>
 
-<table class="table">
+<div style="font-weight:bold; font-size:18pt">$c.title </div>
+
+<table class="table table-hover">
 	#foreach( $d in [1..$c.totalDays] )
-		<tr>
-			<td style="width:30px;font-weight:bold">$c.getDayName($d)</td>
-			<td style="width:20px;text-align:right;font-weight:bold">$d</td>
-			<td>
+		<tr 
+			#if ( $c.isPublicHoliday($d) )
+				style="background-color:#add0ed" 
+			#elseif ( $c.getApproveLeaves($d).size() > 0 ) 
+				style="background-color:#d3edda" 
+			#elseif ( $c.getRequestLeaves($d).size() > 0 )
+				style="background-color:#fadb93" 
+			#end
+		>
+			<td style="width:30px;">$c.getDayName($d)</td>
+			<td style="width:20px;text-align:right;font-size:18pt">$d</td>
+			<td> 
 				#if ( $c.getApproveLeaves($d).size() > 0 )
 					<table>
 						#foreach ( $e in $c.getApproveLeaves($d) )

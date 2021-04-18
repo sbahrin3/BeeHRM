@@ -1,0 +1,39 @@
+
+<div style="padding-top:10px">
+	
+	
+	
+	
+	<ul class="nav nav-pills">
+		
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_0').scrollIntoView({behavior: 'smooth'});">Jan</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_1').scrollIntoView({behavior: 'smooth'});">Feb</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_2').scrollIntoView({behavior: 'smooth'});">Mar</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_3').scrollIntoView({behavior: 'smooth'});">April</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_4').scrollIntoView({behavior: 'smooth'});">May</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_5').scrollIntoView({behavior: 'smooth'});">Jun</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_6').scrollIntoView({behavior: 'smooth'});">Jul</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_7').scrollIntoView({behavior: 'smooth'});">Aug</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_8').scrollIntoView({behavior: 'smooth'});">Sep</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_9').scrollIntoView({behavior: 'smooth'});">Oct</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_10').scrollIntoView({behavior: 'smooth'});">Nov</a></li>
+		<li><a href="javascript:void(0)" onclick="document.getElementById('month_11').scrollIntoView({behavior: 'smooth'});">Dec</a></li>
+	
+	</ul>
+	
+</div>
+
+#foreach ( $c in $myCalendars )
+	<div id="month_${c.month}" #if ( $c.month > 0 ) style="padding-top:100px" #end >
+
+		
+		#if ( $c.month > 0 )
+			<div style="text-align:right">
+				<a href="javascript:void(0)" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">Top</a>
+			</div>
+		#end
+		<div>
+			#parse("apps/myCalendar/calendar.vm")
+		</div>
+	</div>
+#end
