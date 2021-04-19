@@ -21,7 +21,7 @@
 			<td>$!project.name</td>
 			<td>$!project.fromDateStr</td>
 			<td>$!project.toDateStr</td>
-			<td>
+			<td style="text-align:right">
 				
 				<div class="btn-group">
             		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editProject', 'div_main', 'projectId=$project.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
@@ -36,3 +36,9 @@
 	#end
     </tbody>
 </table>
+	
+#if ( $command == "deleteProject" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

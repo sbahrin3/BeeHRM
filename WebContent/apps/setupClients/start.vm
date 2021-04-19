@@ -1,0 +1,8 @@
+<div class="module_title">Clients</div>
+	
+<div id="div_main">
+	
+	#parse("apps/setupClients/listClients.vm")
+	
+</div>
+	

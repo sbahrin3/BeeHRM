@@ -1,0 +1,40 @@
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax('addNewClient','div_main','')"><i class="fa fa-plus" aria-hidden="true"></i> Add New Client</button>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Client Name</th>
+			<th>
+				
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach( $client in $clients )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>$!client.name</td>
+			<td style="text-align:right">
+				
+				<div class="btn-group">
+            		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editClient', 'div_main', 'clientId=$client.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            
+            		<button type="button" class="btn btn-confirmation btn-default btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteClient','div_main','clientId=$client.id')">
+            			<i class="fa fa-trash-o" aria-hidden="true"></i>
+            		</button>
+            	</div>
+				
+			</td>
+		</tr>
+	#end
+    </tbody>
+</table>
+	
+#if ( $command == "deleteClient" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end

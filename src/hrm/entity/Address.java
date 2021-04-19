@@ -23,6 +23,10 @@ public class Address {
 	@Column(length=20)
 	private String fax;
 	
+    private double longitude;
+    private double latitude; 
+    
+	
 	@OneToOne @JoinColumn(name="district_id")
 	private District district;
 	
@@ -67,6 +71,18 @@ public class Address {
 	}
 	public void setDistrict(District district) {
 		this.district = district;
+	}
+	public double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	public double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 	
 	

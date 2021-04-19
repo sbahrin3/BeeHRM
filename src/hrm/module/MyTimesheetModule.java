@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import hrm.entity.Employee;
+import hrm.entity.Location;
 import hrm.entity.Project;
 import hrm.entity.Timesheet;
+import hrm.entity.TimesheetLocation;
 import lebah.db.entity.User;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
@@ -75,6 +77,21 @@ public class MyTimesheetModule extends LebahUserModule {
 					ts.getProjects().add(project);
 				});
 		db.save(ts);
+		
+		//timesheet location
+		
+		Location office = employee.getOffice();
+		
+		TimesheetLocation tsLocation = new TimesheetLocation();
+		tsLocation.setTimesheet(ts);
+		tsLocation.setTimeIn(ts.getTimeIn());
+		tsLocation.setTimeOut(ts.getTimeOut());
+		tsLocation.setLocation(office);
+		
+		ts.getLocations().add(tsLocation);
+		
+		db.update(ts);
+		
 		return listTimesheets();
 	}
 	
@@ -111,7 +128,27 @@ public class MyTimesheetModule extends LebahUserModule {
 					ts.getProjects().add(project);
 				});
 		
+		//timesheet location
+		
+		Location office = employee.getOffice();
+		
+		if ( ts.getLocations().size() == 0 ) {
+			TimesheetLocation tsLocation = new TimesheetLocation();
+			tsLocation.setTimesheet(ts);
+			tsLocation.setTimeIn(ts.getTimeIn());
+			tsLocation.setTimeOut(ts.getTimeOut());
+			
+			if ( tsLocation.getLocation() == null ) {
+				tsLocation.setLocation(office);
+			}
+			
+			ts.getLocations().add(tsLocation);
+		}
+				
 		db.update(ts);
+		
+		
+		
 		return listTimesheets();
 	}
 	

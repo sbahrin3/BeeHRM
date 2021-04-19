@@ -3,6 +3,7 @@ package hrm.module;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import hrm.entity.Department;
@@ -14,6 +15,7 @@ import hrm.entity.Leave;
 import hrm.entity.LeaveCarryForward;
 import hrm.entity.LeaveEntitlement;
 import hrm.entity.LeaveEntitlementItem;
+import hrm.entity.Office;
 import hrm.entity.SalaryAllowance;
 import hrm.entity.SalaryConfig;
 import hrm.entity.SalaryDeductionItem;
@@ -226,6 +228,14 @@ public class ManageEmployeesModule extends LebahUserModule {
 		db.save(employeeJob);
 		
 		employee.getJobs().add(employeeJob);
+		
+		if ( employeeJob.isPrimaryJob() ) {
+			Optional<Office> optionalOffice = employeeJob.getDepartment().getCompany().getOffices().stream().filter(o -> o.isPrincipal() ).findFirst();
+			if ( optionalOffice.isPresent() ) {
+				employee.setOffice(optionalOffice.get());
+			}
+		}
+		
 		db.update(employee);
 				
 		return listEmployeeJobs();
@@ -273,8 +283,14 @@ public class ManageEmployeesModule extends LebahUserModule {
 			e.printStackTrace();
 		}
 		
-		
-		
+		Employee employee = employeeJob.getEmployee();
+		if ( employeeJob.isPrimaryJob() ) {
+			Optional<Office> optionalOffice = employeeJob.getDepartment().getCompany().getOffices().stream().filter(o -> o.isPrincipal() ).findFirst();
+			if ( optionalOffice.isPresent() ) {
+				employee.setOffice(optionalOffice.get());
+			}
+		}
+		db.update(employee);
 		
 		
 		return listEmployeeJobs();

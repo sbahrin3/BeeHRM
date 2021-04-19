@@ -22,15 +22,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="office")
-public class Office {
+public class Office extends Location {
 	
-	@Id @Column(name="id", length=100)
-	private String id;
 	
 	private int principal;
-	
-	@Column(length=150)
-	private String name;
 	
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -43,19 +38,13 @@ public class Office {
 	@ManyToOne @JoinColumn(name="company_id")
 	private Company company;
 	
-	@Embedded
-    private Address address;
+
 	
 	public Office() {
 		setId(lebah.util.UIDGenerator.getUID());
 	}
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	
 	public boolean isPrincipal() {
 		return principal == 1;
@@ -65,13 +54,7 @@ public class Office {
 		this.principal = principal ? 1 : 0;
 	}
 	
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public Company getCompany() {
 		return company;
 	}
@@ -88,16 +71,7 @@ public class Office {
 		this.contacts = contacts;
 	}
 
-	public Address getAddress() {
-		if ( address == null ) address = new Address();
-		return address;
-	}
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	
 	
 
 }

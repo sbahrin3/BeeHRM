@@ -1,0 +1,47 @@
+
+<div class="form-group" style="text-align:right">
+	<button type="button" class="btn btn-primary" onclick="sendAjax('addLocation','div_location','')"><i class="fa fa-plus" aria-hidden="true"></i> Add Location</button>
+</div>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th></th>
+			<th>Location/Client</th>
+			<th>From Time</th>
+			<th>To Time</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	#foreach( $tsLocation in $timesheet.locations )
+		<tr>
+			<td>$velocityCount.</td>
+			<td>
+				$tsLocation.location.name
+			</td>
+			<td>$!tsLocation.timeInStr</td>
+			<td>$!tsLocation.timeOutStr</td>
+			
+			<td style="text-align:right">
+				<div class="btn-group">
+            		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editTimesheet', 'div_main', 'timesheetId=$ts.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            
+            		<button type="button" class="btn btn-confirmation btn-default btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteTimesheet','div_main','timesheetId=$!ts.id')">
+            			<i class="fa fa-trash-o" aria-hidden="true"></i>
+            		</button>
+            	</div>
+				
+			</td>
+		</tr>
+	#end
+    </tbody>
+</table>
+	
+
+#if ( $command == "deleteTimesheet" )
+	#if ( $delete_error )
+		<script>showWarningMessage("$delete_error");</script>
+	#end
+#end
+

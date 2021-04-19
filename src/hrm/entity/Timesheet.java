@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,6 +48,9 @@ public class Timesheet {
 	    inverseJoinColumns = {@JoinColumn(name = "project_id")}
 	)
 	private List<Project> projects;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="timesheet")
+	private List<TimesheetLocation> locations;
 	
 	
 	public Timesheet() {
@@ -137,6 +141,17 @@ public class Timesheet {
                                              .isPresent() : false;
 	}
 	
+	
+	
+	public List<TimesheetLocation> getLocations() {
+		if ( locations == null ) locations = new ArrayList<>();
+		return locations;
+	}
+
+	public void setLocations(List<TimesheetLocation> locations) {
+		this.locations = locations;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		Timesheet t = (Timesheet) o;
