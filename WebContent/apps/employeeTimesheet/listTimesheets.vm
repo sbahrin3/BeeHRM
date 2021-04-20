@@ -3,19 +3,17 @@
 	<button type="button" class="btn btn-primary" onclick="sendAjax('findEmployee','div_main','')"><i class="fa fa-plus" aria-hidden="true"></i> Add New Timesheet</button>
 </div>
 
+<div class="table-responsive">
 <table class="table">
 	<thead>
 		<tr>
 			<th></th>
 			<th>Employee Name</th>
 			<th>Date</th>
-			<th>Time In</th>
-			<th>Time Out</th>
-			<th>Project</th>
-			
-			<th>
-				
-			</th>
+			<th>Time In - Time Out</th>
+			<th>Project(s)</th>
+			<th>Location(s)</th>
+			##<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -24,8 +22,7 @@
 			<td>$velocityCount.</td>
 			<td>$!ts.employee.name</td>
 			<td>$!ts.dateStr</td>
-			<td>$!ts.timeInStr</td>
-			<td>$!ts.timeOutStr</td>
+			<td>$!ts.timeInStr - $!ts.timeOutStr</td>
 			<td>
 				<ul>
 				#foreach ( $p in $ts.projects )
@@ -33,6 +30,17 @@
 				#end
 				</ul>
 			</td>
+			<td>
+				<table>
+				#foreach ( $l in $ts.locations )
+					<tr>
+						<td style="width:150px">$l.location.name</td>
+						<td>$!l.timeInStr - $!l.timeOutStr</td>
+					</tr>
+				#end
+				</table>
+			</td>
+			#** 
 			<td>
 				
 				<div class="btn-group">
@@ -44,11 +52,12 @@
             	</div>
 				
 			</td>
+			**#
 		</tr>
 	#end
     </tbody>
 </table>
-	
+</table>
 
 #if ( $command == "deleteTimesheet" )
 	#if ( $delete_error )
