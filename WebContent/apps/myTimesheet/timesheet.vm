@@ -87,3 +87,7 @@ _jq(document).ready(function() {
 	Inputmask().mask(document.querySelectorAll("input"));
 });
 </script>
+
+#if ( $command == "updateTimesheet" )
+	<script>showNotifyMessage("Timesheet updated!");</script>
+#end

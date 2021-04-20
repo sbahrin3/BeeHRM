@@ -1,0 +1,61 @@
+
+
+
+<div class="row form-group">
+	<div class="col-sm-3">
+    	<label>Location</label>
+    	<select name="locationId" class="form-control">
+    	#foreach( $location in $locations )
+            <option value="$location.id" #if ( $timesheetLocation.location.id == $location.id ) selected #end>$location.name</option>
+    	#end
+    	</select>		
+    </div>
+	<div class="col-sm-3">
+		<label>From Time</label>
+		
+		<table>
+			<tr>
+				<td>
+					<input name="timesheetLocationTimeIn" value="$!timesheetLocation.timeInStr1" class="form-control"  data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" inputmode="numeric">
+				</td>
+				<td>
+					<select name="timesheetLocationTimeInAMPM" class="form-control" style="width:80px">
+						<option value="AM" #if ( $timesheetLocation.timeInStr2 == "AM" ) selected #end>AM</option>
+						<option value="PM" #if ( $timesheetLocation.timeInStr2 == "PM" ) selected #end>PM</option>
+					</select>
+				</td>
+			</tr>
+		</table>		
+
+	</div>
+	<div class="col-sm-3">
+		<label>To Time</label>
+		<table>
+			<tr><td>
+					<input name="timesheetLocationTimeOut" value="$!timesheetLocation.timeOutStr1" class="form-control"  data-inputmask-alias="datetime" data-inputmask-inputformat="HH:MM" inputmode="numeric">
+			</td><td>
+					<select name="timesheetLocationTimeOutAMPM" class="form-control" style="width:80px">
+						<option value="AM" #if ( $timesheetLocation.timeOutStr2 == "AM" ) selected #end>AM</option>
+						<option value="PM" #if ( $timesheetLocation.timeOutStr2 == "PM" ) selected #end>PM</option>
+					</select>
+			</td></tr>
+		</table>		
+	</div>
+	<div class="col-sm-3">
+        <label>&nbsp;</label><br/>
+		#if ( $timesheetLocation )
+			<button type="button" class="btn btn-primary" onclick="sendAjax2('updateLocation','div_location','timesheetLocationId=$!timesheetLocation.id')"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</option>		
+		#else
+			<button type="button" class="btn btn-success" onclick="sendAjax2('saveNewLocation','div_location','timesheetId=$!timesheet.id')"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</option>					
+		#end
+	</div>
+
+</div>	
+	
+
+	
+<script>
+_jq(document).ready(function() {
+	Inputmask().mask(document.querySelectorAll("input"));
+});
+</script>

@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
+import hrm.entity.Client;
 import hrm.entity.Employee;
 import hrm.entity.Location;
 import hrm.entity.Project;
 import hrm.entity.Timesheet;
 import hrm.entity.TimesheetLocation;
+import lebah.db.entity.Persistence;
 import lebah.db.entity.User;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
@@ -90,6 +92,8 @@ public class MyTimesheetModule extends LebahUserModule {
 		
 		ts.getLocations().add(tsLocation);
 		
+		db.save(tsLocation);
+		
 		db.update(ts);
 		
 		return listTimesheets();
@@ -107,6 +111,7 @@ public class MyTimesheetModule extends LebahUserModule {
 	@Command("updateTimesheet")
 	public String updateTimesheet() {
 		Timesheet ts = db.find(Timesheet.class, getParam("timesheetId"));
+		context.put("timesheet", ts);
 		
 		List<Project> projects = new ArrayList<>();
 		projects.addAll(ts.getProjects());
@@ -143,13 +148,14 @@ public class MyTimesheetModule extends LebahUserModule {
 			}
 			
 			ts.getLocations().add(tsLocation);
+			
+			db.save(tsLocation);
+			
 		}
 				
 		db.update(ts);
 		
-		
-		
-		return listTimesheets();
+		return path + "/timesheet.vm";
 	}
 	
 	@Command("deleteTimesheet")
@@ -157,12 +163,123 @@ public class MyTimesheetModule extends LebahUserModule {
 		context.remove("delete_error");
 		Timesheet ts = db.find(Timesheet.class, getParam("timesheetId"));
 		try {
+			List<TimesheetLocation> tsLocations = ts.getLocations();
+			db.delete(tsLocations.toArray());
+			
 			db.delete(ts);
 		} catch ( Exception e ) {
 			e.printStackTrace();
 			context.put("delete_error", e.getMessage());
 		}
 		return listTimesheets();
+	}
+	
+	@Command("addNewLocation")
+	public String addNewLocation() {
+		context.remove("timesheetLocation");
+		
+		Timesheet timesheet = db.find(Timesheet.class, getParam("timesheetId"));
+		context.put("timesheet", timesheet);
+		
+		List<Location> locations = new ArrayList<>();
+		locations.add(employee.getOffice());
+		
+		List<Client> clients = db.list("select c from Client c order by c.name");
+		locations.addAll(clients);
+		
+		context.put("locations", locations);
+		
+		return path + "/location.vm";
+	}
+	
+	@Command("saveNewLocation")
+	public String saveNewLocation() {
+		Timesheet timesheet = db.find(Timesheet.class, getParam("timesheetId"));
+		context.put("timesheet", timesheet);
+
+		TimesheetLocation tsLocation = new TimesheetLocation();
+		
+		Location location = db.find(Location.class, getParam("locationId"));
+		tsLocation.setTimesheet(timesheet);
+		tsLocation.setLocation(location);
+		tsLocation.setTimeIn(Util.toTime(getParam("timesheetLocationTimeIn") + " " + getParam("timesheetLocationTimeInAMPM")));
+		tsLocation.setTimeOut(Util.toTime(getParam("timesheetLocationTimeOut") + " " + getParam("timesheetLocationTimeOutAMPM")));
+		
+		db.save(tsLocation);
+		
+		timesheet.getLocations().add(tsLocation);
+		db.update(timesheet);
+		
+		return path + "/locations.vm";
+	}
+	
+	@Command("editLocation")
+	public String editLocation() {
+		TimesheetLocation tsLocation = db.find(TimesheetLocation.class, getParam("timesheetLocationId"));
+		context.put("timesheetLocation", tsLocation);
+		
+		List<Location> locations = new ArrayList<>();
+		locations.add(employee.getOffice());
+		
+		List<Client> clients = db.list("select c from Client c order by c.name");
+		locations.addAll(clients);
+		
+		context.put("locations", locations);
+		
+		return path + "/location.vm";
+	}
+	
+	@Command("updateLocation")
+	public String updateLocation() {
+		
+		TimesheetLocation tsLocation = db.find(TimesheetLocation.class, getParam("timesheetLocationId"));
+		
+		Timesheet timesheet = tsLocation.getTimesheet();
+		context.put("timesheet", timesheet);
+		
+		Location location = db.find(Location.class, getParam("locationId"));
+		tsLocation.setLocation(location);
+		tsLocation.setTimeIn(Util.toTime(getParam("timesheetLocationTimeIn") + " " + getParam("timesheetLocationTimeInAMPM")));
+		tsLocation.setTimeOut(Util.toTime(getParam("timesheetLocationTimeOut") + " " + getParam("timesheetLocationTimeOutAMPM")));
+		
+		db.update(tsLocation);
+		
+		return path + "/locations.vm";
+	}
+	
+	@Command("deleteLocation")
+	public String deleteLocation() {
+		Timesheet timesheet = db.find(Timesheet.class, getParam("timesheetId"));
+		context.put("timesheet", timesheet);
+		
+		TimesheetLocation tsLocation = db.find(TimesheetLocation.class, getParam("timesheetLocationId"));
+		try {
+			db.delete(tsLocation);
+			
+			timesheet.getLocations().remove(tsLocation);
+			db.update(timesheet);
+			
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+		
+		
+		return path + "/locations.vm";
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		String clientId = "36f65f08a7508054a15179595c110bbfd196b6d1";
+		
+		Location location = Persistence.db().find(Location.class, clientId);
+		System.out.println(location);
+
+		
+		String officeId = "ac78f45a9e52235ffe5f8a50f931752a90d507a2";
+		location = Persistence.db().find(Location.class, officeId);
+		System.out.println(location);
+		
 	}
 
 }

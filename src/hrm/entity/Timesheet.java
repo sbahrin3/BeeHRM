@@ -1,9 +1,12 @@
 package hrm.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -49,7 +52,7 @@ public class Timesheet {
 	)
 	private List<Project> projects;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="timesheet")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="timesheet", cascade=CascadeType.PERSIST)
 	private List<TimesheetLocation> locations;
 	
 	
@@ -141,10 +144,9 @@ public class Timesheet {
                                              .isPresent() : false;
 	}
 	
-	
-	
 	public List<TimesheetLocation> getLocations() {
 		if ( locations == null ) locations = new ArrayList<>();
+		Collections.sort(locations, new SortLocationsByTimeIn());
 		return locations;
 	}
 
@@ -164,5 +166,13 @@ public class Timesheet {
         hash = 53 * hash + (getId() != null ? getId().hashCode() : 0);
         return hash;
 	}	
+	
+	static class SortLocationsByTimeIn implements Comparator<TimesheetLocation> {
+		@Override
+		public int compare(TimesheetLocation m1, TimesheetLocation m2) {
+			return m1.getTimeIn().compareTo(m2.getTimeIn());
+		}
+		
+	}
 
 }

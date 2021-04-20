@@ -1,5 +1,6 @@
 package hrm.entity;
 
+import java.util.Comparator;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -34,9 +35,6 @@ public class TimesheetLocation {
 	
 	@Temporal(TemporalType.TIME)
 	private Date timeOut;
-	
-	//@OneToOne @JoinColumn(name="client_id")
-	//private Client client;
 	
 	@OneToOne @JoinColumn(name="location_id")
 	private Location location;
@@ -108,19 +106,20 @@ public class TimesheetLocation {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-
-	/*
-	public Client getClient() {
-		return client;
+	
+	@Override
+	public boolean equals(Object o) {
+		TimesheetLocation t = (TimesheetLocation) o;
+		return t.getId().equals(getId());
 	}
-
-	public void setClient(Client client) {
-		this.client = client;
+	
+	@Override
+	public int hashCode() {
+        int hash = 3;
+        hash = 53 * hash + (getId() != null ? getId().hashCode() : 0);
+        return hash;
 	}
-	*/
 	
-	
-	
-	
+
 	
 }

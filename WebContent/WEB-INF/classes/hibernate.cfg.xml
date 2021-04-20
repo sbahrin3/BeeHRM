@@ -47,10 +47,11 @@
        	<mapping class="hrm.entity.Timesheet" /> 
      	<mapping class="hrm.entity.Project" />
      	
-     	<mapping class="hrm.entity.Location" />
      	<mapping class="hrm.entity.MyCalendarNotes" />
      	<mapping class="hrm.entity.TimesheetLocation" />
+     	<mapping class="hrm.entity.Location" />
      	<mapping class="hrm.entity.Client" />
+     	<mapping class="hrm.entity.EmployeeHome" />
      	
      	   
         <mapping class="hrm.entity.Timedemo" /> 

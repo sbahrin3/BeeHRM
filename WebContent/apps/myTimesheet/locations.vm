@@ -1,12 +1,10 @@
 
-<div class="form-group" style="text-align:right">
-	<button type="button" class="btn btn-primary" onclick="sendAjax('addLocation','div_location','')"><i class="fa fa-plus" aria-hidden="true"></i> Add Location</button>
-</div>
+
 
 <table class="table">
 	<thead>
 		<tr>
-			<th></th>
+			<th style="width:10px"></th>
 			<th>Location/Client</th>
 			<th>From Time</th>
 			<th>To Time</th>
@@ -25,9 +23,9 @@
 			
 			<td style="text-align:right">
 				<div class="btn-group">
-            		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editTimesheet', 'div_main', 'timesheetId=$ts.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+            		<button type="button" class="btn btn-default btn-xs" onclick="sendAjax('editLocation', 'div_location', 'timesheetLocationId=$tsLocation.id')"><i class="fa fa-pencil" aria-hidden="true"></i></button>
             
-            		<button type="button" class="btn btn-confirmation btn-default btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteTimesheet','div_main','timesheetId=$!ts.id')">
+            		<button type="button" class="btn btn-confirmation btn-default btn-xs"  data-toggle="modal" data-target="#confirmation" onclick="sendAjaxConfirm('Confirm', 'Are you sure to delete this data?', 'deleteLocation','div_location','timesheetLocationId=$!tsLocation.id&timesheetId=$!timesheet.id')">
             			<i class="fa fa-trash-o" aria-hidden="true"></i>
             		</button>
             	</div>
@@ -37,6 +35,10 @@
 	#end
     </tbody>
 </table>
+
+<div class="form-group">
+	<button type="button" class="btn btn-success btn-sm" onclick="sendAjax('addNewLocation','div_location','timesheetId=$!timesheet.id')"><i class="fa fa-plus" aria-hidden="true"></i> Add Location</button>
+</div>
 	
 
 #if ( $command == "deleteTimesheet" )
