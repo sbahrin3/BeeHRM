@@ -1,10 +1,12 @@
-
+<div class="section_title form-group">
+	$!employee.name
+</div>
 <div class="form-group" style="text-align:right">
 	<button type="button" class="btn btn-primary" onclick="sendAjax('addNewTimesheet','div_main','')"><i class="fa fa-plus" aria-hidden="true"></i> Add New Timesheet</button>
 </div>
 
 <div class="table-responsive">
-<table class="table">
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th></th>
@@ -22,17 +24,19 @@
 			<td>$!ts.dateStr</td>
 			<td>$!ts.timeInStr - $!ts.timeOutStr</td>
 			<td>
-				<ul>
+				<table>
 				#foreach ( $p in $ts.projects )
-					<li>$p.name</li>
+					<tr>
+						<td><i class="fa fa-location-arrow" aria-hidden="true"></i> $p.name</td>
+					</tr>
 				#end
-				</ul>
+				</table>
 			</td>
 			<td>
 				<table>
 				#foreach ( $l in $ts.locations )
 					<tr>
-						<td style="width:150px">$l.location.name</td>
+						<td style="width:150px"><i class="fa fa-map-marker" aria-hidden="true"></i> $l.location.name</td>
 						<td>$!l.timeInStr - $!l.timeOutStr</td>
 					</tr>
 				#end

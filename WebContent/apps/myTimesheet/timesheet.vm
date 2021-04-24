@@ -1,5 +1,5 @@
 <div class="form-group" style="text-align:right">
-	<button type="button" class="btn btn-link" onclick="sendAjax('listTimesheets','div_main','')"><i class="fa fa-chevron-left" aria-hidden="true"></i> Cancel</button>
+	<button type="button" class="btn btn-link" onclick="sendAjax('listTimesheets','div_main','')"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back</button>
 	#if ( !$timesheet )
 		<button type="button" class="btn btn-primary" onclick="saveData('saveNewTimesheet','div_main','')"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
 	#else

@@ -44,6 +44,7 @@ public class Location {
 	}
 
 	public Address getAddress() {
+		if ( address == null ) address = new Address();
 		return address;
 	}
 
