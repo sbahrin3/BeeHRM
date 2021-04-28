@@ -287,5 +287,17 @@ public class Employee {
 	}
 	
 	
+	private void setEmployeeOffice() {
+		EmployeeJob employeeJob = this.getPrimaryEmployeeJob();
+		if ( employeeJob == null ) return;
+		Optional<Office> optionalOffice = employeeJob.getDepartment().getCompany()
+                .getOffices().stream()
+                .filter(o -> o.isPrincipal() )
+                .findFirst();
+		if ( optionalOffice.isPresent() ) {
+			this.setOffice(optionalOffice.get());
+		}
+	}
+	
 	
 }

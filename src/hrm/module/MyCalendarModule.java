@@ -24,6 +24,10 @@ public class MyCalendarModule extends LebahUserModule {
 		User user = (User) context.get("user");
 		employee = user.getEmployee();
 		
+		if ( employee == null ) {
+			return path + "/not_employee.vm";
+		}
+		
 		getCalendars();
 		return path + "/start.vm";
 	}
