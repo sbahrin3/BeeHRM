@@ -16,21 +16,13 @@ import lebah.db.entity.User;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
-public class MyTimesheetModule extends LebahUserModule {
+public class MyTimesheetModule extends LebahEmployeeModule {
 	
 	String path = "apps/myTimesheet";
-	Employee employee;
-	
-	@Override
-	public void preProcess() {
-		super.preProcess();
-		User user = (User) context.get("user");
-		employee = user.getEmployee();
-		context.put("employee", employee);
-	}
 	
 	@Override
 	public String start() {
+		if ( employee == null ) return "apps/not_employee.vm";
 		listTimesheets();
 		return path + "/start.vm";
 	}

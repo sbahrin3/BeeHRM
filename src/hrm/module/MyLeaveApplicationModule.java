@@ -15,19 +15,14 @@ import lebah.db.entity.User;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
-public class MyLeaveApplicationModule extends LebahUserModule {
+public class MyLeaveApplicationModule extends LebahEmployeeModule {
 
 	String path = "apps/myLeaveApplication";
 	int currentYear;
-	Employee employee;
 	
 	@Override
 	public void preProcess() {
 		super.preProcess();
-		User user = (User) context.get("user");
-		employee = user.getEmployee();
-		context.put("employee", employee);
-
 		currentYear = LocalDate.now().getYear();
 		context.put("currentYear", currentYear);
 	}
@@ -35,6 +30,7 @@ public class MyLeaveApplicationModule extends LebahUserModule {
 	
 	@Override
 	public String start() {
+		if ( employee == null ) return "apps/not_employee.vm";
 		listEmployeeLeaves();
 		return path + "/start.vm";
 	}

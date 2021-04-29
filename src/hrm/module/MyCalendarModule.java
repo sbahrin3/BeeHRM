@@ -12,22 +12,14 @@ import lebah.db.entity.User;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
-public class MyCalendarModule extends LebahUserModule {
+public class MyCalendarModule extends LebahEmployeeModule {
 	
 	String path = "apps/myCalendar";
 	int currentYear, currentMonth, currentDay;
-	Employee employee;
 	
 	@Override
 	public String start() {
-		
-		User user = (User) context.get("user");
-		employee = user.getEmployee();
-		
-		if ( employee == null ) {
-			return path + "/not_employee.vm";
-		}
-		
+		if ( employee == null ) return "apps/not_employee.vm";
 		getCalendars();
 		return path + "/start.vm";
 	}
