@@ -19,11 +19,11 @@
 <div class="row form-group">
 	<div class="col-sm-6">
 		<label>Date From</label>
-		<input name="requestFromDate" value="$!employeeLeave.requestFromDateStr" data-required="true" data-msg="Please enter from date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
+		<input name="requestFromDate" #if ( $employeeLeave ) value="$!employeeLeave.requestFromDateStr" #else value="$!today.dateStr" #end data-required="true" data-msg="Please enter from date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
 	</div>
 	<div class="col-sm-6">
 		<label>Date To</label>
-		<input name="requestToDate" value="$!employeeLeave.requestToDateStr" data-required="true" data-msg="Please enter to date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
+		<input name="requestToDate" #if ( $employeeLeave )  value="$!employeeLeave.requestToDateStr" #else value="$!today.dateStr" #end data-required="true" data-msg="Please enter to date" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" inputmode="numeric">
 	</div>
 </div>
 

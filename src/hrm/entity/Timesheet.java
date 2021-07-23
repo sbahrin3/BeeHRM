@@ -146,7 +146,8 @@ public class Timesheet {
 	
 	public List<TimesheetLocation> getLocations() {
 		if ( locations == null ) locations = new ArrayList<>();
-		Collections.sort(locations, new SortLocationsByTimeIn());
+		if ( locations.size() > 0 )
+			Collections.sort(locations, new SortLocationsByTimeIn());
 		return locations;
 	}
 
@@ -170,6 +171,7 @@ public class Timesheet {
 	static class SortLocationsByTimeIn implements Comparator<TimesheetLocation> {
 		@Override
 		public int compare(TimesheetLocation m1, TimesheetLocation m2) {
+			if ( m1.getTimeIn() == null || m2.getTimeIn() == null ) return 0;
 			return m1.getTimeIn().compareTo(m2.getTimeIn());
 		}
 		

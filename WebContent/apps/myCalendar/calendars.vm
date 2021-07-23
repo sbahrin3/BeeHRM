@@ -1,9 +1,6 @@
 
 <div style="padding-top:10px">
 	
-	
-	
-	
 	<ul class="nav nav-pills">
 		
 		<li><a href="javascript:void(0)" onclick="document.getElementById('month_0').scrollIntoView({behavior: 'smooth'});">Jan</a></li>
@@ -37,3 +34,9 @@
 		</div>
 	</div>
 #end
+
+<script>
+  _jq(document).ready(function () {
+      document.getElementById('month_${today.month}').scrollIntoView({behavior: 'smooth'});
+  });
+</script>

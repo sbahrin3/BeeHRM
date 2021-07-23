@@ -9,10 +9,9 @@ import java.util.stream.Collectors;
 
 import hrm.entity.Employee;
 import hrm.entity.EmployeeLeave;
-import hrm.entity.EventCalendar;
 import hrm.entity.Leave;
 import hrm.entity.LeaveEntitlementItem;
-import lebah.db.entity.Persistence;
+import hrm.entity.Today;
 import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
@@ -36,6 +35,7 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 	
 	@Override
 	public String start() {
+		context.put("today", new Today());
 		listEmployeeLeaves();
 		return path + "/start.vm";
 	}

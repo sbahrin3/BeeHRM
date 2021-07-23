@@ -11,8 +11,7 @@ import hrm.entity.Employee;
 import hrm.entity.EmployeeLeave;
 import hrm.entity.Leave;
 import hrm.entity.LeaveEntitlementItem;
-import lebah.db.entity.User;
-import lebah.module.LebahUserModule;
+import hrm.entity.Today;
 import lebah.portal.action.Command;
 
 public class MyLeaveApplicationModule extends LebahEmployeeModule {
@@ -31,6 +30,7 @@ public class MyLeaveApplicationModule extends LebahEmployeeModule {
 	@Override
 	public String start() {
 		if ( employee == null ) return "apps/not_employee.vm";
+		context.put("today", new Today());
 		listEmployeeLeaves();
 		return path + "/start.vm";
 	}

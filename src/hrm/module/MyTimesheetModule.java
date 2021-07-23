@@ -89,7 +89,13 @@ public class MyTimesheetModule extends LebahEmployeeModule {
 		
 		db.update(ts);
 		
-		return listTimesheets();
+		//return listTimesheets();
+		
+		context.put("timesheet", ts);
+		List<Project> projects = db.list("select p from Project p order by p.name");
+		context.put("projects", projects);
+		return path + "/timesheet.vm";
+		
 	}
 	
 	@Command("editTimesheet")

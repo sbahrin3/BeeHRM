@@ -46,3 +46,11 @@
 		<button type="button" class="btn btn-primary" onclick="saveData2('saveNewOffice','div_office','companyId=$!company.id')"><span><i class="fa fa-floppy-o" aria-hidden="true"></i></span> Save </button>
 	#end
 </div>
+	
+<script>
+  _jq(document).ready(function () {
+      _jq('select').selectize({
+	  
+      });
+  });
+</script>

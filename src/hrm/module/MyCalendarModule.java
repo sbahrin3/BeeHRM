@@ -7,9 +7,8 @@ import java.util.List;
 
 import hrm.entity.Employee;
 import hrm.entity.EmployeeLeave;
+import hrm.entity.Today;
 import lebah.db.entity.Persistence;
-import lebah.db.entity.User;
-import lebah.module.LebahUserModule;
 import lebah.portal.action.Command;
 
 public class MyCalendarModule extends LebahEmployeeModule {
@@ -21,6 +20,7 @@ public class MyCalendarModule extends LebahEmployeeModule {
 	public String start() {
 		if ( employee == null ) return "apps/not_employee.vm";
 		getCalendars();
+		context.put("today", new Today());
 		return path + "/start.vm";
 	}
 	

@@ -3,3 +3,12 @@
 			<option value="$district.id" #if ( $office.address.district.id == "$district.id" ) selected #end>$district.name</option>
 		#end
 	</select>
+		
+	
+	<script>
+  _jq(document).ready(function () {
+      _jq('select').selectize({
+	  
+      });
+  });
+</script>

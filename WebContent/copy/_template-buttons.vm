@@ -85,6 +85,27 @@ CLOSE MODAL WINDOW
 	<button type="button" class="btn btn-default" onclick="_jq('#modalWindow').modal('hide');"><i class="fa fa-times" aria-hidden="true"></i></button>
 
 		
+TABLE STICKY HEADER
+<style>
+th {
+  background: white;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+</style>
+
+
+SELECTIZED
+<script>
+  _jq(document).ready(function () {
+      _jq('select').selectize({
+	  
+      });
+  });
+</script>
+
+
 TABLE RESPONSIVE
 <div class="table-responsive">
 <table class="table">
