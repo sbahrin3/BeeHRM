@@ -67,7 +67,7 @@ function callAjaxLogin(e, username, password) {
 						window.location = "../";
 					} else {
 						e.style.fontSize = "12pt";
-						e.style.color = "#fff";
+						e.style.color = "red";
 						e.innerHTML = "<b>Access Denied! Incorrect password or unknown username</b>";
 					} 
 				},

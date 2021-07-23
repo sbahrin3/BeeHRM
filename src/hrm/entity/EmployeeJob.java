@@ -34,6 +34,9 @@ public class EmployeeJob {
 	@ManyToOne @JoinColumn(name="employee_id")
 	private Employee employee;
 	
+	@ManyToOne @JoinColumn(name="job_history_id")
+	private EmployeeJobHistory jobHistory;
+	
 	@ManyToOne @JoinColumn(name="department_id")
 	private Department department;
 	
@@ -131,6 +134,16 @@ public class EmployeeJob {
 
 	public void setPrimaryJob(boolean primaryJob) {
 		this.primaryJob = primaryJob ? 1 : 0;
+	}
+	
+	
+
+	public EmployeeJobHistory getJobHistory() {
+		return jobHistory;
+	}
+
+	public void setJobHistory(EmployeeJobHistory jobHistory) {
+		this.jobHistory = jobHistory;
 	}
 
 	public List<SalaryItem> getSalaryItems() {

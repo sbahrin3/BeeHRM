@@ -52,8 +52,14 @@
      	<mapping class="hrm.entity.Location" />
      	<mapping class="hrm.entity.Client" />
      	<mapping class="hrm.entity.EmployeeHome" />
+     	<mapping class="hrm.entity.EmployeeJobHistory" />
      	
      	   
         <mapping class="hrm.entity.Timedemo" /> 
+        
+        
+
+        
+                
     </session-factory>
 </hibernate-configuration>

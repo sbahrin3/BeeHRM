@@ -120,10 +120,14 @@ public class SetupLeaveEntitlementModule extends LebahUserModule {
 		context.put("leaveEntitlement", leaveEntitlement);
 		
 		LeaveEntitlementItem item = db.find(LeaveEntitlementItem.class, getParam("leaveEntitlementItemId"));
-		db.delete(item);
-		
-		leaveEntitlement.getItems().remove(item);
-		db.update(leaveEntitlement);
+		try {
+			db.delete(item);
+			leaveEntitlement.getItems().remove(item);
+			db.update(leaveEntitlement);
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
+			
 		
 		return path + "/listLeaveEntitlementItems.vm";
 	}

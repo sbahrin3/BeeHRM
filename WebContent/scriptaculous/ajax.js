@@ -55,6 +55,8 @@ function sendAjaxData(arg0, arg1, arg2) {
 }
 
 function sendAjax(arg0, arg1, arg2) {
+
+	console.log('sendAjax:' + arg0);
 	
 	actionName = arg0;
 	if ( arg1 === undefined ) arg1 = '';
@@ -87,7 +89,8 @@ function sendAjax(arg0, arg1, arg2) {
     var d = document.createElement('div');
     d.style.zIndex="9999";
     d.setAttribute('id', 'div_wait_indicator');
-    d.setAttribute('style', 'opacity: 0.5;position:absolute;top:50px;text-align:center;color:#000; ');
+    //d.setAttribute('style', 'opacity: 0.5;position:absolute;top:50px;text-align:center;color:#000; ');
+    d.setAttribute('style', 'opacity: 0.5;position:absolute;top:60%;left:40%;text-align:center;color:#000; ');
     d.innerHTML = "<i class='fa fa-spinner fa-spin fa-5x fa-fw'></i>";
     el.appendChild(d);
 
@@ -98,6 +101,43 @@ function sendAjax(arg0, arg1, arg2) {
 	
    	
 }
+
+function sendAjaxDiv(arg0, arg1, arg2) {
+
+	console.log('sendAjax:' + arg0);
+	
+	actionName = arg0;
+	el = arg1; 
+	qs = arg2;
+	
+	el.style.display='block'; 
+
+	
+    var d1 = document.createElement('div');
+    d1.style.zIndex="9998";
+    d1.setAttribute('id', 'div_wait_background');
+    d1.setAttribute('style', 'position:absolute;top:0;width:100%;height:100%;opacity: 0.5;');
+    d1.innerHTML = "";
+    el.appendChild(d1);
+   
+   
+    var d = document.createElement('div');
+    d.style.zIndex="9999";
+    d.setAttribute('id', 'div_wait_indicator');
+    //d.setAttribute('style', 'opacity: 0.5;position:absolute;top:50px;text-align:center;color:#000; ');
+    d.setAttribute('style', 'opacity: 0.5;position:absolute;top:60%;left:40%;text-align:center;color:#000; ');
+    d.innerHTML = "<i class='fa fa-spinner fa-spin fa-5x fa-fw'></i>";
+    el.appendChild(d);
+
+	
+	var module_name = document.getElementById('__module_name').value;
+   	doAjaxUpdater(document.__main_form, '../div/' + module_name, el, actionName, qs);
+	   	
+	
+   	
+}
+
+
 function doAjaxHTTPRequester(url, target) { 
 	new Ajax.Updater(target, url, { 
 		method: 'get',  
@@ -119,15 +159,6 @@ function doAjaxRequest(divName, url) {
 	
 	el.innerHTML = ""; 
 	el.style.display='block'; 
-	
-	/*
-	var d = document.createElement('div'); 
-	d.setAttribute('id', 'div_wait_indicator');
-	d.className = 'shadow';
-	d.setAttribute('style', 'width:200px;height:200px;top:20%;left:50%;margin-top: -100px;margin-left:-100px;position:fixed;color:#000;background-color:#fff;z-index:9999;text-align:center;padding-top:40px;opacity: 0.5;filter: alpha(opacity=50)');
-	d.innerHTML = "Loading...<br/><img src='../img/loading1.gif' border='0' width='100px'>";
-	d.style.display = 'block';
-	*/
 	
     var d1 = document.createElement('div');
     d1.style.zIndex="9998";
@@ -152,13 +183,6 @@ function doAjaxRequest(divName, url) {
 function doAjaxPostRequest(divName, url) {
 	var el = document.getElementById(divName);el.innerHTML = "";
 	el.style.display='block';
-	
-	/*
-	var d = document.createElement('div');
-	d.setAttribute('id', 'div_wait_indicator');
-	d.setAttribute('style', 'position:relative;left:20px;right:100px;width:250px;height:50px;padding-top:15px;text-align:center;font-weight:bold;background:#5ba0d0;border-radius:5px;-moz-box-shadow: 10px 10px 5px #888;-webkit-box-shadow: 10px 10px 5px #888; box-shadow: 10px 10px 5px #888;font-family:Verdana;font-size:12px;color:#fff; ');
-	d.innerHTML = "Requesting Page... Please Wait...";
-	*/
 	
     var d1 = document.createElement('div');
     d1.style.zIndex="9998";
@@ -241,6 +265,7 @@ function doAjaxUpdater(objForm, url, target, actionName, qs) {
 	
 
 }
+
 
 function doAjaxUpdaterByParamName(objForm, url, target, actionName, qs, paramName) {
     var theForm = objForm;
