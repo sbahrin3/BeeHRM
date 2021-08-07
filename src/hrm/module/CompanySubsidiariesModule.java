@@ -60,9 +60,7 @@ public class CompanySubsidiariesModule extends CompanyHQModule {
 		companyHq.getBranches().add(company);
 		db.update(companyHq);
 		
-		List<Company> companies = db.list("select c from Company c where c.parent.id = '" + companyHq.getId() + "' order by c.name");
-		context.put("companies", companies);
-		return path + "/listCompanies.vm";
+		return path + "/company.vm";
 	}
 	
 	@Command("editCompany")
@@ -81,9 +79,7 @@ public class CompanySubsidiariesModule extends CompanyHQModule {
 		
 		db.update(company);
 		
-		List<Company> companies = db.list("select c from Company c where c.parent.id = '" + company.getParent().getId() + "' order by c.name");
-		context.put("companies", companies);
-		return path + "/listCompanies.vm";
+		return path + "/company.vm";
 	}
 	
 	@Command("deleteCompany")

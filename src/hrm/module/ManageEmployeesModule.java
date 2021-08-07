@@ -51,6 +51,18 @@ public class ManageEmployeesModule extends LebahUserModule {
 		return path + "/listEmployees.vm";
 	}
 	
+	@Command("searchEmployees")
+	public String searchEmployees() {
+		
+		String searchName = getParam("searchName");
+		context.put("searchName", searchName);
+		
+		List<Employee> employees = db.list("select e from Employee e where e.name like '%" + searchName + "%' order by e.name");
+		context.put("employees", employees);
+		
+		return path + "/listEmployees.vm";
+	}
+	
 	@Command("addNewEmployee")
 	public String addNewEmployee() {
 		

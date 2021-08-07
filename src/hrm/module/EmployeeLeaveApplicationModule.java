@@ -39,14 +39,26 @@ public class EmployeeLeaveApplicationModule extends LebahUserModule {
 		listEmployeeLeaves();
 		return path + "/start.vm";
 	}
-	
+
 	@Command("listEmployeeLeaves")
 	public String listEmployeeLeaves() {
-		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l order by l.requestFromDate desc");
+		String searchName = context.get("searchName") != null ? (String) context.get("searchName") : "";
+		System.out.println("searchName = " + searchName);
+		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l where l.employee.name like '%" + searchName + "%' order by l.requestFromDate desc");
 		context.put("employeeLeaves", employeeLeaves);
 		
 		return path + "/listEmployeeLeaves.vm";
 	}
+	
+	@Command("searchEmployeeLeaves")
+	public String searchEmployeeLeaves() {
+		String searchName = getParam("searchName");
+		context.put("searchName", searchName);
+		List<EmployeeLeave> employeeLeaves = db.list("select l from EmployeeLeave l where l.employee.name like '%" + searchName + "%' order by l.requestFromDate desc");
+		context.put("employeeLeaves", employeeLeaves);
+		
+		return path + "/listEmployeeLeaves.vm";
+	}	
 	
 	@Command("newLeaveApplication")
 	public String newLeaveApplication() {
